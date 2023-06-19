@@ -1,0 +1,2 @@
+Tumor_ID	Tumor_Path	Normal_ID	Normal_Path
+Tumor_sample_id	/path/to/tumor/bam/file/Tumor_sample_id.bam	Normal_sample_id	/path/to/tumor/bam/file/Normal_sample_id.bam

@@ -1,0 +1,2 @@
+SampleID	Sample_name	RG	PU	R1	R2
+SAMPLE_NAME+LANE	SAMPLE_NAME	Name_of_READGROUP	LIBRARY_NAME.LANE	/path/to/data/fastq/files/SAMPLE_NAME+LANE_Read1.fastq.gz	/path/to/data/fastq/files/SAMPLE_NAME+LANE_Read2.fastq.gz

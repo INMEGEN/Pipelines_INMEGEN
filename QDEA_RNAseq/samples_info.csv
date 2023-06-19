@@ -1,0 +1,2 @@
+Sample_id	Sample_name	replica	condition	R1	R2
+ID_N1	sample_label	1	condición_de_la_muestra	/path/to/read_1/file/sample_label1.read1.fastq.gz	/path/to/read_2/file/sample_label1.read2.fastq.gz
