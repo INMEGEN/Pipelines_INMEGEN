@@ -16,13 +16,13 @@ process getMetrics {
    mkdir -p metrics
    cp ${sorted_dedup_reads} metrics/
 
-   docker run --cpus ${params.ncrs} -v \$PWD/metrics:/data -v "${params.refdir}":/ref  pipelines_inmegen \
+   docker run --cpus ${params.ncrs} -v \$PWD/metrics:/data -v "${params.refdir}":/ref  pipelinesinmegen/pipelines_inmegen:latest \
    java -jar /usr/bin/picard.jar CollectAlignmentSummaryMetrics \
         -R /ref/${params.refname} \
         -I /data/${sorted_dedup_reads} \
         -O /data/${pair_id}_alignment_metrics.txt
 
-   docker run --cpus ${params.ncrs} -v \$PWD/metrics:/data pipelines_inmegen \
+   docker run --cpus ${params.ncrs} -v \$PWD/metrics:/data pipelinesinmegen/pipelines_inmegen:latest \
    java -jar /usr/bin/picard.jar CollectInsertSizeMetrics \
         -I /data/${sorted_dedup_reads} \
         -O /data/${pair_id}_insert_metrics.txt \

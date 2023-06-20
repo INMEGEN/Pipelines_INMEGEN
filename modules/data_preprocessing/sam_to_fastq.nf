@@ -13,7 +13,7 @@ process sam_to_fastq {
     mkdir sam_to_fq
     cp ${reads} sam_to_fq/
 
-    docker run --cpus ${params.ncrs} -v \$PWD/sam_to_fq:/data pipelines_inmegen:latest \
+    docker run --cpus ${params.ncrs} -v \$PWD/sam_to_fq:/data pipelinesinmegen/pipelines_inmegen:latest \
     java -jar /usr/bin/picard.jar SamToFastq \
       -I /data/${reads} \
       -FASTQ /data/${sample}_samtofastq.fastq \

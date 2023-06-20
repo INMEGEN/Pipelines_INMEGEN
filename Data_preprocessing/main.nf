@@ -25,7 +25,7 @@ include { analyzeCovariates             } from "../modules/metricts/analyzecovar
 println " "
 println "Pipelines INMEGEN"
 println "Flujo de trabajo: Preprocesamiento de datos para GATK4"
-println "Imagen de docker: pipelines_inmegen:latest"
+println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:latest"
 println " "
 println "Nombre del proyecto: $params.project_name"
 println "Datos crudos: $params.reads"

@@ -1,5 +1,5 @@
 process VQSRindels {
-    container 'pipelines_inmegen'
+    container 'pipelinesinmegen/pipelines_inmegen:latest'
     containerOptions "-v ${params.refdir}:/ref"
     cache 'lenient'
     publishDir params.out + "/join_vcfs", mode:'symlink'

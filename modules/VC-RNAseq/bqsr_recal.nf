@@ -1,6 +1,6 @@
 process bqsr {
     cache 'lenient'
-    container 'pipelines_inmegen:latest'
+    container 'pipelinesinmegen/pipelines_inmegen:latest'
     containerOptions "-v ${params.ref_dir}:/db -v ${params.refdir}:/ref"
     publishDir params.out + "/bqsr", mode:'copy'
 

@@ -1,7 +1,7 @@
 process splitVCFs {
-    container 'pipelines_inmegen:latest'
-    containerOptions "-v ${params.refdir}:/ref"
     cache 'lenient'
+    container 'pipelinesinmegen/pipelines_inmegen:latest'
+    containerOptions "-v ${params.refdir}:/ref"
     publishDir params.out + "/vcfs_persample" , mode:'copy'
 
     input:

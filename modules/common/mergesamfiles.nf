@@ -13,7 +13,7 @@ process mergeSam {
    mkdir -p merged_sam
    cp ${bam_files} merged_sam/
 
-   docker run --cpus ${params.ncrs} -v \$PWD/merged_sam:/data pipelines_inmegen \
+   docker run --cpus ${params.ncrs} -v \$PWD/merged_sam:/data pipelinesinmegen/pipelines_inmegen:latest \
    java -jar /usr/bin/picard.jar MergeSamFiles \
    ${'-INPUT /data/'+bam_files.join(' -INPUT /data/')} \
    -OUTPUT /data/${key}_merged.sam   

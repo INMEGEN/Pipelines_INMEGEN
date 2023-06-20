@@ -7,29 +7,50 @@ El principal objetivo de estos pipelines es el procesamiento de datos provenient
 Los flujos de trabajo son:
 
 
- - Cuantificación y Análisis de expresión diferencial (RNA-seq)
+ - Cuantificación y Análisis de expresión diferencial (RNA-seq) [QDEA_RNAseq]
 
- - Indentificación conjunta de variantes Germinal (WGS/WES)
+ - Identificación conjunta de variantes Germinal (WGS/WES) [VC-Germline]
 
- - Indentificación de variantes somáticas (WGS/WES)
+ - Identificación de variantes somáticas (WGS/WES) [VC-Somatic]
 
- - Indentificación de variantes RNA-seq (experimental)
+ - Identificación de variantes RNA-seq (experimental) [VC-RNAseq]
  
- - Data_preprocessing (preprocesamiento de archivos fastq de GATK)
+ - Preprocesamiento de archivos fastq [Data_preprocessing]
  
 
-Las instrucciones necesarias para ejecutar cada flujo de trabajo se encuentra en su directorio correspondiente.
+Las instrucciones necesarias para ejecutar cada flujo de trabajo se encuentra en su directorio correspondiente [marcado entre corchetes].
 
-El directorio modules contiene todos los procesos que se usan en cada uno de los pipelines. 
+Al estar automatizados con [NextFlow](https://www.nextflow.io/docs/latest/index.html), los flujos de trabajo están divididos en procesos, que se encuentran en el directorio modules. 
 
-Los diagramas de flujo correspondientes a cada flujo de trabajo se encuentran en la carpeta imagenes 
+El diagrama de flujo correspondiente a cada pipeline se encuentra en la carpeta flowcharts. 
 
-### En caso de utilizar los flujos de trabajo de este repositorio
-En caso de utilizar cualquiera de estos pipelines solicitamos incluir la siguiente frase en los productos académicos generados: “Agradecemos a la Subdirección de Genómica Poblacional y a la Subdirección de Bioinformática del Instituto Nacional de Medicina Genómica por proveer flujos de trabajo utilizados de forma parcial o total como parte del análisis de este trabajo. (We acknowledge the population genomics and the bioinformatics departments from the National Institute of Genomic Medicine for providing workflows that were, either partially or completely, used as part of the analysis in this work )”
+##  Instrucciones para ejecutar los pipelines 
 
-Si quieres aplicar alguno de estos flujos de trabajo con el apoyo de nuestro personal para implementarlo en tus datos este se considerará un servicio, por lo tanto, se cobrará de acuerdo a los tabuladores existentes en la cartera de servicios INMEGEN. NOTA: por un tiempo limitado, este servicio estará disponible gratuitamente para personal interno del INMEGEN.
+Para ejecutar los pipelines se debe contar con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7) y [Docker](https://docs.docker.com/) (23.0.5)
 
-En ningún caso se incluye interpretación de resultados o generación de resultados más allá de los descritos como parte del flujo de trabajo.
+Además, es necesario clonar la imagen de docker con el comando 
+
+		docker push pipelinesinmegen/pipelines_inmegen:latest
+
+En caso de querer construir la imagen de docker con el Dockerfile que se encuentra en el directorio docker/ utilizar:
+
+		docker build -t pipelines_inmegen -f Dockerfile .
+
+y modificar el tag de la imagen con el comando:
+
+               docker tag pipelines_inmegen:latest pipelinesinmegen/pipelines_inmegen:latest
+
+Debes asegurarte que el directorio de docker cuente con suficiente espacio para generar la imagen (~ 6 GB)
+
+Finalmente clonar el repositorio github de interés.
+
+## Políticas de uso
+
+Los flujos de este repositorio pueden ser descargados y utilizados sin restricciones para uso académico. En caso de utilizar cualquiera de estos flujos solicitamos incluir la siguiente frase en los productos académicos generados: “Agradecemos a la Subdirección de Genómica Poblacional y a la Subdirección de Bioinformática del Instituto Nacional de Medicina Genómica por proveer flujos de trabajo que han sido utilizados de forma parcial o total como parte del análisis de este trabajo (We acknowledge the Population Genomics and the Bioinformatics Departments from the National Institute of Genomic Medicine for providing workflows that were, either partially or completely, used as part of the analysis in this work )”
+
+Si requieres el apoyo de nuestro personal para implementar alguno de estos flujos de trabajo en tus datos, este se considerará un servicio. Por lo tanto, se cobrará de acuerdo a los tabuladores existentes en la cartera de servicios INMEGEN. NOTA: por un tiempo limitado, este servicio estará disponible gratuitamente para personal interno del INMEGEN.
+
+En ningún caso nuestros servicios incluyen interpretación de resultados o generación de resultados más allá de los descritos como parte del flujo de trabajo.
 
 En caso de querer iniciar una colaboración académica con alguno de los miembros de este proyecto favor de contactarnos directamente.
 
@@ -42,8 +63,8 @@ Laura Gómez-Romero [lgomez@inmegen.gob.mx](lgomez@inmegen.gob.mx)
 
 Alejandra Cervera Taboada [acerverat@inmegen.gob.mx](acerverat@inmegen.gob.mx)
 
-### Uso de Docker
-Para garantizar la reproducibilidad y repetibilidad de los flujos de trabajo, estos se automatizaron con NexFlow y se contenizaron con Docker. El Dockerfile que se utilizó en para generar las imágenes empleadas se encuentran en el directorio docker/
+## Uso de Docker
+Para garantizar la reproducibilidad y repetibilidad de los flujos de trabajo, estos se automatizaron con [NextFlow](https://www.nextflow.io/docs/latest/index.html) y se contenerizaron con [Docker](https://docs.docker.com/). El Dockerfile utilizado para generar las imágenes empleadas se encuentran en el directorio docker/
 
-### Contacto
+## Contacto
 Cualquier duda o comentario escribir a [nuestro correo de contacto](dperez@inmegen.gob.mx)

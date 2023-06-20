@@ -10,7 +10,7 @@ process mergeSam {
 
    script:
    """    
-   docker run --cpus ${params.ncrs} -v "\$PWD":/data pipelines_inmegen \
+   docker run --cpus ${params.ncrs} -v "\$PWD":/data pipelinesinmegen/pipelines_inmegen:latest \
    java -jar /usr/bin/picard.jar MergeSamFiles \
    ${'-INPUT /data/'+bam_files.join(' -INPUT /data/')} \
    -OUTPUT /data/${key}_merged.sam -MSD true

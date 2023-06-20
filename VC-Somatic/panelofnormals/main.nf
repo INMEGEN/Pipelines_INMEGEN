@@ -15,7 +15,7 @@ include { createSomaticPanelofNormals   } from "../../modules/VC-Somatic/PON/PON
 println " "
 println "Pipelines INMEGEN"
 println "Flujo de trabajo: Panel de normales para Mutect2"
-println "Imagen de docker: pipelines_inmegen:latest"
+println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:latest"
 println " "
 println "Nombre del proyecto: $params.project_name"
 println "Archivos bam (muestras normales): $params.bams"

@@ -1,9 +1,8 @@
 process star {
   cache 'lenient'
-  container 'pipelines_inmegen:latest'
+  container 'pipelinesinmegen/pipelines_inmegen:latest'
   containerOptions "-v ${params.refdir}:/ref"
-  publishDir params.out +"/alignments", mode: 'symlink'
-  beforeScript 'chmod o+rw .' 
+  publishDir params.out +"/alignments", mode: 'symlink' 
 
   input:
     tuple val(sample_id), val(sample), val(RG), val(PU), path(reads)

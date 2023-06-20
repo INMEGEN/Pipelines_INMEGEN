@@ -1,5 +1,5 @@
 process kallisto {
-  container 'pipelines_inmegen:latest'
+  container 'pipelinesinmegen/pipelines_inmegen:latest'
   containerOptions "-v ${params.refdir}:/db"
   cache 'lenient'
   publishDir params.out + "/kallisto_quants", mode: 'copy'

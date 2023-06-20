@@ -1,6 +1,6 @@
 process mutect2 {
     cache 'lenient'
-    container 'pipelines_inmegen:latest'
+    container 'pipelinesinmegen/pipelines_inmegen:latest'
     containerOptions "-v ${params.refdir}:/ref"
     publishDir params.out + "/unfilteredVCFs", mode:'copy'
 

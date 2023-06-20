@@ -1,6 +1,6 @@
 process filterMutectCalls {
     cache 'lenient'
-    container 'pipelines_inmegen:latest'
+    container 'pipelinesinmegen/pipelines_inmegen:latest'
     containerOptions "-v ${params.refdir}:/ref"
     publishDir params.out + "/filteredVCF" , mode:'copy'
 

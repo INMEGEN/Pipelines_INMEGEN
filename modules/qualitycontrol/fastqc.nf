@@ -1,5 +1,5 @@
 process fastqc {
-  container 'pipelines_inmegen:latest'
+  container 'pipelinesinmegen/pipelines_inmegen:latest'
   cache 'lenient'
   publishDir params.out + "/fastqc", mode:'copy'
   

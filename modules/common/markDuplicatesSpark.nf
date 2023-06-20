@@ -1,6 +1,6 @@
 process markDuplicatesSpark {
-    container 'pipelines_inmegen:latest'
     cache 'lenient'
+    container 'pipelinesinmegen/pipelines_inmegen:latest'
     publishDir params.out + "/dedup_sorted", mode:'symlink'
 
     input:

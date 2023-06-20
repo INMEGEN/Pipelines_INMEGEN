@@ -1,5 +1,5 @@
 process multiqc {
-  container 'pipelines_inmegen:latest'
+  container 'pipelinesinmegen/pipelines_inmegen:latest'
   cache 'lenient'
   publishDir params.out, mode: 'copy'
 

@@ -28,8 +28,9 @@ include { splitVCFs as splitVCF_annovar } from "../modules/annotation/splitvcf.n
 
 // Imprimir la ruta de algunos directorios importantes
 println " "
-println "Flujo de trabajo: Indentificación de variantes de RNA-seq"
-println "Contenedor: Docker pipelines_inmegen "
+println "Pipelines INMEGEN"
+println "Flujo de trabajo: Indentificación de variantes de RNAseq (experimental)"
+println "Contenedor: pipelinesinmegen/pipelines_inmegen:latest "
 println " "
 println "Nombre del proyecto: $params.project_name"
 println "Datos crudos: $params.reads"

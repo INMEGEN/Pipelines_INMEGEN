@@ -30,7 +30,7 @@ include { splitVCFs as splitVCF_annovar } from "../modules/annotation/splitvcf.n
 println " "
 println "Pipelines INMEGEN"
 println "Flujo de trabajo: Identificación conjunta de variantes germinales con GATK4"
-println "Imagen de docker: pipelines_inmegen:latest"
+println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:latest"
 println " "
 println "Nombre del proyecto: $params.project_name"
 println "Datos crudos: $params.reads"

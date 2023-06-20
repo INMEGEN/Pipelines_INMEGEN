@@ -1,5 +1,5 @@
 process tximport_q {
-  container 'pipelines_inmegen:latest'
+  container 'pipelinesinmegen/pipelines_inmegen:latest'
   containerOptions "-v ${params.refdir}:/ref"
   cache 'lenient'
   publishDir params.out + "/resultados_q", mode: 'copy'

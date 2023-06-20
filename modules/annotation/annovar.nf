@@ -17,11 +17,11 @@ process annovar {
    cp ${filtered_snps} ${filtered_snps_index} annovar/
    cp ${filtered_indels} ${filtered_indeles_index} annovar/
 
-   docker run --cpus ${params.ncrs} -v "\$PWD/annovar/":/data -v "${params.annovar}/humandb/":/humandb pipelines_inmegen \
+   docker run --cpus ${params.ncrs} -v "\$PWD/annovar/":/data -v "${params.annovar}/humandb/":/humandb pipelinesinmegen/pipelines_inmegen:latest \
    perl /annovar/table_annovar.pl /data/${filtered_snps} /humandb/ --buildver hg38 -out /data/${project_id}_annovar_snps \
    -remove -protocol refGene,ensGene,avsnp150,clinvar_20221231,gnomad312_genome,cosmic92_coding,dbnsfp33a -operation g,g,f,f,f,f,f -nastring . -vcfinput
 
-   docker run --cpus ${params.ncrs} -v "\$PWD/annovar/":/data -v "${params.annovar}/humandb/":/humandb pipelines_inmegen \
+   docker run --cpus ${params.ncrs} -v "\$PWD/annovar/":/data -v "${params.annovar}/humandb/":/humandb pipelinesinmegen/pipelines_inmegen:latest \
    perl /annovar/table_annovar.pl /data/${filtered_indels} /humandb/ --buildver hg38 -out /data/${project_id}_annovar_indels \
    -remove -protocol refGene,ensGene,avsnp150,clinvar_20221231,gnomad312_genome,cosmic92_coding,dbnsfp33a -operation g,g,f,f,f,f,f -nastring . -vcfinput
     """
