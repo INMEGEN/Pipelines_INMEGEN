@@ -123,7 +123,7 @@ RUN wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/0.6.7.tar.
     
 #### Descargar e instalar Annovar 
 #### IMPORTANTE: Debes de obtener tu propia liga para uso de investigación
-RUN wget https://www.openbioinformatics.org/annovar/download/0wgxR2rIVP/annovar.latest.tar.gz && \
+RUN wget link_to/annovar.latest.tar.gz && \
     tar -zxvf annovar.latest.tar.gz && \
     rm annovar.latest.tar.gz
 
