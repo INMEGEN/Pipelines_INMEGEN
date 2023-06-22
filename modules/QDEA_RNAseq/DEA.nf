@@ -1,5 +1,5 @@
 process tximport_deseq2 {
-  container 'pipelinesinmegen/pipelines_inmegen:latest'
+  container 'pipelinesinmegen/pipelines_inmegen:public'
   containerOptions "-v ${params.refdir}:/ref"
   cache 'lenient'
   publishDir params.out + "/resultados", mode: 'copy'

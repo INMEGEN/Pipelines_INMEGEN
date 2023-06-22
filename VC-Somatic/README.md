@@ -36,14 +36,18 @@ Estos flujos de trabajo utilizan archivos bam previamente procesados con el pipe
 	- Parámetros de mutect2
 	- Condiciones del análisis (número de núcleos a utilizar por proceso, número de procesos simultáneos e información adicional)
 
-  4. Ejecutar el comando correspondiente a cada subflujo de trabajo: 
+  5. Ejecutar el comando correspondiente a cada subflujo de trabajo: 
 
                 bash run_nextflow.sh /path/to/out/dir
 
 ### Formato del archivo con la información experimental
 
+<<<<<<< HEAD
 	##### Panel de normales
  
+=======
+##### Panel de normales 
+>>>>>>> ef5c150cda0ab9c40d30cbd9506c0573accaf1b9
 Para tener un buen control de los archivos a procesar (formato bam), el archivo sample_*.tsv debe de incluir la siguiente información por columna:
  
 		Sample	Path	
@@ -51,8 +55,12 @@ Para tener un buen control de los archivos a procesar (formato bam), el archivo 
  - Sample   = Nombre completo de los archivos e identificador de las muestras normales (debe de contener el nombre o identificador de la muestra)
  - Path     = Ruta absoluta del archivo bam de la muestra sample
 
+<<<<<<< HEAD
 	##### Modo paired
 
+=======
+##### Modo paired
+>>>>>>> ef5c150cda0ab9c40d30cbd9506c0573accaf1b9
 Para tener un buen control de los archivos a procesar (formato bam), el archivo sample_*.tsv debe de incluir la siguiente información por columna:
  
                 Tumor_id	Tumor_Path	Normal_id	Normal_Path     
@@ -64,8 +72,12 @@ Para tener un buen control de los archivos a procesar (formato bam), el archivo 
 
 **Nota:** Los identificadores por renglón deben de pertenecer a la misma muestra (paciente)
 
+<<<<<<< HEAD
 	##### Modo paired
        
+=======
+##### Modo unpaired       
+>>>>>>> ef5c150cda0ab9c40d30cbd9506c0573accaf1b9
 Para tener un buen control de los archivos a procesar (formato bam), el archivo sample_*.tsv debe de incluir la siguiente información por columna:
  
                 Tumor_id        Tumor_Path

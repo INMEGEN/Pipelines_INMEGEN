@@ -14,7 +14,7 @@ process fastq_to_sam {
     cp ${read1} uBams/
     cp ${read2} uBams/
 
-    docker run --cpus ${params.ncrs} -v \$PWD/uBams:/data pipelinesinmegen/pipelines_inmegen:latest \
+    docker run --cpus ${params.ncrs} -v \$PWD/uBams:/data pipelinesinmegen/pipelines_inmegen:public \
     java -jar /usr/bin/picard.jar FastqToSam \
              -FASTQ /data/${read1} \
              -FASTQ2 /data/${read2} \

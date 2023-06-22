@@ -1,4 +1,4 @@
-# Pipelines INMEGEN
+}# Pipelines INMEGEN
 ## Flujos de trabajo automatizados con NextFlow
 
 Este repositorio contiene diversos flujos de trabajo (pipelines) desarrollados y automatizados en el Instituto Nacional de Medicina Genómica (INMEGEN).
@@ -30,15 +30,15 @@ Para ejecutar los pipelines se debe contar con [NextFlow](https://www.nextflow.i
 
 Además, es necesario clonar la imagen de docker con el comando 
 
-		docker push pipelinesinmegen/pipelines_inmegen:latest
+		docker push pipelinesinmegen/pipelines_inmegen:public
 
 En caso de querer construir la imagen de docker con el Dockerfile que se encuentra en el directorio docker/ utilizar:
 
-		docker build -t pipelines_inmegen -f Dockerfile .
+		docker build -t pipelines_inmegen:public -f Dockerfile .
 
 y modificar el tag de la imagen con el comando:
 
-               docker tag pipelines_inmegen:latest pipelinesinmegen/pipelines_inmegen:latest
+               docker tag pipelines_inmegen:public pipelinesinmegen/pipelines_inmegen:public
 
 Debes asegurarte que el directorio de docker cuente con suficiente espacio para generar la imagen (~ 6 GB)
 

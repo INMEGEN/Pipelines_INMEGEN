@@ -1,7 +1,7 @@
 process trim_Galore {
-  container 'pipelinesinmegen/pipelines_inmegen:latest'
   cache 'lenient'
-  publishDir params.out + "/trimming_files", mode: 'symlink'
+  container 'pipelinesinmegen/pipelines_inmegen:public'
+  publishDir params.out + "/trimming_files", mode: 'copy'
 
   input:
   tuple val(sample_id), val(sample), val(RG), val(PU), path(read_1), path(read_2)

@@ -1,6 +1,6 @@
 process VQSRindels {
     cache 'lenient'
-    container 'pipelinesinmegen/pipelines_inmegen:latest'
+    container 'pipelinesinmegen/pipelines_inmegen:public'
     containerOptions "-v ${params.refdir}:/ref"
     publishDir params.out + "/filtered_vcfs", mode:'copy'
     

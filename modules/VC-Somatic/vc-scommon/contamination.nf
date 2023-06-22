@@ -1,6 +1,6 @@
 process calculateContamination {
     cache 'lenient'
-    container 'pipelinesinmegen/pipelines_inmegen:latest'    
+    container 'pipelinesinmegen/pipelines_inmegen:public'    
     publishDir params.out + "/contamination_tables", mode:'symlink'
 
     input:

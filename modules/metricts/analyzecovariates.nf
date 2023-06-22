@@ -1,7 +1,7 @@
 process analyzeCovariates{
-    container 'pipelinesinmegen/pipelines_inmegen:latest'
     cache 'lenient'
-    publishDir params.out + "/bqsr", mode:'symlink'
+    container 'pipelinesinmegen/pipelines_inmegen:public'
+    publishDir params.out + "/bqsr", mode:'copy'
 
     input:
     tuple val(pair_id), path(recal_table), path(post_recal_table)

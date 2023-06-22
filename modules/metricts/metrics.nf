@@ -1,6 +1,6 @@
 process Metrics {
-    container 'pipelinesinmegen/pipelines_inmegen:latest'
     cache 'lenient'
+    container 'pipelinesinmegen/pipelines_inmegen:public'
     publishDir params.out + "/metrics", mode:'copy'
 
     input:

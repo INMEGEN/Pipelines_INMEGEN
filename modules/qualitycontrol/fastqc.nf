@@ -1,6 +1,6 @@
 process fastqc {
-  container 'pipelinesinmegen/pipelines_inmegen:latest'
   cache 'lenient'
+  container 'pipelinesinmegen/pipelines_inmegen:public'
   publishDir params.out + "/fastqc", mode:'copy'
   
   input: 

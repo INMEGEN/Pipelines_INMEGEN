@@ -1,8 +1,8 @@
 process haplotypeCaller {
-    container 'pipelinesinmegen/pipelines_inmegen:latest'
-    containerOptions "-v ${params.refdir}:/ref"
     cache 'lenient'
-    publishDir params.out + "/raw_vcfs", mode:'symlink'
+    container 'pipelinesinmegen/pipelines_inmegen:public'
+    containerOptions "-v ${params.refdir}:/ref"
+    publishDir params.out + "/raw_vcfs", mode:'copy'
     
     input:
     tuple val(pair_id), path(input_bam)

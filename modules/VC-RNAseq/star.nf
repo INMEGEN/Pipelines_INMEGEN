@@ -1,6 +1,6 @@
 process star {
   cache 'lenient'
-  container 'pipelinesinmegen/pipelines_inmegen:latest'
+  container 'pipelinesinmegen/pipelines_inmegen:public'
   containerOptions "-v ${params.refdir}:/ref"
   publishDir params.out +"/alignments", mode: 'symlink' 
 

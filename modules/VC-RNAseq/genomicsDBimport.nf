@@ -1,6 +1,6 @@
 process genomicsDBimport {
-    container 'pipelinesinmegen/pipelines_inmegen:latest'
     cache 'lenient'
+    container 'pipelinesinmegen/pipelines_inmegen:public'
     publishDir params.out + "/Genomicsdb", mode:'symlink'
 
     input:

@@ -1,5 +1,5 @@
 process trim_Galore {
-  container 'pipelinesinmegen/pipelines_inmegen:latest'
+  container 'pipelinesinmegen/pipelines_inmegen:public'
   cache 'lenient'
   publishDir params.out + "/trimming_files", mode: 'symlink'
 

@@ -1,6 +1,6 @@
 process mutect2forPanelofNormals {
     cache 'lenient'
-    container 'pipelinesinmegen/pipelines_inmegen:latest'
+    container 'pipelinesinmegen/pipelines_inmegen:public'
     containerOptions "-v ${params.refdir}:/ref" 
     publishDir params.out + "/vcfsforPON", mode:'copy'
     

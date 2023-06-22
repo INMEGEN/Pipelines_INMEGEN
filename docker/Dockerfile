@@ -124,9 +124,15 @@ RUN wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/0.6.7.tar.
     
 #### Descargar e instalar Annovar 
 #### IMPORTANTE: Debes de obtener tu propia liga para uso de investigación
+<<<<<<< HEAD
 #RUN wget link/to/annovar.latest.tar.gz && \
 #    tar -zxvf annovar.latest.tar.gz && \
 #    rm annovar.latest.tar.gz
+=======
+RUN wget link_to/annovar.latest.tar.gz && \
+    tar -zxvf annovar.latest.tar.gz && \
+    rm annovar.latest.tar.gz
+>>>>>>> ef5c150cda0ab9c40d30cbd9506c0573accaf1b9
 
 #### Descargar e instalar Samtools
 RUN wget https://github.com/samtools/samtools/releases/download/1.12/samtools-1.12.tar.bz2 && \
