@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 // Workflow     : Identificación de variantes de datos RNA-seq con GATK4
 // Institución  : Instituto Nacional de Medicina Genómica (INMEGEN)
-// Maintainer   : Subdirección de genómica poblacional y subdifección de bioinformatica del INMEGEN
+// Maintainer   : Subdirección de genómica poblacional y subdirección de bioinformática del INMEGEN
 // Versión      : 0.1 
 // Docker image : - pipelines_inmegen:latest -
 
@@ -23,8 +23,6 @@ include { haplotypeCaller               } from "../modules/VC-RNAseq/haplotypeca
 include { selectVariants                } from "../modules/VC-RNAseq/selectvariants.nf"
 include { filterSnps                    } from "../modules/VC-RNAseq/filtersnps.nf"
 include { filterIndels                  } from "../modules/VC-RNAseq/filterindels.nf"
-include { annovar                       } from "../modules/annotation/annovar.nf"
-include { splitVCFs as splitVCF_annovar } from "../modules/annotation/splitvcf.nf"
 
 // Imprimir la ruta de algunos directorios importantes
 println " "
@@ -110,9 +108,4 @@ workflow {
    filterSnps(selectVariants.out.snps_ch)
 
    filterIndels(selectVariants.out.indels_ch)
-     
-// Anotación de variantes
-   annovar(filterSnps.out.filtered_snps,filterIndels.out.filtered_indels)
-
-   splitVCF_annovar(annovar.out.annovar_ch)
 }

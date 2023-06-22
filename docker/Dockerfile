@@ -19,6 +19,7 @@ RUN apt-get update && \
         bzip2 \
         ca-certificates \
         curl \
+        cutadapt \
         gawk \
         gcc \
         git \
@@ -123,9 +124,9 @@ RUN wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/0.6.7.tar.
     
 #### Descargar e instalar Annovar 
 #### IMPORTANTE: Debes de obtener tu propia liga para uso de investigación
-RUN wget https://www.openbioinformatics.org/annovar/download/0wgxR2rIVP/annovar.latest.tar.gz && \
-    tar -zxvf annovar.latest.tar.gz && \
-    rm annovar.latest.tar.gz
+#RUN wget link/to/annovar.latest.tar.gz && \
+#    tar -zxvf annovar.latest.tar.gz && \
+#    rm annovar.latest.tar.gz
 
 #### Descargar e instalar Samtools
 RUN wget https://github.com/samtools/samtools/releases/download/1.12/samtools-1.12.tar.bz2 && \
@@ -146,16 +147,6 @@ RUN wget https://github.com/samtools/bcftools/releases/download/1.12/bcftools-1.
     cd .. && \
     rm bcftools-1.12.tar.bz2
 
-#### Descargar e instalar SnpEff
-#RUN wget -q https://downloads.sourceforge.net/project/snpeff/snpEff_v5_0_core.zip && \
-#    unzip snpEff_latest_core.zip && \
-#    rm snpEff_latest_core.zip
-#
-#    unzip -q snpEff_v5_0_core.zip && \
-#    rm snpEff_v5_0_core.zip && \
-#    mv snpEff.jar /usr/local/bin/ && \
-#    chmod +x /usr/local/bin/snpEff/snpEff.jar
-
 ### Instalar R version 4.2.3
 RUN wget https://cdn.posit.co/r/ubuntu-2004/pkgs/r-4.2.3_1_amd64.deb && \
     apt-get update -qq && \
@@ -175,10 +166,9 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 RUN R -e "install.packages('BiocManager',repos='http://cran.us.r-project.org')" -e "BiocManager::install(c('GenomicFeatures', 'GenomicAlignments', 'VariantAnnotation', 'S4Vectors', 'SummarizedExperiment', 'Biobase','tximportData', 'tximport', 'BUSpaRse', 'DESeq2', 'PCAtools', 'ComplexHeatmap', 'EnhancedVolcano', 'AnnotationDbi', 'topGO', 'GeneTonic', 'SummarizedExperiment', 'GenomicAlignments', 'org.Hs.eg.db', 'rhdf5', 'pcaExplorer'))"
 
-#RUN chmod 774 /usr/local/bin/picard.jar
 RUN ln -s /usr/local/bin/picard.jar /usr/bin/picard.jar
-RUN ln -s /annovar/table_annovar.pl /usr/local/bin/table_annovar.pl
-RUN ln -s /annovar/table_annovar.pl /usr/bin/table_annovar.pl
+#RUN ln -s /annovar/table_annovar.pl /usr/local/bin/table_annovar.pl
+#RUN ln -s /annovar/table_annovar.pl /usr/bin/table_annovar.pl
 
 ### Configurar la variable de entorno para Java 8 ###
 ENV JAVA_8_HOME "/usr/lib/jvm/java-8-openjdk-amd64"

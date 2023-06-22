@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 // Workflow    : Identificación conjunta de variantes germinales con GATK4
 // Institución : Instituto Nacional de Medicina Genómica (INMEGEN)
-// Maintainer  : Subdirección de genómica poblacional y subdifección de bioinformatica del INMEGEN
+// Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática del INMEGEN
 // Versión     : 0.1 
 // Docker image - pipelines_inmegen:latest -
 
@@ -23,8 +23,6 @@ include { genotypeGVCFs                 } from "../modules/VC-Germinal/genotypeg
 include { selectVariants                } from "../modules/VC-Germinal/selectvariants.nf"
 include { VQSRsnps                      } from "../modules/VC-Germinal/VQSR_snps.nf"
 include { VQSRindels                    } from "../modules/VC-Germinal/VQSR_indels.nf"
-include { annovar                       } from "../modules/annotation/annovar.nf"
-include { splitVCFs as splitVCF_annovar } from "../modules/annotation/splitvcf.nf"
 
 // Some useful information
 println " "
@@ -115,9 +113,4 @@ workflow {
    VQSRsnps(selectVariants.out.snps_ch)
 
    VQSRindels(selectVariants.out.indels_ch)
-
-// Variant annotation 
-
-   annovar(VQSRsnps.out.snps_filt_ch,VQSRindels.out.indels_filt_ch)
-   splitVCF_annovar(annovar.out.annovar_ch)
 }

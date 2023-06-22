@@ -2,8 +2,8 @@
 
 Este pipeline realiza la identificación de variantes a partir de archivos de secuenciación masiva (WGS/WES).
 En caso de trabajar con el genoma hg38, los archivos como el índice de [BWA](http://bio-bwa.sourceforge.net/) y los archivos de recalibración de BQSR y VQSR se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).  
-Lo único que necesitas es tus archivos de lectura fastq, en caso de WES el kit utilizado, si son múltiples lanes por muestra especificar a que muestras están asociadas (revisar la información solicitada por el archivo sample_info.tsv).
-Particularmente, en el modo paired de mutect2 es necesario proporcionar por muestra los identificadores indicando tumor y normal respectivamente.
+Lo único que necesitas es tus archivos de lectura fastq, en caso de WES el kit utilizado y los indentificadores de las muestras indicando si son normales o de tumor.
+Además, si son múltiples lanes por muestra es necesario especificar a que muestras están asociadas (revisar la información solicitada por el archivo sample_info.tsv).
 
 Este flujo de trabajo se divide en 3 subflujos de trabajos correspondientes a una configuración de análisis en especifico
 
@@ -25,16 +25,16 @@ Estos flujos de trabajo utilizan archivos bam previamente procesados con el pipe
  2. Después generar el archivo sample_*.tsv con la información que se describe en la sección - Formato del archivo con la información de las muestras -
  3. Editar el archivo de nextflow.config con la siguiente información:
 
-        - Ruta de los archivos *fastq*
-        - Ruta del directorio de salida de nextflow
-        - Nombre del proyecto 
-        - Ruta del índice de BWA
-        - Ruta del archivo sample_*.tsv
-        - Nombre del índice de BWA
-        - Ruta del archivo con la lista de intervalos
-        - Ruta del directorio de annovar
+	- Ruta de los archivos *fastq*
+	- Ruta del directorio de salida de nextflow
+	- Nombre del proyecto 
+	- Ruta del índice de BWA
+	- Ruta del archivo sample_*.tsv
+	- Nombre del índice de BWA
+	- Ruta del archivo con la lista de intervalos
+	- Ruta del directorio de annovar
 	- Parámetros de mutect2
-        - Condiciones del análisis (número de núcleos a utilizar por proceso, número de procesos simultáneos e información adicional)
+	- Condiciones del análisis (número de núcleos a utilizar por proceso, número de procesos simultáneos e información adicional)
 
   4. Ejecutar el comando correspondiente a cada subflujo de trabajo: 
 
@@ -42,7 +42,8 @@ Estos flujos de trabajo utilizan archivos bam previamente procesados con el pipe
 
 ### Formato del archivo con la información experimental
 
-	##### Panel de normales 
+	##### Panel de normales
+ 
 Para tener un buen control de los archivos a procesar (formato bam), el archivo sample_*.tsv debe de incluir la siguiente información por columna:
  
 		Sample	Path	
@@ -51,6 +52,7 @@ Para tener un buen control de los archivos a procesar (formato bam), el archivo 
  - Path     = Ruta absoluta del archivo bam de la muestra sample
 
 	##### Modo paired
+
 Para tener un buen control de los archivos a procesar (formato bam), el archivo sample_*.tsv debe de incluir la siguiente información por columna:
  
                 Tumor_id	Tumor_Path	Normal_id	Normal_Path     
@@ -62,7 +64,8 @@ Para tener un buen control de los archivos a procesar (formato bam), el archivo 
 
 **Nota:** Los identificadores por renglón deben de pertenecer a la misma muestra (paciente)
 
-	##### Modo paired       
+	##### Modo paired
+       
 Para tener un buen control de los archivos a procesar (formato bam), el archivo sample_*.tsv debe de incluir la siguiente información por columna:
  
                 Tumor_id        Tumor_Path

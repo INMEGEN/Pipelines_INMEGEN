@@ -2,7 +2,7 @@
 // Workflow    : Identificación de variantes somáticas con GATK4
 // Importante  : Pipeline para muestras emparejadas (normal-tumor)
 // Institución : Instituto Nacional de Medicina Genómica (INMEGEN)
-// Maintainer  : Subdirección de genómica poblacional y subdifección de bioinformatica del INMEGEN
+// Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática del INMEGEN
 // Versión     : 0.1 
 // Docker image - pipelines_inmegen:latest -
 

@@ -1,8 +1,8 @@
 process VQSRindels {
+    cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:latest'
     containerOptions "-v ${params.refdir}:/ref"
-    cache 'lenient'
-    publishDir params.out + "/join_vcfs", mode:'symlink'
+    publishDir params.out + "/filtered_vcfs", mode:'copy'
     
     input:
     tuple val(project_id), path(raw_indels)

@@ -1,8 +1,7 @@
 #!/usr/bin/env nextflow
-
-// Workflow    : Cuantificación y análisis de expresión diferencial
+// Workflow    : Cuantificación y análisis de expresión diferencial de datos RNA-seq
 // Institución : Instituto Nacional de Medicina Genómica (INMEGEN)
-// Maintainer  : Subdirección de genómica poblacional y subdifección de bioinformatica (INMEGEN)
+// Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática (INMEGEN)
 // Versión     : 0.1 
 // Docker image - pipelines_inmegen:latest -
 

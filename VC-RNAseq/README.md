@@ -6,6 +6,7 @@ Los archivos adicionales (bases de datos de snps e indeles conocidos) se pueden 
 Lo único que necesitas es tus archivos de lectura fastq, si son múltiples lanes por muestra especificar a que muestras están asociados (revisar la información solicitada por el archivo sample_info.tsv).
 
 **Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta (ilummina paired-end).
+**Nota:** GATK no soporta el la identificación conjunta de variantes en datos de RNA-seq, ver el siguiente [link](https://gatk.broadinstitute.org/hc/en-us/articles/360035531192-RNAseq-short-variant-discovery-SNPs-Indels-) para más información.
 
 ## Instrucciones de uso 
 
