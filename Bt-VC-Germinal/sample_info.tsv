@@ -1,0 +1,2 @@
+SampleID	Sample_name	RG	PU	R1	R2
+nameID_sample#_lane#	nameID_sample#	readgroupID	library.lane#	/path/to/sample/nameID_sample#_lane#_R1.fastq.gz	/path/to/sample/nameID_sample#_lane#_R2.fastq.gz

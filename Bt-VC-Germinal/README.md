@@ -1,10 +1,13 @@
 # Flujo de trabajo identificación de variantes de línea germinal utilizando NextFlow y GATK
 
-Este pipeline realiza la identificación conjunta de variantes a partir de archivos de secuenciación masiva (WGS/WES).
-En caso de trabajar con el genoma hg38, los archivos como el índice de [BWA](http://bio-bwa.sourceforge.net/) y los archivos de recalibración de BQSR y VQSR se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).  
-Lo único que necesitas son tus archivos de lectura fastq, en caso de WES el kit utilizado, si son múltiples lanes por muestra especificar a que muestras están asociadas (revisar la información solicitada por el archivo sample_info.tsv).
+Este pipeline realiza la identificación conjunta de variantes utilizando bootstrapping a partir de archivos de secuenciación masiva (WGS/WES).
+Se desarrolló a partir del flujo de trabajo de buenas prácticas de GATK para el llamado conjunto de variantes germinal.
+Particularmente, este flujo de trabajo es útil para especies diferentes al humano donde sólo se tenga la referencia sin los archivos con los sitios de snps e indels conocidos.
+Se recomienda generar el índice de BWA a partir del archivo de referencia a usar.  
+Lo único que necesitas son tus archivos de lectura en formato fastq, en caso de WES el kit utilizado, si son múltiples lanes por muestra especificar a que muestras están asociadas (revisar la información solicitada por el archivo sample_info.tsv).
 
 **Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta (ilummina paired-end).
+**Nota 2:** Para saber si con un sólo paso de bootstrapping es suficiente se recomienda revisar las tablas resultantes de AnalizeCovariantes, si fuera necesario añadir los pasos necesarios de bootstrapping faltantes.
 
 ## Instrucciones de uso 
 
@@ -59,4 +62,4 @@ Para una mayor descripción de la información del pipeline ejecutado se anexa e
 
 [Consulta el flujo de identificación de variantes germinal de GATK](https://gatk.broadinstitute.org/hc/en-us/articles/360035535932-Germline-short-variant-discovery-SNPs-Indels-)
 
-![Flujo identificación de variantes germinal](../flowcharts/flujo_VCG.PNG)
+![Flujo identificación conjunta de variantes germinal con bootstrapping](../flowcharts/flujo_BtVCG.PNG)

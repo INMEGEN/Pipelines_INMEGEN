@@ -4,7 +4,7 @@
 Este repositorio contiene diversos flujos de trabajo (pipelines) desarrollados y automatizados en el Instituto Nacional de Medicina Genómica (INMEGEN).
 El principal objetivo de estos pipelines es el procesamiento de datos provenientes de secuenciación masiva (WGS/WES, RNA-seq)
 
-Los flujos de trabajo son:
+Los flujos de trabajo de acuerdo a los diferentes directorios de este repositorio son:
 
 
  - Cuantificación y Análisis de expresión diferencial (RNA-seq) [QDEA_RNAseq]
@@ -16,6 +16,10 @@ Los flujos de trabajo son:
  - Identificación de variantes RNA-seq (experimental) [VC-RNAseq]
  
  - Preprocesamiento de archivos fastq [Data_preprocessing]
+
+ - Anotación de variantes [Annotacion]
+
+ - Identificación conjunta de variantes germinal con bootstrapping [Bt-VC-Germinal]
  
 
 Las instrucciones necesarias para ejecutar cada flujo de trabajo se encuentra en su directorio correspondiente [marcado entre corchetes].
@@ -23,6 +27,9 @@ Las instrucciones necesarias para ejecutar cada flujo de trabajo se encuentra en
 Al estar automatizados con [NextFlow](https://www.nextflow.io/docs/latest/index.html), los flujos de trabajo están divididos en procesos, que se encuentran en el directorio modules. 
 
 El diagrama de flujo correspondiente a cada pipeline se encuentra en la carpeta flowcharts. 
+
+**Nota:** Particularmente, el pipeline de identificación conjunta de variantes germinal está pensando para utilizar la ref hg38 del bundle de gatk, ya que, contiene los archivos necesarios para realizar VQSR (variant quality score recalibration).
+En el caso de no contar con estos archivos como lo es el caso de especies diferentes al humano, se recomienda utilizar el flujo con bootstrapping [Bt-VC-Germinal], ya que, este sólo necesita la referencia, el índice de la referencia y el índice de BWA creado a partir de la referencia. 
 
 ##  Instrucciones para ejecutar los pipelines 
 
