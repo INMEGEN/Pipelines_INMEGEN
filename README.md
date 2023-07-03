@@ -1,5 +1,7 @@
 ## ![INMEGEN](./flowcharts/inmegen_t1.png)
 #  Pipelines INMEGEN
+[![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A522.10.7-23aa62.svg)](https://www.nextflow.io/)
+[![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 ## Flujos de trabajo automatizados con NextFlow
 
 Este repositorio contiene diversos flujos de trabajo (pipelines) desarrollados y automatizados en el Instituto Nacional de Medicina Genómica (INMEGEN).
