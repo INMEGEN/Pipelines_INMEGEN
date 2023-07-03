@@ -1,3 +1,4 @@
+![INMEGEN](./flowcharts/inmegen_t.png) 
 # Pipelines INMEGEN
 ## Flujos de trabajo automatizados con NextFlow
 
