@@ -1,4 +1,5 @@
-#  Pipelines INMEGEN                             ![INMEGEN](./flowcharts/inmegen_t1.png)
+## ![INMEGEN](./flowcharts/inmegen_t1.png)
+#  Pipelines INMEGEN
 ## Flujos de trabajo automatizados con NextFlow
 
 Este repositorio contiene diversos flujos de trabajo (pipelines) desarrollados y automatizados en el Instituto Nacional de Medicina Genómica (INMEGEN).
