@@ -1,11 +1,7 @@
 #!/usr/bin/env nextflow
 // Workflow: Data_preprocessing for GATK short variant calling
 // Institución: Instituto Nacional de Medicina Genómica (INMEGEN)
-<<<<<<< HEAD
 // Maintainer: Subdirección de genómica poblacional y subdirección de bioinformática (INMEGEN)
-=======
-// Maintainer: Subdirección de genómica poblacional y subdirección de bioinformatica (INMEGEN)
->>>>>>> ef5c150cda0ab9c40d30cbd9506c0573accaf1b9
 // Versión: 0.1 
 // Docker image - pipelines_inmegen:latest -
 

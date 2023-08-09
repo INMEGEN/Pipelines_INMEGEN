@@ -41,7 +41,7 @@ Para ejecutar los pipelines es necesario contar con [NextFlow](https://www.nextf
 
 Además, es necesario clonar la imagen de docker con el comando 
 
-		docker push pipelinesinmegen/pipelines_inmegen:public
+		docker pull pipelinesinmegen/pipelines_inmegen:public
 
 En caso de querer construir la imagen de docker con el Dockerfile que se encuentra en el directorio docker/ utilizar:
 

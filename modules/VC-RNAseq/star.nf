@@ -13,7 +13,7 @@ process star {
 
   script:
       readGroup = \
-          "ID:${RG}	LB:${sample}.${PU}	PL:${params.pl}	PM:${params.pm}	SM:${sample}"
+          "ID:${RG}\\tLB:${sample}.${PU}\\tPL:${params.pl}\\tPM:${params.pm}\\tSM:${sample}"
 
       prefix = "${sample_id}" + "_"
   """
