@@ -21,7 +21,7 @@ Los flujos de trabajo de acuerdo a los diferentes directorios de este repositori
  
  - Preprocesamiento de archivos fastq [Data_preprocessing]
 
- - Anotación de variantes [Annotacion]
+ - Anotación de variantes [Annotation]
 
  - Identificación conjunta de variantes germinal con bootstrapping [Bt-VC-Germinal]
  
@@ -32,8 +32,8 @@ Al estar automatizados con [NextFlow](https://www.nextflow.io/docs/latest/index.
 
 El diagrama de flujo correspondiente a cada pipeline se encuentra en la carpeta flowcharts. 
 
-**Nota:** Particularmente, el pipeline de identificación conjunta de variantes germinal está pensando para utilizar la ref hg38 del bundle de gatk, ya que, contiene los archivos necesarios para realizar VQSR (variant quality score recalibration).
-En el caso de no contar con estos archivos como lo es el caso de especies diferentes al humano, se recomienda utilizar el flujo con bootstrapping [Bt-VC-Germinal], ya que, este sólo necesita la referencia, el índice de la referencia y el índice de BWA creado a partir de la referencia. 
+**Nota:** Particularmente, el pipeline de identificación conjunta de variantes germinal está pensando para utilizar la referencia del genoma humano hg38 del bundle de gatk, ya que, contiene los archivos necesarios para realizar VQSR (variant quality score recalibration).
+En el caso de no contar con estos archivos como lo es el caso de especies diferentes al humano, se recomienda utilizar el flujo con bootstrapping [Bt-VC-Germinal], ya que este sólo necesita la referencia, el índice de la referencia y el índice de BWA creado a partir de la referencia. 
 
 ##  Instrucciones para ejecutar los pipelines 
 
@@ -59,7 +59,7 @@ Finalmente clonar el repositorio github de interés.
 
 Los flujos de este repositorio pueden ser descargados y utilizados sin restricciones para uso académico. En caso de utilizar cualquiera de estos flujos solicitamos incluir la siguiente frase en los productos académicos generados: “Agradecemos a la Subdirección de Genómica Poblacional y a la Subdirección de Bioinformática del Instituto Nacional de Medicina Genómica por proveer flujos de trabajo que han sido utilizados de forma parcial o total como parte del análisis de este trabajo (We acknowledge the Population Genomics and the Bioinformatics Departments from the National Institute of Genomic Medicine for providing workflows that were, either partially or completely, used as part of the analysis in this work )”
 
-Si requieres el apoyo de nuestro personal para implementar alguno de estos flujos de trabajo en tus datos, este se considerará un servicio. Por lo tanto, se cobrará de acuerdo a los tabuladores existentes en la cartera de servicios INMEGEN. NOTA: por un tiempo limitado, este servicio estará disponible gratuitamente para personal interno del INMEGEN.
+Si requieres el apoyo de nuestro personal para implementar alguno de estos flujos de trabajo en tus datos, este se considerará un servicio. Por lo tanto, se cobrará de acuerdo a los tabuladores existentes en la cartera de servicios INMEGEN. NOTA: por un tiempo limitado, estos servicios estarán disponibles gratuitamente para personal interno del INMEGEN.
 
 En ningún caso nuestros servicios incluyen interpretación de resultados o generación de resultados más allá de los descritos como parte del flujo de trabajo.
 
