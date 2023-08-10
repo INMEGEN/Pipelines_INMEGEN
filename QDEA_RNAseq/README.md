@@ -2,22 +2,42 @@
 
 Con este pipeline se analizan archivos de secuenciación masiva (*RNA-seq*) en un formato *fastq*. Se puede obtener sólo la matriz de cuentas TPM o la matriz de cuentas más el análisis de los genes diferencialmente expresados entre dos condiciones distintas.
 Necesitas tus archivos de secuenciación masiva (formato fastq), los nombres de las muestras y la información del arreglo experimental (condiciones a comparar).
-Para generar el índice de kallisto consultar la siguiente [liga](https://pachterlab.github.io/kallisto/manual).
 
 **Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta (illumina paired-end).
+
+
+### Formato del archivo con la información experimental 
+
+Para tener un buen control de los archivos a procesar (formato fastq pareados {Read_1,Read_2}), en el archivo sample_info.tsv incluir la siguiente información por columna: 
+
+			Sample_id	Sample_name	replica		condition	R1	R2
+
+Cada conlumna contine la siguiente información:
+
+ - Sample_id   = nombre de identificación de las muestras
+ - Sample_name = nombre común de las muestras (este es el nombre que aparecerá en las gráficas)
+ - replica     = describe el número de réplica de las muestras o en su defecto el lote
+ - condition    = describe la condicion experimental de cada una de las muestras (normal, tratada, tumor, etc)
+ - R1          = ruta absoluta del archivo de lectura en formato fastq R1
+ - R2          = ruta absoluta del archivo de lectura en formato fastq R2
+
+**Nota:** Es imprescindible conservar los nombres de las columnas y que esten delimitadas por tabulador.
+
 
 ## Instrucciones de uso 
 
 Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipelinesinmegen/pipelines_inmegen:latest.
 
  1. Seleccionar una ruta y el nombre para el directorio de salida
- 2. Después generar el archivo sample_info.csv con la información que se describe en la sección - Formato del archivo con la información experimental -
- 3. Editar el archivo de nextflow.config con la siguiente información:
+ 2. Después generar el archivo sample_info.csv con la información que se describe en la sección
 
-        - Ruta de los archivos *fastq*
+    - Formato del archivo con la información experimental -
+
+ 3. Editar el archivo de nextflow.config con la siguiente información:
+        - Ruta de los archivos fastq
 	- Ruta del directorio de salida de nextflow
 	- Nombre del proyecto 
-	- Ruta del índice de kallisto
+	- Ruta del índice de kallisto [Para generar el índice de kallisto consultar la siguiente [liga](https://pachterlab.github.io/kallisto/manual)]
 	- Ruta del archivo sample_info.csv
 	- Nombre del índice de kallisto
 	- Nombre del archivo gtf (debe de encontrarse en el mismo directorio del índice de kallisto)
@@ -28,24 +48,8 @@ Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/do
 
                 bash run_nextflow.sh /path/to/out/dir
 
-En caso de algún error en la ejecución modificar el origen del error y correr de nuevo el comando arriba descrito.
 
-### Formato del archivo con la información experimental 
 
-Para tener un buen control de los archivos a procesar (formato fastq pareados {Read_1,Read_2}), en el archivo sample_info.tsv incluir la siguiente información por columna: 
-
-			Sample_id	Sample_name	replica		condition	R1	R1
-
-Cada conlumna contine la siguiente información:
-
- - Sample_id   = nombre de identificación de las muestras
- - Sample_name = nombre común de las muestras (este es el nombre que aparecerá en las gráficas)
- - replica     = describe el número de réplica de las muestras o en su defecto el lote
- - conditio    = describe la condicion experimental de cada una de las muestras (normal, tratada, tumor, etc)
- - R1          = ruta absoluta del archivo de lectura en formato fastq R1
- - R2          = ruta absoluta del archivo de lectura en formato fastq R2
-
-**Nota:** Es imprescindible conservar los nombres de las columnas y que esten delimitadas por tabulador.
 
 ### Las herramientas utilizadas por este flujo de trabajo son:
 
