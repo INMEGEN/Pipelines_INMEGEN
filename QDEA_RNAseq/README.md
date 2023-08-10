@@ -4,7 +4,7 @@ Con este pipeline se analizan archivos de secuenciación masiva (*RNA-seq*) en u
 Necesitas tus archivos de secuenciación masiva (formato fastq), los nombres de las muestras y la información del arreglo experimental (condiciones a comparar).
 Para generar el índice de kallisto consultar la siguiente [liga](https://pachterlab.github.io/kallisto/manual).
 
-**Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta (ilummina paired-end).
+**Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta (illumina paired-end).
 
 ## Instrucciones de uso 
 
