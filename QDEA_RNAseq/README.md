@@ -6,7 +6,7 @@ Necesitas tus archivos de secuenciación masiva (formato fastq), los nombres de 
 **Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta (illumina paired-end).
 
 
-### Formato del archivo con la información experimental 
+## Formato del archivo con la información experimental 
 
 Para tener un buen control de los archivos a procesar (formato fastq pareados {Read_1,Read_2}), en el archivo sample_info.tsv incluir la siguiente información por columna: 
 
@@ -51,7 +51,7 @@ Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/do
 
 
 
-### Las herramientas utilizadas por este flujo de trabajo son:
+## Las herramientas utilizadas por este flujo de trabajo son:
 
 > 
 > - R (4.2.3) 
