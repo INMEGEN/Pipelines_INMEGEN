@@ -1,17 +1,32 @@
 # Flujo de trabajo llamado de variantes de datos RNAseq utilizando NextFlow y GATK4.
 
 Este pipeline realiza la identificación de variantes a partir de archivos de secuenciación masiva (RNA-seq).
-En caso de trabajar con el genoma hg38, la forma de crear el índice de STAR se encuentra en el directorio bin.
-Los archivos adicionales (bases de datos de snps e indeles conocidos) se pueden obtener del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).   
-Lo único que necesitas es tus archivos de lectura fastq, si son múltiples lanes por muestra especificar a que muestras están asociados (revisar la información solicitada por el archivo sample_info.tsv).
 
-**Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta (ilummina paired-end).
-**Nota:** GATK no soporta el la identificación conjunta de variantes en datos de RNA-seq, ver el siguiente [link](https://gatk.broadinstitute.org/hc/en-us/articles/360035531192-RNAseq-short-variant-discovery-SNPs-Indels-) para más información.
+**Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta (Illumina paired-end).
+**Nota:** GATK no soporta  la identificación conjunta de variantes en datos de RNA-seq, ver el siguiente [link](https://gatk.broadinstitute.org/hc/en-us/articles/360035531192-RNAseq-short-variant-discovery-SNPs-Indels-) para más información.
+
+
+# Datos necesarios para utilizar este flujo 
+
+Para utilizar este flujo como servicio debes de entregar al personal de INMEGEN 
+- 
+- Lo único que necesitas es tus archivos de lectura fastq, si son múltiples lanes por muestra especificar a que muestras están asociados (revisar la información solicitada por el archivo sample_info.tsv).
+- Archivo con la información experimental [el formato se encuentra descrito en la sección #### ]
+-
+
+
+
+
+
+
 
 ## Instrucciones de uso 
 
-Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipe
-linesinmegen/pipelines_inmegen:latest.
+Si deseas utilizar este flujo de trabajo sin apoyo del personal del INMEGEN sigue las siguientes instrucciones.
+
+En caso de trabajar con el genoma humano de referencia hg38, la forma de crear el índice de STAR se encuentra en el directorio bin. Los archivos adicionales (bases de datos de snps e indeles conocidos) se pueden obtener del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).  
+
+Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipelinesinmegen/pipelines_inmegen:latest.
 
  1. Seleccionar una ruta y el nombre para el directorio de salida
  2. Después generar el archivo sample_info.csv con la información que se describe en la sección - Formato del archivo con la información experimental -
