@@ -4,7 +4,7 @@
 // Institución : Instituto Nacional de Medicina Genómica (INMEGEN)
 // Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática del INMEGEN
 // Versión     : 0.1 
-// Docker image - pipelines_inmegen:latest -
+// Docker image - pipelines_inmegen:public -
 
 nextflow.enable.dsl=2
 
@@ -17,7 +17,7 @@ println " "
 println "Pipelines INMEGEN"
 println "Flujo de trabajo: Indentificación de variantes somáticas"
 println "Nota: Pipeline para muestras emparejadas (normal-tumor) "
-println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:latest"
+println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:public"
 println " "
 println "Nombre del proyecto: $params.project_name"
 println "Archivos bam: $params.bams"

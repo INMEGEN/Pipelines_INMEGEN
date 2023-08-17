@@ -26,7 +26,7 @@ process star {
          --outReadsUnmapped None \
          --twopassMode Basic \
          --twopass1readsN -1 \
-         --outSAMattrRGline $readGroup \
+         --outSAMattrRGline ${readGroup} \
          --readFilesCommand "gunzip -c" \
          --outSAMunmapped Within \
          --outSAMtype SAM \

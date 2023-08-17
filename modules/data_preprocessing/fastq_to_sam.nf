@@ -3,7 +3,7 @@ process fastq_to_sam {
     publishDir params.out, mode:'symlink'
 
     input:
-    tuple val(sample_id), val(sample), val(RG), val(PU), path(read1), path(read2)
+    tuple val(sample_id), val(sample), val(RG), val(PU), path(reads)
          
     output:
     tuple val(sample_id), path("uBams/${sample_id}_fastqtosam.bam"),  emit: fastq_to_sam_ch
@@ -11,13 +11,13 @@ process fastq_to_sam {
     script:   
     """
     mkdir -p uBams
-    cp ${read1} uBams/
-    cp ${read2} uBams/
+    cp ${reads[0]} uBams/
+    cp ${reads[1]} uBams/
 
     docker run --cpus ${params.ncrs} -v \$PWD/uBams:/data pipelinesinmegen/pipelines_inmegen:public \
     java -jar /usr/bin/picard.jar FastqToSam \
-             -FASTQ /data/${read1} \
-             -FASTQ2 /data/${read2} \
+             -FASTQ /data/${reads[0]} \
+             -FASTQ2 /data/${reads[1]} \
              -OUTPUT /data/${sample_id}_fastqtosam.bam \
              -READ_GROUP_NAME ${RG} \
              -SAMPLE_NAME ${sample} \
@@ -25,7 +25,7 @@ process fastq_to_sam {
              -PLATFORM_UNIT ${params.pl} \
              -PLATFORM ${params.pl}
 
-    rm uBams/${read1}
-    rm uBams/${read2}
+    rm uBams/${reads[0]}
+    rm uBams/${reads[1]}
     """
 }

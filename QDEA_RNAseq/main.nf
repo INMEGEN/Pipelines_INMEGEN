@@ -3,7 +3,7 @@
 // Institución : Instituto Nacional de Medicina Genómica (INMEGEN)
 // Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática (INMEGEN)
 // Versión     : 0.1 
-// Docker image - pipelines_inmegen:latest -
+// Docker image - pipelines_inmegen:public -
 
 nextflow.enable.dsl=2
 
@@ -18,7 +18,7 @@ include { tximport_q               } from "../modules/QDEA_RNAseq/tximport.nf"
 println " "
 println "Pipelines INMEGEN"
 println "Flujo de trabajo: Cuantificación y Análisis de Expresión"
-println "Imagen de docker: pipelines_inmegen:latest"
+println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:public"
 println " "
 println "Datos crudos: $params.reads"
 println "Información de las muestras: $params.csv_info"
@@ -35,17 +35,15 @@ workflow qualitycontrol {
    fastqc(data_fq)
    
    analisis_dir = "${params.out}"+"/fastqc"
-   multiqc(fastqc.out.fq_files.collect(),analisis_dir)   
+   multiqc(fastqc.out.fq_files.collect(), analisis_dir, "raw_data")   
 }
 
 workflow {
 
  // Subworkflow for quality control
-
    qualitycontrol()
 
 // Data preprocessing
-
    Channel.fromPath("${params.csv_info}" )
           .splitCsv(sep:"\t", header: true)
           .map { row ->  def sample = "${row.Sample_name}"
@@ -54,14 +52,11 @@ workflow {
                  return [ sample, read1, read2 ]
                }
           .set { read_pairs_ch}
-  
-    //read_pairs_ch.view()
     
     trim_Galore(read_pairs_ch)
     
      tg_dir = "${params.out}"+"/trimming_files"    
-       
-    multiqc(trim_Galore.out.trim_fq.collect(), tg_dir)
+    multiqc(trim_Galore.out.trim_fq.collect(), tg_dir, "trimming_data")
     
     kallisto(trim_Galore.out.trim_fq)
     

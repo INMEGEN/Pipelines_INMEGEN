@@ -3,7 +3,7 @@
 // Institución : Instituto Nacional de Medicina Genómica (INMEGEN)
 // Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática del INMEGEN
 // Versión     : 0.1 
-// Docker image - pipelines_inmegen:latest -
+// Docker image - pipelines_inmegen:public -
 
 nextflow.enable.dsl=2
 
@@ -15,7 +15,7 @@ include { createSomaticPanelofNormals   } from "../../modules/VC-Somatic/PON/PON
 println " "
 println "Pipelines INMEGEN"
 println "Flujo de trabajo: Panel de normales para Mutect2"
-println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:latest"
+println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:public"
 println " "
 println "Nombre del proyecto: $params.project_name"
 println "Archivos bam (muestras normales): $params.bams"

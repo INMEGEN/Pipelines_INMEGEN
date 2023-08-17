@@ -5,7 +5,7 @@ process align {
     publishDir params.out + "/aligned_reads", mode:'copy'
 
     input:
-    tuple val(pair_id), val(sample), val(RG), val(PU), path(read_1), path(read_2)
+    tuple val(pair_id), val(sample), val(RG), val(PU), path(reads)
 
     output:
     tuple val(pair_id), path("${pair_id}_aligned_reads.sam"),     emit: aligned_reads_ch
@@ -22,7 +22,7 @@ process align {
         -Y \
         -R \"${readGroup}\" \
         /ref/${params.refname} \
-        ${read_1} \
-        ${read_2} > ${pair_id}_aligned_reads.sam
+        ${reads[0]} \
+        ${reads[1]} > ${pair_id}_aligned_reads.sam
     """
 }

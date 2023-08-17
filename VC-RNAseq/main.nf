@@ -3,14 +3,14 @@
 // Institución  : Instituto Nacional de Medicina Genómica (INMEGEN)
 // Maintainer   : Subdirección de genómica poblacional y subdirección de bioinformática del INMEGEN
 // Versión      : 0.1 
-// Docker image : - pipelines_inmegen:latest -
+// Docker image : - pipelines_inmegen:public -
 
 nextflow.enable.dsl=2
 
 // Processes for this workflow
 include { fastqc                        } from "../modules/qualitycontrol/fastqc.nf"
 include { multiqc                       } from "../modules/qualitycontrol/multiqc.nf"
-include { trim_Galore                   } from "../modules/VC-RNAseq/trim_galore.nf"
+include { trim_Galore                   } from "../modules/qualitycontrol/trim_galore.nf"
 include { star as align                 } from "../modules/VC-RNAseq/star.nf"
 include { mergeSam                      } from "../modules/VC-RNAseq/mergesamfiles.nf"
 include { markDuplicatesSpark           } from "../modules/common/markDuplicatesSpark.nf"
@@ -28,7 +28,7 @@ include { filterIndels                  } from "../modules/VC-RNAseq/filterindel
 println " "
 println "Pipelines INMEGEN"
 println "Flujo de trabajo: Indentificación de variantes de RNAseq (experimental)"
-println "Contenedor: pipelinesinmegen/pipelines_inmegen:latest "
+println "Contenedor: pipelinesinmegen/pipelines_inmegen:public "
 println " "
 println "Nombre del proyecto: $params.project_name"
 println "Datos crudos: $params.reads"
@@ -46,17 +46,15 @@ workflow qualitycontrol {
    fastqc(data_fq)
    
    analisis_dir = "${params.out}"+"/fastqc"
-   multiqc(fastqc.out.fq_files.collect(),analisis_dir)   
+   multiqc(fastqc.out.fq_files.collect(), analisis_dir, "raw_data")   
 }
 
 workflow {
 
 // subflujo de trabajo para el análisis de calidad de las muestras
-
    qualitycontrol()
   
 // Data preprocessing
-
    Channel.fromPath("${params.sample_sheet}" )
           .splitCsv(sep:"\t", header: true)
           .map { row ->  def sampleID = "${row.SampleID}"
@@ -72,8 +70,7 @@ workflow {
    trim_Galore(read_pairs_ch)
 
      tg_dir = "${params.out}"+"/trimming_files"
-
-   multiqc(trim_Galore.out.trim_fq.collect(), tg_dir)
+   multiqc(trim_Galore.out.trim_fq.collect(), tg_dir, "trimming_data")
 
    align(trim_Galore.out.trim_fq)
  
@@ -100,7 +97,6 @@ workflow {
    analyzeCovariates(bqsr.out.analyze_covariates)
    
 // Proceso para el llamado de variantes
-  
    haplotypeCaller(bqsr.out.recalibrated_bam)
 
    selectVariants(haplotypeCaller.out.hc_output,haplotypeCaller.out.hc_output_index)

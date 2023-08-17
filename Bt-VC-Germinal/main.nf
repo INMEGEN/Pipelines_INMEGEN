@@ -10,6 +10,7 @@ nextflow.enable.dsl=2
 // Processes for this workflow
 include { fastqc                        } from "../modules/qualitycontrol/fastqc.nf"
 include { multiqc                       } from "../modules/qualitycontrol/multiqc.nf"
+include { trim_Galore                   } from "../modules/qualitycontrol/trim_galore.nf"
 include { align                         } from "../modules/VC-Germinal/bwa_germinal.nf"
 include { mergeSam                      } from "../modules/common/mergesamfiles.nf"
 include { markDuplicatesSpark           } from "../modules/common/markDuplicatesSpark.nf"
@@ -47,7 +48,7 @@ workflow qualitycontrol {
    fastqc(data_fq)
    
    analisis_dir = "${params.out}"+"/fastqc"
-   multiqc(fastqc.out.fq_files.collect(),analisis_dir)   
+   multiqc(fastqc.out.fq_files.collect(), analisis_dir, "raw_data")   
 }
 
 workflow bootstrapping {
@@ -72,7 +73,6 @@ workflow bootstrapping {
 workflow {
    
 // Subworkflow for quality control
-
    qualitycontrol()
 
 // Data preprocessing
@@ -89,7 +89,12 @@ workflow {
                }
           .set { read_pairs_ch}
 
-   align(read_pairs_ch)
+    trim_Galore(read_pairs_ch)
+    
+     tg_dir = "${params.out}"+"/trimming_files"    
+    multiqc(trim_Galore.out.trim_fq.collect(), tg_dir, "trimming_data")
+    
+    align(trim_Galore.out.trim_fq)
  
     if ("${params.multiple_samples}" == true){ 
 
@@ -98,14 +103,10 @@ workflow {
                        def keyS = a.toString().tokenize('_').get(2)
                        return tuple("${key}" + "_" + "${keyS}", b)
             }.groupTuple() | mergeSam
-
     markDuplicatesSpark(mergeSam.out.merged_sam_ch)
-
     } 
     else {
-
     markDuplicatesSpark(align.out.aligned_reads_ch)
-
     }
 
 // Subflujo de trabajo para generar estándar para  BQSR    
@@ -119,7 +120,6 @@ workflow {
    analyzeCovariates(bqsr.out.analyze_covariates)
 
 // Variant calling
-
    haplotypeCallerERC(bqsr.out.recalibrated_bam)
 
     hc_files = haplotypeCallerERC.out.hc_erc_out.toList()
@@ -133,5 +133,6 @@ workflow {
    selectVariants(genotypeGVCFs.out.gvcfs_out,genotypeGVCFs.out.gvcfs_index)
 
    filterSnps(selectVariants.out.snps_ch)
+
    filterIndels(selectVariants.out.indels_ch)
 }

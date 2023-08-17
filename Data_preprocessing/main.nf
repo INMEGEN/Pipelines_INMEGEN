@@ -3,12 +3,13 @@
 // Institución: Instituto Nacional de Medicina Genómica (INMEGEN)
 // Maintainer: Subdirección de genómica poblacional y subdirección de bioinformática (INMEGEN)
 // Versión: 0.1 
-// Docker image - pipelines_inmegen:latest -
+// Docker image - pipelines_inmegen:public -
 
 nextflow.enable.dsl=2
 
 include { fastqc                        } from "../modules/qualitycontrol/fastqc.nf"
 include { multiqc                       } from "../modules/qualitycontrol/multiqc.nf"
+include { trim_Galore                   } from "../modules/qualitycontrol/trim_galore.nf"
 include { fastq_to_sam                  } from "../modules/data_preprocessing/fastq_to_sam.nf"
 include { mark_duplicates               } from "../modules/data_preprocessing/mark_duplicates.nf"
 include { sam_to_fastq                  } from "../modules/data_preprocessing/sam_to_fastq.nf"
@@ -25,7 +26,7 @@ include { analyzeCovariates             } from "../modules/metricts/analyzecovar
 println " "
 println "Pipelines INMEGEN"
 println "Flujo de trabajo: Preprocesamiento de datos para GATK4"
-println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:latest"
+println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:public"
 println " "
 println "Nombre del proyecto: $params.project_name"
 println "Datos crudos: $params.reads"
@@ -43,17 +44,15 @@ workflow qualitycontrol {
    fastqc(data_fq)
    
    analisis_dir = "${params.out}"+"/fastqc"
-   multiqc(fastqc.out.fq_files.collect(),analisis_dir)   
+   multiqc(fastqc.out.fq_files.collect(), analisis_dir, "raw_data")   
 }
 
 workflow { 
 
 // Subworkflow for quality control
-
    qualitycontrol()
 
 // Data preprocessing
-    
    Channel.fromPath("${params.sample_sheet}" )
           .splitCsv(sep:"\t", header: true)
           .map { row ->  def sampleID = "${row.SampleID}"
@@ -65,8 +64,13 @@ workflow {
                  return [ sampleID, sample, RG, PU, read1, read2 ]
                }
           .set { read_pairs_ch}
-   
-   fastq_to_sam(read_pairs_ch)
+
+   trim_Galore(read_pairs_ch)
+    
+     tg_dir = "${params.out}"+"/trimming_files"
+   multiqc(trim_Galore.out.trim_fq.collect(), tg_dir, "trimming_data")
+
+   fastq_to_sam(trim_Galore.out.trim_fq)
        // canal que junta la salida de fastq to sam
        ch_fqtsam=fastq_to_sam.out.fastq_to_sam_ch.collect().flatten().collate( 2 )
  

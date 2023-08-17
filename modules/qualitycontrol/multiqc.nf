@@ -6,15 +6,16 @@ process multiqc {
   input:
   val(sample_1)
   path(dir_all)
+  val(name)
 
   output:
   path("multiqc/*")   , emit: multiqc_fq_data
 
   script:
   """
-    mkdir -p multiqc
+    mkdir -p multiqc/${name}
 
-    multiqc -o multiqc/ ${dir_all}
+    multiqc -o multiqc/${name} ${dir_all}
   """
 }
 
