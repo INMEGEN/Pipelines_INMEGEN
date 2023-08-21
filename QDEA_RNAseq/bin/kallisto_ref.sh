@@ -1,6 +1,6 @@
 #!/bin/bash
 
-### Usa los siguientes comandos para gennerar el índice de kallisto y descargar el archivo gtf
+### Los siguientes comandos generan el índice de kallisto y descargan el archivo gtf.
 
 mkdir kallisto_ref
 
