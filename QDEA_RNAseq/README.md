@@ -1,12 +1,16 @@
 # Flujo de trabajo cuantificación y análisis de expresión diferencial (pipeline Q&DEA)
 
-Con este pipeline se analizan archivos de secuenciación masiva (*RNA-seq*) en un formato *fastq*. Se puede obtener sólo la matriz de cuentas TPM o la matriz de cuentas más el análisis de los genes diferencialmente expresados entre dos condiciones distintas.
-Necesitas tus archivos de secuenciación masiva (formato fastq), los nombres de las muestras y la información del arreglo experimental (condiciones a comparar).
+Con este pipeline se analizan archivos de secuenciación masiva (*RNA-seq*) en un formato *fastq*. 
+Se puede obtener sólo la matriz de cuentas TPM o la matriz de cuentas más el análisis de los genes diferencialmente expresados entre dos condiciones distintas.
 
 **Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta (illumina paired-end).
 
+### Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN 
 
-## Formato del archivo con la información experimental 
+- Archivos de lectura fastq (Illumina paired-end).
+- Archivo con la información experimental como se muestra en la siguiente sección.
+
+	#### Formato del archivo con la información experimental 
 
 Para tener un buen control de los archivos a procesar (formato fastq pareados {Read_1,Read_2}), en el archivo sample_info.tsv incluir la siguiente información por columna: 
 
@@ -23,8 +27,9 @@ Cada conlumna contine la siguiente información:
 
 **Nota:** Es imprescindible conservar los nombres de las columnas y que esten delimitadas por tabulador.
 
-
 ## Instrucciones de uso 
+
+Si deseas utilizar este flujo de trabajo sin apoyo del personal del INMEGEN sigue las siguientes instrucciones:
 
 Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipelinesinmegen/pipelines_inmegen:public.
 En caso de trabajar con humano en el directorio bin/ se encuentra el archivo para generar la referencia de kallisto.
