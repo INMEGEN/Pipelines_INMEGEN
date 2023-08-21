@@ -1,15 +1,24 @@
 # Flujo de trabajo identificación de variantes de línea germinal utilizando NextFlow y GATK
 
-Este pipeline realiza la identificación conjunta de variantes a partir de archivos de secuenciación masiva (WGS/WES).
-En caso de trabajar con el genoma hg38, los archivos como el índice de [BWA](http://bio-bwa.sourceforge.net/) y los archivos de recalibración de BQSR y VQSR se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).  
-Lo único que necesitas son tus archivos de lectura fastq, en caso de WES el kit utilizado, si son múltiples lanes por muestra especificar a que muestras están asociadas (revisar la información solicitada por el archivo sample_info.tsv).
+Este pipeline realiza la identificación conjunta de variantes germinales a partir de archivos de secuenciación masiva (WGS/WES).
 
-**Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta (ilummina paired-end).
+**Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta en humano (ilummina paired-end).
+**Nota:** Si se desea otra especie revisar el flujo identificación de variantes germinales con bootstrapping.
+
+### Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN 
+
+- Archivos de lectura fastq (Illumina paired-end).
+- Archivo con la información experimental (identificador de la muestra, plataforma y librería de secuenciación, si son múltiples lanes especificar el número).
+- En caso de WES específicar el kit utilizado (para generar un archivo bed).
+
+**Nota:** Estos mismos archivos son necesarios si se desea correr el pipeline de manera independiente.
 
 ## Instrucciones de uso 
 
+Si deseas utilizar este flujo de trabajo sin apoyo del personal del INMEGEN sigue las siguientes instrucciones.
+
 Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipe
-linesinmegen/pipelines_inmegen:latest.
+linesinmegen/pipelines_inmegen:latest. En caso de trabajar con el genoma hg38, los archivos como el índice de [BWA](http://bio-bwa.sourceforge.net/) y los archivos de recalibración de BQSR y VQSR se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false). 
 
  1. Seleccionar una ruta y el nombre para el directorio de salida
  2. Después generar el archivo sample_info.tsv con la información que se describe en la sección - Formato del archivo con la información de las muestras -
@@ -42,16 +51,16 @@ Para tener un buen control de los archivos a procesar (formato fastq pareados {R
  - R2          = Ruta absoluta del archivo fastq R2
 
 #### Las herramientas utilizadas para correr este flujo de trabajo son:
->
-> - FastQC (0.11.9)
-> - MultiQC (1.11)
-> - Openjdk (11.0.13 o superior)
-> - GATK (4.2.6.1)
-> - BWA (0.7.17-r 1188)
-> - Picard Tools (2.0.1)
-> - Samtools (1.6.0)
-> - bcftools (1.14)
->
+
+ - FastQC (0.11.9)
+ - MultiQC (1.11)
+ - Trim Galore (0.6.7)
+ - GATK (4.2.6.1)
+ - R (4.2.3)
+ - BWA (0.7.17)
+ - Picard Tools (2.27.5)
+ - Samtools (1.12)
+ - Bcftools (1.12)
 
 ## Diagrama de flujo del pipeline 
 

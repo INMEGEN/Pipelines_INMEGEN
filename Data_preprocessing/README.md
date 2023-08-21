@@ -1,14 +1,24 @@
 # Flujo de trabajo: Pre-procesamiento de datos para el descubrimiento de variantes con GATK
 
-Con este pipeline se procesan archivos de secuenciación masiva (WGS/WES) en formato *fastq*. 
-Con este flujo de trabajo de obtiene un archivo *.bam limpio como lo indica el siguiente [link](https://gatk.broadinstitute.org/hc/en-us/articles/360039568932--How-to-Map-and-clean-up-short-read-sequence-data-efficiently) de GATK, lo que es parte del pre-procesamiento de datos para el descubrimiento de variantes cuyo tutorial de gatk se encuentra [aquí](https://gatk.broadinstitute.org/hc/en-us/articles/360035535912-Data-pre-processing-for-variant-discovery)
-Es necesario contar un un archivo *.tsv con la información de los archivos. También, es necesario el índice de [BWA](http://bio-bwa.sourceforge.net/) que corresponde al genoma de de referencia a emplear.
-Si se trabajará con el genoma hg38 se pueden emplear los archivos del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false). 
+Este pipeline realiza el preprocesamiento de archivos de secuenciación masiva (WGS/WES) en formato *fastq*. 
+Con este flujo de trabajo de obtiene un archivo bam limpio como lo indica el siguiente [link](https://gatk.broadinstitute.org/hc/en-us/articles/360039568932--How-to-Map-and-clean-up-short-read-sequence-data-efficiently) de GATK, lo que es parte del pre-procesamiento de datos para el descubrimiento de variantes cuyo tutorial de gatk se encuentra [aquí](https://gatk.broadinstitute.org/hc/en-us/articles/360035535912-Data-pre-processing-for-variant-discovery)
+Este flujo de trabajo se utiliza para el preprocesamiento de archivos fastq para el flujo de trabajo identidicación de variantes somáticas. 
 
 **Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta (ilummina paired-end).
 
+### Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN 
+
+- Archivos de lectura fastq (Illumina paired-end).
+- Archivo con la información experimental (identificador de la muestra, plataforma y librería de secuenciación, si son múltiples lanes especificar el número).
+- En caso de WES especificar el kit utilizado y los identificadores de las muestras indicando si son normales o de tumor.
+
+**Nota:** Esta información también es necesaria para utilizar los flujos de trabajo de sin asistencia.
+
 ## Instrucciones para ejecutar el pipeline
-Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagén de docker pipelinesinmegen/pipelines_inmegen:latest.
+
+Si deseas utilizar este flujo de trabajo sin apoyo del personal del INMEGEN sigue las siguientes instrucciones:
+
+Asegurarse que se cuenta con la instalación de [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipelinesinmegen/pipelines_inmegen:latest.
 
  1. Seleccionar una ruta y el nombre para el directorio de salida.
  2. Para generar el archivo sample_info.tsv es necesario contar con un archivo con la información del arreglo experimental. Sin embargo, sólo es neceario que el archivo contenga la siguiente información: 
@@ -38,15 +48,15 @@ En caso de algún error en la ejecución modificar el origen del error y correr 
 
 #### Este flujo de trabajo requiere de las siguientes herramientas:
 
->
-> - FastQC (0.11.9)
-> - MultiQC (1.11)
-> - Openjdk (11.0.13 o superior)
-> - GATK (4.2.6.1)
-> - BWA (0.7.17-r 1188)
-> - Picard Tools (2.0.1)
-> - Samtools (1.6.0)
->
+ - FastQC (0.11.9)
+ - MultiQC (1.11)
+ - Trim Galore (0.6.7)
+ - GATK (4.2.6.1)
+ - R (4.2.3)
+ - BWA (0.7.17)
+ - Picard Tools (2.27.5)
+ - Samtools (1.12)
+ - Bcftools (1.12)
 
 #### Diagrama con el flujo de trabajo 
 

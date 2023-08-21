@@ -3,16 +3,23 @@
 Este pipeline realiza la identificación conjunta de variantes utilizando bootstrapping a partir de archivos de secuenciación masiva (WGS/WES).
 Se desarrolló a partir del flujo de trabajo de buenas prácticas de GATK para el llamado conjunto de variantes germinal.
 Particularmente, este flujo de trabajo es útil para especies diferentes al humano donde sólo se tenga la referencia sin los archivos con los sitios de snps e indels conocidos.
-Se recomienda generar el índice de BWA a partir del archivo de referencia a usar.  
-Lo único que necesitas son tus archivos de lectura en formato fastq, en caso de WES el kit utilizado, si son múltiples lanes por muestra especificar a que muestras están asociadas (revisar la información solicitada por el archivo sample_info.tsv).
 
 **Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta (ilummina paired-end).
-**Nota 2:** Para saber si con un sólo paso de bootstrapping es suficiente se recomienda revisar las tablas resultantes de AnalizeCovariantes, si fuera necesario añadir los pasos necesarios de bootstrapping faltantes.
+
+### Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN 
+
+- Archivos de lectura fastq (Illumina paired-end).
+- Archivo con la información experimental (identificador de la muestra, plataforma y librería de secuenciación, si son múltiples lanes especificar el número).
+- En caso de WES especificar el kit utilizado (para generar un archivo bed)
 
 ## Instrucciones de uso 
 
-Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipe
+Si deseas utilizar este flujo de trabajo sin apoyo del personal del INMEGEN sigue las siguientes instrucciones:
+
+Asegurarse que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipe
 linesinmegen/pipelines_inmegen:latest.
+
+Se recomienda generar el índice de BWA a partir del archivo de referencia a usar.
 
  1. Seleccionar una ruta y el nombre para el directorio de salida
  2. Después generar el archivo sample_info.tsv con la información que se describe en la sección - Formato del archivo con la información de las muestras -
@@ -31,6 +38,7 @@ linesinmegen/pipelines_inmegen:latest.
 
                 bash run_nextflow.sh /path/to/out/dir
 
+**Nota:** Para saber si con un sólo paso de bootstrapping es suficiente se recomienda revisar las tablas resultantes de AnalizeCovariantes, si fuera necesario añadir los pasos necesarios de bootstrapping faltantes.
 #### Formato del archivo con la información de las muestras
 
 Para tener un buen control de los archivos a procesar (formato fastq pareados {Read_1,Read_2}), en el archivo sample_info.tsv incluir la siguiente información por columna:

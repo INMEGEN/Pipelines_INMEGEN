@@ -1,24 +1,40 @@
 # Flujo de trabajo identificación de variantes somáticas utilizando NextFlow y GATK
 
-Este pipeline realiza la identificación de variantes a partir de archivos de secuenciación masiva (WGS/WES).
-En caso de trabajar con el genoma hg38, los archivos como el índice de [BWA](http://bio-bwa.sourceforge.net/) y los archivos de recalibración de BQSR y VQSR se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).  
-Lo único que necesitas es tus archivos de lectura fastq, en caso de WES el kit utilizado y los indentificadores de las muestras indicando si son normales o de tumor.
-Además, si son múltiples lanes por muestra es necesario especificar a que muestras están asociadas (revisar la información solicitada por el archivo sample_info.tsv).
+Este pipeline realiza la identificación de variantes somáticas a partir de archivos de secuenciación masiva (WGS/WES) y se divide en 3 subflujos de trabajos correspondientes a una configuración de análisis en específico:
 
-Este flujo de trabajo se divide en 3 subflujos de trabajos correspondientes a una configuración de análisis en especifico
+        - Panel de normales [PON]
+        - Modo tumor-only [vc-nonpaired]
+        - Modo pareado [vc-paired]
 
-	- Panel de normales [PON]
-	- Modo pareado [vc-paired]
-	- Modo tumor-only [vc-nonpaired]
+	### Panel de normales
+Para distinguir las variantes que derivan de las muestras normales (tejido sano que no tiene alteraciones somáticas) de las muestras tumorales se utiliza esta herramienta. Para general el VCF denominado panel de normales es necesario tener al menos 40 muestras normales procesadas de la misma manera que las muestras a procesar (tumor). 
+Para mayor información ver el siguiente [link](https://gatk.broadinstitute.org/hc/en-us/articles/360035890631-Panel-of-Normals-PON-).
 
-**Nota:** En el caso de que no contar con 40 muestras normales secuenciadas en las mismas condiciones para generar el panel de normales se utilizará el que proporciona GATK. 
+	### Modo tumor-only
+Este flujo de trabajo identifica las variantes somáticas utilizando únicamente el panel de normales para distinguir las alteraciones no somáticas.
+
+	### Modo pareado
+Adicional al panel de normales, al momento de identificar las variantes somáticas este flujo de trabajo utiliza una muestra normal correspondiente al mismo paciente pero que no sea de tejido tumoral. Esto aumenta la precisión de la identificación de variantes somáticas.
+
+Para conocer más sobre la indentificación de variantes somáticas con GATK4 (Mutect2) consulta la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035531132--How-to-Call-somatic-mutations-using-GATK4-Mutect2).
+
+**Nota:** En el caso de que no contar con 40 muestras normales secuenciadas con las mismas condiciones para generar el panel de normales, se utilizará el que proporciona GATK de 1000 genomas. 
 **Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta (ilummina paired-end).
+
+### Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN 
+
+- Archivos de lectura fastq (Illumina paired-end).
+- Archivo con la información experimental (identificador de la muestra, plataforma y librería de secuenciación, si son múltiples lanes especificar el número).
+- En caso de WES especificar el kit utilizado y los identificadores de las muestras indicando si son normales o de tumor.
+
+**Nota:** Esta información también es necesaria para utilizar los flujos de trabajo de sin asistencia.
 
 ## Instrucciones de uso 
 
-Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipe
-linesinmegen/pipelines_inmegen:latest.
+Si deseas utilizar este flujo de trabajo sin apoyo del personal del INMEGEN sigue las siguientes instrucciones.
+Primero asegurar que se cuenta con la instalación de [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipelinesinmegen/pipelines_inmegen:latest.
 
+En caso de trabajar con el genoma hg38, los archivos como el índice de [BWA](http://bio-bwa.sourceforge.net/) y los archivos de recalibración de BQSR y VQSR se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false). 
 Estos flujos de trabajo utilizan archivos bam previamente procesados con el pipeline de preprocesamiento de datos [Data_preprocessing].
 
  1. Seleccionar una ruta y el nombre para el directorio de salida
@@ -75,17 +91,10 @@ Para tener un buen control de los archivos a procesar (formato bam), el archivo 
 
 
 #### Las herramientas utilizadas para correr este flujo de trabajo son:
->
-> - FastQC (0.11.9)
-> - MultiQC (1.11)
-> - Openjdk (11.0.13 o superior)
-> - GATK (4.2.6.1)
-> - BWA (0.7.17-r 1188)
-> - Picard Tools (2.0.1)
-> - Samtools (1.6.0)
-> - Annovar
-> - bcftools (1.14)
->
+
+ - GATK (4.2.6.1)
+ - R (4.2.3)
+ - Picard Tools (2.27.5)
 
 ## Diagrama de flujo del pipeline 
 

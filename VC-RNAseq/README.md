@@ -6,19 +6,10 @@ Este pipeline realiza la identificación de variantes a partir de archivos de se
 **Nota:** GATK no soporta  la identificación conjunta de variantes en datos de RNA-seq, ver el siguiente [link](https://gatk.broadinstitute.org/hc/en-us/articles/360035531192-RNAseq-short-variant-discovery-SNPs-Indels-) para más información.
 
 
-# Datos necesarios para utilizar este flujo 
+### Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN 
 
-Para utilizar este flujo como servicio debes de entregar al personal de INMEGEN 
-- 
-- Lo único que necesitas es tus archivos de lectura fastq, si son múltiples lanes por muestra especificar a que muestras están asociados (revisar la información solicitada por el archivo sample_info.tsv).
-- Archivo con la información experimental [el formato se encuentra descrito en la sección #### ]
--
-
-
-
-
-
-
+- Archivos de lectura fastq (Illumina paired-end).
+- Archivo con la información experimental (identificador de la muestra, plataforma y librería de secuenciación, si son múltiples lanes especificar el número).
 
 ## Instrucciones de uso 
 
@@ -60,17 +51,16 @@ Para tener un buen control de los archivos a procesar (formato fastq pareados {R
  - R2          = Ruta absoluta del archivo fastq R2
 
 #### Las herramientas utilizadas para correr este flujo de trabajo son:
->
-> - FastQC (0.11.9)
-> - MultiQC (1.11)
-> - Openjdk (11.0.13 o superior)
-> - GATK (4.2.6.1)
-> - STAR (2.7.9a)
-> - Picard Tools (2.0.1)
-> - Samtools (1.6.0)
-> - Annovar
-> - bcftools (1.14)
->
+
+ - FastQC (0.11.9)
+ - MultiQC (1.11)
+ - Trim Galore (0.6.7)
+ - GATK (4.2.6.1)
+ - R (4.2.3)
+ - BWA (0.7.17)
+ - Picard Tools (2.27.5)
+ - Samtools (1.12)
+ - Bcftools (1.12)
 
 ## Diagrama de flujo del pipeline 
 
