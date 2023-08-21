@@ -7,8 +7,7 @@ En caso de trabajar con el genoma hg38, los archivos de referencia se pueden des
 
 ## Instrucciones de uso 
 
-Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipe
-linesinmegen/pipelines_inmegen:latest.
+Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipelinesinmegen/pipelines_inmegen:public.
 
 Estos flujos de trabajo utilizan archivos vcf previamente procesados con el pipeline identificación de variantes germinal, somáticas o RNAseq.
 

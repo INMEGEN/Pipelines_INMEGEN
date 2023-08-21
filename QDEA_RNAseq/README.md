@@ -26,7 +26,7 @@ Cada conlumna contine la siguiente información:
 
 ## Instrucciones de uso 
 
-Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipelinesinmegen/pipelines_inmegen:latest.
+Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipelinesinmegen/pipelines_inmegen:public.
 En caso de trabajar con humano en el directorio bin/ se encuentra el archivo para generar la referencia de kallisto.
 
  1. Seleccionar una ruta y el nombre para el directorio de salida

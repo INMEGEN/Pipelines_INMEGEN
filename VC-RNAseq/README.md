@@ -16,7 +16,7 @@ Si deseas utilizar este flujo de trabajo sin apoyo del personal del INMEGEN sigu
 
 En caso de trabajar con el genoma humano de referencia hg38, la forma de crear el índice de STAR se encuentra en el directorio bin. Los archivos adicionales (bases de datos de snps e indeles conocidos) se pueden obtener del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).  
 
-Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipelinesinmegen/pipelines_inmegen:latest.
+Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipelinesinmegen/pipelines_inmegen:public.
 
  1. Seleccionar una ruta y el nombre para el directorio de salida
  2. Después generar el archivo sample_info.csv con la información que se describe en la sección - Formato del archivo con la información experimental -

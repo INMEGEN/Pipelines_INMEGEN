@@ -16,8 +16,7 @@ Particularmente, este flujo de trabajo es útil para especies diferentes al huma
 
 Si deseas utilizar este flujo de trabajo sin apoyo del personal del INMEGEN sigue las siguientes instrucciones:
 
-Asegurarse que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipe
-linesinmegen/pipelines_inmegen:latest.
+Asegurarse que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipelinesinmegen/pipelines_inmegen:public.
 
 Se recomienda generar el índice de BWA a partir del archivo de referencia a usar.
 
@@ -53,16 +52,15 @@ Para tener un buen control de los archivos a procesar (formato fastq pareados {R
  - R2          = Ruta absoluta del archivo fastq R2
 
 #### Las herramientas utilizadas para correr este flujo de trabajo son:
->
-> - FastQC (0.11.9)
-> - MultiQC (1.11)
-> - Openjdk (11.0.13 o superior)
-> - GATK (4.2.6.1)
-> - BWA (0.7.17-r 1188)
-> - Picard Tools (2.0.1)
-> - Samtools (1.6.0)
-> - bcftools (1.14)
->
+
+ - FastQC (0.11.9)
+ - MultiQC (1.11)
+ - Trim Galore (0.6.7)
+ - GATK (4.2.6.1)
+ - BWA (0.7.17)
+ - Picard Tools (2.27.5)
+ - Samtools (1.12)
+ - bcftools (1.12)
 
 ## Diagrama de flujo del pipeline 
 
