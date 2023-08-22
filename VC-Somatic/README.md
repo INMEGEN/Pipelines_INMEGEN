@@ -20,6 +20,7 @@ Para conocer más sobre la indentificación de variantes somáticas con GATK4 (M
 
 **Nota:** En el caso de que no contar con 40 muestras normales secuenciadas con las mismas condiciones para generar el panel de normales, se utilizará el que proporciona GATK de 1000 genomas. 
 **Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta (ilummina paired-end).
+**Nota:** Este flujo de trabajo comienza con archivos bam previamente procesados con el flujo [Data_preprocessing](https://github.com/INMEGEN/Pipelines_INMEGEN/tree/Principal/Data_preprocessing)
 
 ### Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN 
 
