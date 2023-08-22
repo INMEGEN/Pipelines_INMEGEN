@@ -2,18 +2,18 @@
 
 Este pipeline realiza la identificación de variantes somáticas a partir de archivos de secuenciación masiva (WGS/WES) y se divide en 3 subflujos de trabajos correspondientes a una configuración de análisis en específico:
 
-        - Panel de normales [PON]
-        - Modo tumor-only [vc-nonpaired]
-        - Modo pareado [vc-paired]
+   - Panel de normales [PON]
+   - Modo tumor-only [vc-nonpaired]
+   - Modo pareado [vc-paired]
 
-	### Panel de normales
+   ### Panel de normales
 Para distinguir las variantes que derivan de las muestras normales (tejido sano que no tiene alteraciones somáticas) de las muestras tumorales se utiliza esta herramienta. Para general el VCF denominado panel de normales es necesario tener al menos 40 muestras normales procesadas de la misma manera que las muestras a procesar (tumor). 
 Para mayor información ver el siguiente [link](https://gatk.broadinstitute.org/hc/en-us/articles/360035890631-Panel-of-Normals-PON-).
 
-	### Modo tumor-only
+   ### Modo tumor-only
 Este flujo de trabajo identifica las variantes somáticas utilizando únicamente el panel de normales para distinguir las alteraciones no somáticas.
 
-	### Modo pareado
+   ### Modo pareado
 Adicional al panel de normales, al momento de identificar las variantes somáticas este flujo de trabajo utiliza una muestra normal correspondiente al mismo paciente pero que no sea de tejido tumoral. Esto aumenta la precisión de la identificación de variantes somáticas.
 
 Para conocer más sobre la indentificación de variantes somáticas con GATK4 (Mutect2) consulta la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035531132--How-to-Call-somatic-mutations-using-GATK4-Mutect2).
@@ -24,8 +24,8 @@ Para conocer más sobre la indentificación de variantes somáticas con GATK4 (M
 ### Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN 
 
 - Archivos de lectura fastq (Illumina paired-end).
-- Archivo con la información experimental (identificador de la muestra, plataforma y librería de secuenciación, si son múltiples lanes especificar el número).
-- En caso de WES especificar el kit utilizado y los identificadores de las muestras indicando si son normales o de tumor.
+- Archivo con la información experimental (Plataforma y librería de secuenciación, los identificadores de las muestras indicando si son normales o de tumor y si son múltiples lanes especificar el número).
+- En caso de WES especificar el kit utilizado.
 
 **Nota:** Esta información también es necesaria para utilizar los flujos de trabajo de sin asistencia.
 
