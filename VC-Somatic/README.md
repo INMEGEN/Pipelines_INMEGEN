@@ -18,11 +18,10 @@ Adicional al panel de normales, al momento de identificar las variantes somátic
 
 Para conocer más sobre la indentificación de variantes somáticas con GATK4 (Mutect2) consulta la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035531132--How-to-Call-somatic-mutations-using-GATK4-Mutect2).
 
-**Nota:** En el caso de que no contar con 40 muestras normales secuenciadas con las mismas condiciones para generar el panel de normales, se utilizará el que proporciona GATK de 1000 genomas. 
+**Importante**
+En el caso de que no contar con 40 muestras normales secuenciadas con las mismas condiciones para generar el panel de normales, se utilizará el que proporciona GATK de 1000 genomas. 
 
 **Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta (ilummina paired-end).
-
-**Nota:** Este flujo de trabajo comienza con archivos bam previamente procesados con el flujo [Data_preprocessing](https://github.com/INMEGEN/Pipelines_INMEGEN/tree/Principal/Data_preprocessing)
 
 ### Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN 
 
@@ -38,7 +37,8 @@ Si deseas utilizar este flujo de trabajo sin apoyo del personal del INMEGEN sigu
 Primero asegurar que se cuenta con la instalación de [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipelinesinmegen/pipelines_inmegen:public.
 
 En caso de trabajar con el genoma hg38, los archivos como el índice de [BWA](http://bio-bwa.sourceforge.net/) y los archivos de recalibración de BQSR y VQSR se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false). 
-Estos flujos de trabajo utilizan archivos bam previamente procesados con el pipeline de preprocesamiento de datos [Data_preprocessing].
+
+**Nota:** Estos flujos de trabajo utilizan archivos bam previamente procesados con el flujo [Data_preprocessing](https://github.com/INMEGEN/Pipelines_INMEGEN/tree/Principal/Data_preprocessing)
 
  1. Seleccionar una ruta y el nombre para el directorio de salida
  2. Después generar el archivo sample_*.tsv con la información que se describe en la sección - Formato del archivo con la información de las muestras -
