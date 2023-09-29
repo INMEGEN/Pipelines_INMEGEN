@@ -20,6 +20,7 @@ Para solicitar este flujo de trabajo como servicio debes de entregar al personal
 
 Los archivos que necesitas se describen en el apartando **"Solicitando este servicio"**.
 
+
 ### Preparación de ambiente de trabajo
 
 1. Te debes asegurar que contar con:
@@ -31,6 +32,7 @@ Los archivos que necesitas se describen en el apartando **"Solicitando este serv
   - Obtener su índice con SAMTOOLS faidx
   - Obtener su índice con [BWA](https://bio-bwa.sourceforge.net/bwa.shtml)
   - Descargar los archivos de recalibración de BQSR y VQSR del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).
+
 
 ### Ejecución del flujo de trabajo
 
@@ -53,7 +55,7 @@ Asegúrate de estar parado en el directorio de este flujo de trabajo.
 
                 bash run_nextflow.sh /path/to/out/dir
 
-#### Formato del archivo con la información de las muestras
+### Formato del archivo con la información de las muestras
 
 En el archivo sample_info.tsv incluir la siguiente información por columna:
  
@@ -66,7 +68,7 @@ En el archivo sample_info.tsv incluir la siguiente información por columna:
  - R1          = Ruta absoluta del archivo fastq R1
  - R2          = Ruta absoluta del archivo fastq R2
 
-#### Las herramientas utilizadas para correr este flujo de trabajo son:
+### Las herramientas utilizadas para correr este flujo de trabajo son:
 
  - FastQC (0.11.9)
  - MultiQC (1.11)
