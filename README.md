@@ -6,40 +6,43 @@
 ## Flujos de trabajo automatizados 
 
 Este repositorio contiene diversos flujos de trabajo (pipelines) desarrollados y automatizados en el Instituto Nacional de Medicina Genómica (INMEGEN).
-El principal objetivo de estos pipelines es el procesamiento de datos provenientes de secuenciación masiva (WGS/WES, RNA-seq)
+El principal objetivo de estos pipelines es el procesamiento de datos provenientes de secuenciación masiva (Whole Genome Sequencing [WGS]/Whole Exome Sequencing [WES], RNA sequencing [RNA-seq])
 
-Los flujos de trabajo de acuerdo a los diferentes directorios de este repositorio son:
+Los siguientes directorios de este repositorio contienen un flujo de trabajo. En cada uno de estos directorios [marcado entre corchetes] se encuentran las instrucciones necesarias para ejecutar ese flujo de trabajo: 
+
+ - Cuantificación y Análisis de expresión diferencial a partir de datos de RNA-seq [QDEA-RNAseq]
+
+ - Identificación conjunta de variantes germinales a partir de datos WGS/WES [VC-Germline]
+   
+ - Identificación conjunta de variantes germinales a partir de datos WGS/WES con bootstrapping [BT-VC-Germinal]
+
+ - Identificación de variantes somáticas a partir de datos WGS/WES [VC-Somatic]
+
+ - Identificación de variantes a partir de datos de RNA-seq  [VC-RNAseq]
+   
+**Nota:** El pipeline [VC-Germline] requiere los archivos necesarios para realizar VQSR (variant quality score recalibration), por lo que  está diseñado para utilizar el bundle de gatk para el genoma humano hg38. En caso de no contar con estos archivos se recomienda utilizar el flujo [BT-VC-Germinal], ya que este sólo necesita la referencia, el índice de SAMTOOLS y el índice de BWA creados a partir de la referencia. 
 
 
- - Cuantificación y Análisis de expresión diferencial (RNA-seq) [QDEA_RNAseq]
-
- - Identificación conjunta de variantes Germinal (WGS/WES) [VC-Germline]
-
- - Identificación de variantes somáticas (WGS/WES) [VC-Somatic]
-
- - Identificación de variantes RNA-seq (experimental) [VC-RNAseq]
+Algunos directorios contienen pipelines de procesamiento que son requeridos por más de un flujo de trabajo
  
- - Preprocesamiento de archivos fastq [Data_preprocessing]
+ - Preprocesamiento de archivos FASTQ [Data-preprocessing]
 
  - Anotación de variantes [Annotation]
 
- - Identificación conjunta de variantes germinal con bootstrapping [Bt-VC-Germinal]
- 
+Otros directorios contienen información general:
 
-Las instrucciones necesarias para ejecutar cada flujo de trabajo se encuentra en su directorio correspondiente [marcado entre corchetes].
+ - Los flujos de trabajo están divididos en procesos. Estos procesos se encuentran en el directorio **modules**.
+   
+ - El diagrama de flujo correspondiente a cada pipeline se encuentra en la carpeta **flowcharts**. 
 
-Al estar automatizados con [NextFlow](https://www.nextflow.io/docs/latest/index.html), los flujos de trabajo están divididos en procesos, que se encuentran en el directorio modules. 
 
-El diagrama de flujo correspondiente a cada pipeline se encuentra en la carpeta flowcharts. 
 
-**Nota:** Particularmente, el pipeline de identificación conjunta de variantes germinal está pensando para utilizar la referencia del genoma humano hg38 del bundle de gatk, ya que, contiene los archivos necesarios para realizar VQSR (variant quality score recalibration).
-En el caso de no contar con estos archivos como lo es el caso de especies diferentes al humano, se recomienda utilizar el flujo con bootstrapping [Bt-VC-Germinal], ya que este sólo necesita la referencia, el índice de la referencia y el índice de BWA creado a partir de la referencia. 
 
 ##  Instrucciones para ejecutar los pipelines 
 
 Para ejecutar los pipelines es necesario contar con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7) y [Docker](https://docs.docker.com/) (23.0.5)
 
-Además, es necesario clonar la imagen de docker con el comando 
+Además, es necesario clonar la imagen de docker de este repositorio con el comando 
 
 		docker pull pipelinesinmegen/pipelines_inmegen:public
 
@@ -51,9 +54,9 @@ y modificar el tag de la imagen con el comando:
 
                docker tag pipelines_inmegen:public pipelinesinmegen/pipelines_inmegen:public
 
-Debes asegurarte que el directorio de docker cuente con suficiente espacio para generar la imagen (~ 6 GB)
+Debes asegurarte de que el directorio de docker cuente con suficiente espacio para generar la imagen (~ 6 GB)
 
-Finalmente clonar el repositorio github de interés.
+Finalmente, clonar el repositorio github de interés.
 
 ## Políticas de uso
 
