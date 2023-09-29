@@ -62,7 +62,9 @@ Finalmente, clonar el repositorio github de interés.
 
 Los flujos de este repositorio pueden ser descargados y utilizados sin restricciones para uso académico. En caso de utilizar cualquiera de estos flujos solicitamos incluir la siguiente frase en los productos académicos generados: “Agradecemos a la Subdirección de Genómica Poblacional y a la Subdirección de Bioinformática del Instituto Nacional de Medicina Genómica por proveer flujos de trabajo que han sido utilizados de forma parcial o total como parte del análisis de este trabajo (We acknowledge the Population Genomics and the Bioinformatics Departments from the National Institute of Genomic Medicine for providing workflows that were, either partially or completely, used as part of the analysis in this work )”
 
-Si requieres el apoyo de nuestro personal para implementar alguno de estos flujos de trabajo en tus datos, este se considerará un servicio. Por lo tanto, se cobrará de acuerdo a los tabuladores existentes en la cartera de servicios INMEGEN. NOTA: por un tiempo limitado, estos servicios estarán disponibles gratuitamente para personal interno del INMEGEN.
+Si requieres el apoyo de nuestro personal para implementar alguno de estos flujos de trabajo en tus datos, este se considerará un servicio. Por lo tanto, se cobrará de acuerdo a los tabuladores existentes en la cartera de servicios INMEGEN. 
+
+**NOTA: por un tiempo limitado, estos servicios estarán disponibles gratuitamente para personal interno del INMEGEN.**
 
 En ningún caso nuestros servicios incluyen interpretación de resultados o generación de resultados más allá de los descritos como parte del flujo de trabajo.
 
@@ -71,6 +73,7 @@ En caso de querer iniciar una colaboración académica con alguno de los miembro
 No está permitida la utilización de estos flujos de trabajo con fines comerciales por terceros.  
 
 ### Equipo de desarrollo
+
 Daniel Pérez-Calixto [dperez@inmegen.gob.mx](dperez@inmegen.gob.mx)
 
 Laura Gómez-Romero [lgomez@inmegen.gob.mx](lgomez@inmegen.gob.mx)
@@ -78,7 +81,7 @@ Laura Gómez-Romero [lgomez@inmegen.gob.mx](lgomez@inmegen.gob.mx)
 Alejandra Cervera Taboada [acerverat@inmegen.gob.mx](acerverat@inmegen.gob.mx)
 
 ## Uso de Docker
-Para garantizar la reproducibilidad y repetibilidad de los flujos de trabajo, estos se automatizaron con [NextFlow](https://www.nextflow.io/docs/latest/index.html) y se contenerizaron con [Docker](https://docs.docker.com/). El Dockerfile utilizado para generar las imágenes empleadas se encuentran en el directorio docker/
+Para garantizar la reproducibilidad y repetibilidad de los flujos de trabajo, estos se automatizaron con [NextFlow](https://www.nextflow.io/docs/latest/index.html) y se contenerizaron con [Docker](https://docs.docker.com/). El Dockerfile utilizado para generar la imagen empleada se encuentran en el directorio docker/
 
 ## Contacto
 Cualquier duda o comentario escribir a [nuestro correo de contacto](dperez@inmegen.gob.mx)
