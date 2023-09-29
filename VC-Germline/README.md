@@ -2,8 +2,9 @@
 
 Este pipeline realiza la identificación conjunta de variantes germinales a partir de archivos de secuenciación masiva (WGS/WES).
 
-**Nota:** Por el momento el análisis sólo está disponible para datos ilummina paired-end en humano.
-**Nota:** Si se desea otra especie revisar el flujo identificación conjunta de variantes germinales a partir de datos WGS/WES con bootstrapping. Este flujo se provee como parte de este repositorio pero no ha sido probado por personal del INMEGEN en otras especies.
+**Nota:** 
+ - Por el momento el análisis sólo está disponible para datos ilummina paired-end en humano.  
+ - Si se desea otra especie revisar el flujo identificación conjunta de variantes germinales a partir de datos WGS/WES con bootstrapping. Este flujo se provee como parte de este repositorio pero no ha sido probado por personal del INMEGEN en otras especies.
 
 
 ## Solicitando este servicio
@@ -22,14 +23,14 @@ Los archivos que necesitas se describen en el apartando **"Solicitando este serv
 ### Preparación de ambiente de trabajo
 
 1. Te debes asegurar que contar con:
- - [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7),
- - [Docker](https://docs.docker.com/) (23.0.5) y
- - la imagen de docker pipelinesinmegen/pipelines_inmegen:public. 
+  - [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7),
+  - [Docker](https://docs.docker.com/) (23.0.5) y
+  - la imagen de docker pipelinesinmegen/pipelines_inmegen:public. 
 2. Descargar el genoma y otros archivos necesarios:
- - Descargar el genoma hg38
- - Obtener su índice con SAMTOOLS faidx
- - Obtener su índice con [BWA](https://bio-bwa.sourceforge.net/bwa.shtml)
- - Descargar los archivos de recalibración de BQSR y VQSR del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).
+  - Descargar el genoma hg38
+  - Obtener su índice con SAMTOOLS faidx
+  - Obtener su índice con [BWA](https://bio-bwa.sourceforge.net/bwa.shtml)
+  - Descargar los archivos de recalibración de BQSR y VQSR del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).
 
 ### Ejecución del flujo de trabajo
 
