@@ -1,26 +1,41 @@
-# Flujo de trabajo identificación de variantes de línea germinal utilizando NextFlow y GATK
+# Flujo de trabajo identificación conjunta de variantes germinales a partir de datos WGS/WES 
 
 Este pipeline realiza la identificación conjunta de variantes germinales a partir de archivos de secuenciación masiva (WGS/WES).
 
-**Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta en humano (ilummina paired-end).
-**Nota:** Si se desea otra especie revisar el flujo identificación de variantes germinales con bootstrapping.
+**Nota:** Por el momento el análisis sólo está disponible para datos ilummina paired-end en humano.
+**Nota:** Si se desea otra especie revisar el flujo identificación conjunta de variantes germinales a partir de datos WGS/WES con bootstrapping. Este flujo se provee como parte de este repositorio pero no ha sido probado por personal del INMEGEN en otras especies.
 
-### Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN 
 
-- Archivos de lectura fastq (Illumina paired-end).
-- Archivo con la información experimental (identificador de la muestra, plataforma y librería de secuenciación, si son múltiples lanes especificar el número).
-- En caso de WES específicar el kit utilizado (para generar un archivo bed).
+## Solicitando este servicio
 
-**Nota:** Estos mismos archivos son necesarios si se desea correr el pipeline de manera independiente.
+Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN 
 
-## Instrucciones de uso 
+- Archivos de secuenciación FASTQ (Illumina paired-end).
+- Archivo con la información experimental (identificador de la muestra, identificador de la librería, plataforma de secuenciación,  número de lane).
+- En caso de WES específicar el kit utilizado.
 
-Si deseas utilizar este flujo de trabajo sin apoyo del personal del INMEGEN sigue las siguientes instrucciones.
 
-Primero se debe asegurar que se cuenta con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7), [Docker](https://docs.docker.com/) (23.0.5) y la imagen de docker pipelinesinmegen/pipelines_inmegen:public. 
-En caso de trabajar con el genoma hg38, los archivos como el índice de [BWA](http://bio-bwa.sourceforge.net/) y los archivos de recalibración de BQSR y VQSR se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false). 
+## Utilizando este flujo por tu cuenta: Instrucciones de uso 
 
- 1. Seleccionar una ruta y el nombre para el directorio de salida
+Los archivos que necesitas se describen en el apartando **"Solicitando este servicio"**.
+
+### Preparación de ambiente de trabajo
+
+1. Te debes asegurar que contar con:
+ - [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7),
+ - [Docker](https://docs.docker.com/) (23.0.5) y
+ - la imagen de docker pipelinesinmegen/pipelines_inmegen:public. 
+2. Descargar el genoma y otros archivos necesarios:
+ - Descargar el genoma hg38
+ - Obtener su índice con SAMTOOLS faidx
+ - Obtener su índice con [BWA](https://bio-bwa.sourceforge.net/bwa.shtml)
+ - Descargar los archivos de recalibración de BQSR y VQSR del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).
+
+### Ejecución del flujo de trabajo
+
+Asegúrate de estar parado en el directorio de este flujo de trabajo.
+
+ 1. Seleccionar una ruta y el nombre para el directorio de salida [DANIEL ¿?¿? no entendi como que tengo que hacer?, donde la defino o como la selecciono?]
  2. Después generar el archivo sample_info.tsv con la información que se describe en la sección - Formato del archivo con la información de las muestras -
  3. Editar el archivo de nextflow.config con la siguiente información:
 
@@ -30,8 +45,8 @@ En caso de trabajar con el genoma hg38, los archivos como el índice de [BWA](ht
         - Ruta del índice de BWA
         - Ruta del archivo sample_info.tsv
         - Nombre del índice de BWA
-        - Ruta del archivo con la lista de intervalos
-        - Condiciones del análisis (número de núcleos a utilizar por proceso, número de procesos simultáneos e información adicional)
+        - Ruta del archivo con la lista de intervalos [DANIEL ¿?¿? esto es solo para WES y es el BED del kit, no? hay que especificarlo]
+        - Condiciones del análisis (número de núcleos a utilizar por proceso, número de procesos simultáneos e información adicional)[DANIEL ¿?¿? seguro esta parte tiene un formato específico, hay que especificarlo]
 
   4. Ejecutar el comando: 
 
@@ -39,13 +54,13 @@ En caso de trabajar con el genoma hg38, los archivos como el índice de [BWA](ht
 
 #### Formato del archivo con la información de las muestras
 
-Para tener un buen control de los archivos a procesar (formato fastq pareados {Read_1,Read_2}), en el archivo sample_info.tsv incluir la siguiente información por columna:
+En el archivo sample_info.tsv incluir la siguiente información por columna:
  
 		Sample_ID	Sample_name	RG	PU	R1	R2
 
- - Sample_ID   = Nombre completo de los archivos e identificador de las muestras (debe poseer el nombre o identificador, el número de muestra y número de lane)
- - Sample_name = Nombre o identificador de la muestra (comprende el identificador y el número de muestra)
- - RG          = ReadGroup name -El nombre del grupo de lectura de las muestras a procesar
+ - Sample_ID   = Nombre completo de los archivos e identificador de las muestras (debe poseer el nombre o identificador, el número de muestra y número de lane) [DANIEL ¿?¿? seguro esta parte tiene un formato específico, hay que especificarlo]
+ - Sample_name = Nombre o identificador de la muestra (comprende el identificador y el número de muestra) [DANIEL ¿?¿? que es el numero de la muestra]
+ - RG          = ReadGroup name - El nombre del grupo de lectura de las muestras a procesar [DANIEL ¿?¿? esto tambien tiene un formato, hay que especificarlo, y decir que esperas que venga aquí]
  - PU          = Plataforma + Libreria + número de lane
  - R1          = Ruta absoluta del archivo fastq R1
  - R2          = Ruta absoluta del archivo fastq R2
@@ -64,7 +79,7 @@ Para tener un buen control de los archivos a procesar (formato fastq pareados {R
 
 ## Diagrama de flujo del pipeline 
 
-Para una mayor descripción de la información del pipeline ejecutado se anexa el siguiente diagrama de flujo basado en las buenas prácticas de GATK.
+ Se anexa el siguiente diagrama de flujo con la descripción completa del pipeline ejecutado. Este pipeline está basado en las buenas prácticas de GATK.
 
 [Consulta el flujo de identificación de variantes germinal de GATK](https://gatk.broadinstitute.org/hc/en-us/articles/360035535932-Germline-short-variant-discovery-SNPs-Indels-)
 
