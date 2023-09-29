@@ -13,7 +13,7 @@ process trim_Galore {
 
   script:
   """
-  trim_galore -j ${params.ncrs} --basename ${sample_id} --fastqc --paired ${read_1} ${read_2}
+  trim_galore -j ${params.ncrs} --basename ${sample_id} --gzip --fastqc --paired ${read_1} ${read_2}
 
   mv ${sample_id}_val_1.fq.gz ${sample_id}_R1_trimmed.fq.gz
   mv ${sample_id}_val_2.fq.gz ${sample_id}_R2_trimmed.fq.gz
