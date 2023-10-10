@@ -84,4 +84,4 @@ Alejandra Cervera Taboada [acerverat@inmegen.gob.mx](acerverat@inmegen.gob.mx)
 Para garantizar la reproducibilidad y repetibilidad de los flujos de trabajo, estos se automatizaron con [NextFlow](https://www.nextflow.io/docs/latest/index.html) y se contenerizaron con [Docker](https://docs.docker.com/). El Dockerfile utilizado para generar la imagen empleada se encuentran en el directorio docker/
 
 ## Contacto
-Cualquier duda o comentario escribir a [nuestro correo de contacto](dperez@inmegen.gob.mx)
+Cualquier duda o comentario escribir a [nuestro correo de contacto](serviciosbioinfo@inmegen.edu.mx)
