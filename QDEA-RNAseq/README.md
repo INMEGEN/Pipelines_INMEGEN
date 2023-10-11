@@ -44,8 +44,8 @@ Los archivos que necesitas se describen en el apartando **"Solicitud de servicio
 	- Nombre del archivo gtf (debe de encontrarse en el mismo directorio del índice de kallisto)
 	- Ruta de los scripts de R utilizados en este pipeline [directorio R]
 	- Condiciones del análisis de expresión diferencial (condiciones a comparar, umbrales y nombres de los archivos de salida)
-	- Número de núcleos por proceso (parámetro runOptions) 
-        - Número de procesos que se ejecutarán de forma simultánea (parámetro queueSize)
+	- Número de núcleos por proceso (parámetro runOptions)
+	- Número de procesos que se ejecutarán de forma simultánea (parámetro queueSize)
 
 Para opciones de configuración especificas para tu servidor o cluster puedes consultar la siguiente [liga](https://www.nextflow.io/docs/latest/config.html)
 
