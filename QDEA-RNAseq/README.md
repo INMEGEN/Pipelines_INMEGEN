@@ -20,8 +20,9 @@ Los archivos que necesitas se describen en el apartando **"Solicitud de servicio
 
 ### Preparar el ambiente de trabajo
 
-1. Te debes asegurar de contar con las siguientes herramientas informaticas: 
-        - [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7)
+1. Te debes asegurar de contar con las siguientes herramientas informaticas:
+
+	- [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7)
         - [Docker](https://docs.docker.com/) (23.0.5)
         - Imagen de docker pipelinesinmegen/pipelines_inmegen:public, la puedes clonar con el comando:
    
@@ -30,12 +31,13 @@ Los archivos que necesitas se describen en el apartando **"Solicitud de servicio
 
  
 3. Asegurarse de contar con los siguientes archivos, necesarios para el pipeline:
-        - Genoma hg38
+
+   	- Genoma hg38
 	- Archivo gtf del genoma
         - Índice de [kallisto](https://pachterlab.github.io/kallisto/manual)
 	  En el directorio bin/ se ecnuentra un bash script para descargar la referencia, el archivo gft y generar el índice
 
- 4. Editar el archivo de nextflow.config con la siguiente información:
+ 5. Editar el archivo de nextflow.config con la siguiente información:
         - Ruta de los archivos fastq
 	- Ruta del directorio de salida de nextflow
 	- Nombre del proyecto 
