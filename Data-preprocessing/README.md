@@ -50,13 +50,13 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
 	- Ruta de los archivos *fastq*
 	- Ruta del directorio de salida de nextflow
 	- Nombre del proyecto 
-        - Ruta y nombre del genoma de referencia
-        - Ruta del índice de BWA
-        - Ruta del archivo sample_info.tsv
-        - Número de muestras (parámetro batchsize)
-        - Ruta del archivo con la lista de intervalos, en el caso de WES es el archivo BED del kit, para más información consulta la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035531852-Intervals-and-interval-lists)
-        - Número de núcleos por proceso (parámetro runOptions) 
-        - Número de procesos que se ejecutarán de forma simultánea (parámetro queueSize)
+	- Ruta y nombre del genoma de referencia
+	- Ruta del índice de BWA
+	- Ruta del archivo sample_info.tsv
+	- Número de muestras (parámetro batchsize)
+	- Ruta del archivo con la lista de intervalos, en el caso de WES es el archivo BED del kit, para más información consulta la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035531852-Intervals-and-interval-lists)
+	- Número de núcleos por proceso (parámetro runOptions) 
+	- Número de procesos que se ejecutarán de forma simultánea (parámetro queueSize)
 
 Para opciones de configuración especificas para tu servidor o cluster puedes consultar la siguiente [liga](https://www.nextflow.io/docs/latest/config.html) 
 
