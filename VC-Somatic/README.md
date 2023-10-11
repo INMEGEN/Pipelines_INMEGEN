@@ -35,17 +35,17 @@ Para solicitar este flujo de trabajo como servicio debes de entregar al personal
 ### Preparar el ambiente de trabajo
 
 1. Te debes asegurar de contar con las siguientes herramientas informaticas:
-        - [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7)
-        - [Docker](https://docs.docker.com/) (23.0.5)
-        - Imagen de docker pipelinesinmegen/pipelines_inmegen:public, la puedes descargar con el comando: 
+	- [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7)
+	- [Docker](https://docs.docker.com/) (23.0.5)
+	- Imagen de docker pipelinesinmegen/pipelines_inmegen:public, la puedes descargar con el comando: 
 
                 docker pull pipelinesinmegen/pipelines_inmegen:public
 
 3. Asegurarse de contar con los siguientes archivos, necesarios para el pipeline:
-        - Genoma hg38
-        - Índice del genoma de referencia (generado con SAMTOOLS faidx)
-        - Índice de [BWA](https://bio-bwa.sourceforge.net/bwa.shtml)
-        - Archivos de recalibración de BQSR y VQSR
+	- Genoma hg38
+	- Índice del genoma de referencia (generado con SAMTOOLS faidx)
+	- Índice de [BWA](https://bio-bwa.sourceforge.net/bwa.shtml)
+	- Archivos de recalibración de BQSR y VQSR
 	- Archivo [gnomAD VCF](https://gnomad.broadinstitute.org/downloads/)
 
 **Todos estos archivos se pueden descargar del** [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).
