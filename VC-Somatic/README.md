@@ -2,9 +2,9 @@
 
 Este pipeline realiza la identificación de variantes somáticas a partir de archivos de secuenciación masiva (WGS/WES) y se divide en 3 subflujos de trabajos correspondientes a una configuración de análisis en específico:
 
-	- Modo tumor-only [vc-nonpaired]
-	- Modo pareado [vc-paired]
-	- Panel de normales [PON]
+- Modo tumor-only [vc-nonpaired]
+- Modo pareado [vc-paired]
+- Panel de normales [PON]
 
 **Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta en humano (ilummina paired-end).
 Para conocer más sobre la indentificación de variantes somáticas con GATK4 (Mutect2) consulta la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035531132--How-to-Call-somatic-mutations-using-GATK4-Mutect2).
@@ -41,7 +41,7 @@ Para solicitar este flujo de trabajo como servicio debes de entregar al personal
 
                 docker pull pipelinesinmegen/pipelines_inmegen:public
 
-2. Asegurarse de contar con los siguientes archivos, necesarios para el pipeline:
+3. Asegurarse de contar con los siguientes archivos, necesarios para el pipeline:
         - Genoma hg38
         - Índice del genoma de referencia (generado con SAMTOOLS faidx)
         - Índice de [BWA](https://bio-bwa.sourceforge.net/bwa.shtml)
