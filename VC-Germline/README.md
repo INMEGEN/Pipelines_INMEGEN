@@ -23,7 +23,6 @@ Los archivos que necesitas se describen en el apartando **"Solicitud de servicio
 ### Preparar el ambiente de trabajo
 
 1. Te debes asegurar de contar con las siguientes herramientas informaticas:
-
 	- [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7)
 	- [Docker](https://docs.docker.com/) (23.0.5)
 	- Imagen de docker pipelinesinmegen/pipelines_inmegen:public, la puedes descargar con el comando: 
@@ -46,15 +45,14 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
 
  1. Generar el archivo sample_info.tsv con la información que se describe en la sección - Formato del archivo con la información de las muestras -
  2. Editar el archivo de nextflow.config con la siguiente información:
-
-        - Ruta de los archivos *fastq*
-        - Ruta del directorio de salida de nextflow
-        - Nombre del proyecto 
+	- Ruta de los archivos *fastq*
+    	- Ruta del directorio de salida de nextflow
+	- Nombre del proyecto 
 	- Ruta y nombre del genoma de referencia
-        - Ruta del índice de BWA
-        - Ruta del archivo sample_info.tsv
+	- Ruta del índice de BWA
+	- Ruta del archivo sample_info.tsv
 	- Número de muestras (parámetro batchsize)
-        - Ruta del archivo con la lista de intervalos, en el caso de WES es el archivo BED del kit, para más información consulta la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035531852-Intervals-and-interval-lists)
+	- Ruta del archivo con la lista de intervalos, en el caso de WES es el archivo BED del kit, para más información consulta la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035531852-Intervals-and-interval-lists)
 	- Número de núcleos por proceso (parámetro runOptions) 
 	- Número de procesos que se ejecutarán de forma simultánea (parámetro queueSize)
 
