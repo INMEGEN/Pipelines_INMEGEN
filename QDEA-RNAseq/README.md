@@ -21,6 +21,7 @@ Los archivos que necesitas se describen en el apartando **"Solicitud de servicio
 ### Preparar el ambiente de trabajo
 
 1. Te debes asegurar de contar con las siguientes herramientas informaticas:
+
         - [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7)
         - [Docker](https://docs.docker.com/) (23.0.5)
         - Imagen de docker pipelinesinmegen/pipelines_inmegen:public, la puedes clonar con el comando: 
