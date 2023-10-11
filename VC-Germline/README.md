@@ -46,7 +46,7 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
  1. Generar el archivo sample_info.tsv con la información que se describe en la sección - Formato del archivo con la información de las muestras -
  2. Editar el archivo de nextflow.config con la siguiente información:
 	- Ruta de los archivos *fastq*
-    	- Ruta del directorio de salida de nextflow
+	- Ruta del directorio de salida de nextflow
 	- Nombre del proyecto 
 	- Ruta y nombre del genoma de referencia
 	- Ruta del índice de BWA
