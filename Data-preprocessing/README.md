@@ -24,18 +24,18 @@ Si deseas utilizar este flujo de trabajo sin apoyo del personal del INMEGEN sigu
 ### Preparar el ambiente de trabajo
 
 1. Te debes asegurar de contar con las siguientes herramientas informaticas:
-        - [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7)
-        - [Docker](https://docs.docker.com/) (23.0.5)
-        - Imagen de docker pipelinesinmegen/pipelines_inmegen:public, la puedes descargar con el comando: 
+	- [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7)
+	- [Docker](https://docs.docker.com/) (23.0.5)
+	- Imagen de docker pipelinesinmegen/pipelines_inmegen:public, la puedes descargar con el comando: 
 
                 docker pull pipelinesinmegen/pipelines_inmegen:public
 
  
 2. Asegurarse de contar con los siguientes archivos, necesarios para el pipeline:
-        - Genoma hg38
-        - Índice del genoma de referencia (generado con SAMTOOLS faidx)
-        - Índice de [BWA](https://bio-bwa.sourceforge.net/bwa.shtml)
-        - Archivos de recalibración de BQSR y VQSR
+	- Genoma hg38
+	- Índice del genoma de referencia (generado con SAMTOOLS faidx)
+	- Índice de [BWA](https://bio-bwa.sourceforge.net/bwa.shtml)
+	- Archivos de recalibración de BQSR y VQSR
 
 **Todos estos archivos se pueden descargar del** [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&for
 ceOnObjectsSortingFiltering=false).
@@ -47,10 +47,9 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
 
  1. Generar el archivo sample_info.tsv con la información que se describe en la sección - Formato del archivo con la información de las muestras -
  2. Editar el archivo de nextflow.config con la siguiente información:
-
-        - Ruta de los archivos *fastq*
-        - Ruta del directorio de salida de nextflow
-        - Nombre del proyecto 
+	- Ruta de los archivos *fastq*
+	- Ruta del directorio de salida de nextflow
+	- Nombre del proyecto 
         - Ruta y nombre del genoma de referencia
         - Ruta del índice de BWA
         - Ruta del archivo sample_info.tsv
