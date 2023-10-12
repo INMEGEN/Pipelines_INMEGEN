@@ -92,4 +92,4 @@ Para tener un buen control de los archivos a procesar (formato fastq pareados {R
 Para una mayor descripción de la información del pipeline [consulta el las buenas pŕacticas de gatk para la identificación de variantes de datos de RNAseq](https://gatk.broadinstitute.org/hc/en-us/articles/360035531192-RNAseq-short-variant-discovery-SNPs-Indels-). A continuación se anexa un diagrama de flujo del pipeline ejecutado. 
 
 
-![Flujo identificación de variantes rnaseq](../flowcharts/flow_vc-rnaseq.png)
+![Flujo identificación de variantes rnaseq](../flowcharts/flow_VCRNA.PNG)
