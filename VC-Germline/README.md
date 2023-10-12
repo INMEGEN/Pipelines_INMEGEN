@@ -36,8 +36,9 @@ Los archivos que necesitas se describen en el apartando **"Solicitud de servicio
 	- Índice de [BWA](https://bio-bwa.sourceforge.net/bwa.shtml)
 	- Archivos de recalibración de BQSR y VQSR
 
-**Todos estos archivos se pueden descargar del** [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).
-** Se recomienda que todos estos archivos se encuentreb en el mismo directorio.
+**Nota:**
+Todos estos archivos se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).
+Se recomienda que todos estos archivos se encuentreb en el mismo directorio.
 
 ### Ejecutar el flujo de trabajo
 
@@ -58,7 +59,7 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
 
 Para opciones de configuración especificas para tu servidor o cluster puedes consultar la siguiente [liga](https://www.nextflow.io/docs/latest/config.html) 
 
-  4. Ejecutar el comando: 
+  3. Ejecutar el comando: 
 
                 bash run_nextflow.sh /path/to/out/dir
 
