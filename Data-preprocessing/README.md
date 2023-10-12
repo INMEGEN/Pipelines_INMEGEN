@@ -60,7 +60,7 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
 
 Para opciones de configuración especificas para tu servidor o cluster puedes consultar la siguiente [liga](https://www.nextflow.io/docs/latest/config.html) 
 
-  4. Ejecutar el comando: 
+  3. Ejecutar el comando: 
 
                 bash run_nextflow.sh /path/to/out/dir
 
