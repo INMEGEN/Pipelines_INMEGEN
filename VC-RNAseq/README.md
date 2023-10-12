@@ -3,6 +3,7 @@
 Este pipeline realiza la identificación de variantes a partir de archivos de secuenciación masiva (RNA-seq).
 
 **Nota:** Por el momento el análisis sólo está disponible para datos de lectura corta de humano (Illumina paired-end).
+
 **Nota:** GATK no soporta  la identificación conjunta de variantes en datos de RNA-seq, consulta el siguiente [link](https://gatk.broadinstitute.org/hc/en-us/articles/360035531192-RNAseq-short-variant-discovery-SNPs-Indels-) para más información.
 
 ## Solicitud de servicio
@@ -54,7 +55,7 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
 
 Para opciones de configuración especificas para tu servidor o cluster puedes consultar la siguiente [liga](https://www.nextflow.io/docs/latest/config.html) 
 
-  4. Ejecutar el comando: 
+  3. Ejecutar el comando: 
 
 		bash run_nextflow.sh /path/to/out/dir
 
