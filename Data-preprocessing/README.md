@@ -37,9 +37,8 @@ Si deseas utilizar este flujo de trabajo sin apoyo del personal del INMEGEN sigu
 	- Índice de [BWA](https://bio-bwa.sourceforge.net/bwa.shtml)
 	- Archivos de recalibración de BQSR y VQSR
 
-**Todos estos archivos se pueden descargar del** [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&for
-ceOnObjectsSortingFiltering=false).
-** Se recomienda que todos estos archivos se encuentreb en el mismo directorio.
+**Todos estos archivos se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false)**
+**Se recomienda que todos estos archivos se encuentreb en el mismo directorio.**
 
 ### Ejecutar el flujo de trabajo
 
