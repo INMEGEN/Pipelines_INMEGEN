@@ -85,3 +85,6 @@ Para garantizar la reproducibilidad y repetibilidad de los flujos de trabajo, es
 
 ## Contacto
 Cualquier duda o comentario escribir a [nuestro correo de contacto](serviciosbioinfo@inmegen.edu.mx)
+
+## Licencia 
+[Pipelines INMEGEN](https://github.com/INMEGEN/Pipelines_INMEGEN/tree/Principal) © 2023 by [INMEGEN](https://www.inmegen.gob.mx/) is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1) ![CC](https://mirrors.creativecommons.org/presskit/icons/cc.svg)![NC]([https://mirrors.creativecommons.org/presskit/icons/cc.svg](https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1)https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1)
