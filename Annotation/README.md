@@ -20,7 +20,7 @@ En caso de trabajar con el genoma hg38, los archivos de referencia se pueden des
 2. Asegurarse de contar con las siguientes bases de datos, necesarias para el pipeline:
         - refGene,ensGene,avsnp150,clinvar_20221231,gnomad312_genome,cosmic92_coding,dbnsfp33a
 
-** Consulta** [esta liga para más información](https://annovar.openbioinformatics.org/en/latest/user-guide/startup/#a-useful-tutorial).
+Consulta esta [liga](https://annovar.openbioinformatics.org/en/latest/user-guide/startup/#a-useful-tutorial) para más información.
 
 ### Ejecutar el flujo de trabajo
 
