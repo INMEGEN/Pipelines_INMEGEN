@@ -43,7 +43,7 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
 	- Nombre de la referencia
 	- Ruta del directorio de annovar
 	- Número de núcleos por proceso (parámetro runOptions)
-        - Número de procesos que se ejecutarán de forma simultánea (parámetro queueSize)
+	- Número de procesos que se ejecutarán de forma simultánea (parámetro queueSize)
 
   3. Ejecutar el comando correspondiente a cada subflujo de trabajo: 
 
