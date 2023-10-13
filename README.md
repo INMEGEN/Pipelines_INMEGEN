@@ -80,11 +80,8 @@ Laura Gómez-Romero [lgomez@inmegen.gob.mx](lgomez@inmegen.gob.mx)
 
 Alejandra Cervera Taboada [acerverat@inmegen.gob.mx](acerverat@inmegen.gob.mx)
 
-## Uso de Docker
-Para garantizar la reproducibilidad y repetibilidad de los flujos de trabajo, estos se automatizaron con [NextFlow](https://www.nextflow.io/docs/latest/index.html) y se contenerizaron con [Docker](https://docs.docker.com/). El Dockerfile utilizado para generar la imagen empleada se encuentran en el directorio docker/
+## Licencia 
+[Pipelines INMEGEN](https://github.com/INMEGEN/Pipelines_INMEGEN/tree/Principal) © 2023 by [INMEGEN](https://www.inmegen.gob.mx/) is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1)
 
 ## Contacto
 Cualquier duda o comentario escribir a [nuestro correo de contacto](serviciosbioinfo@inmegen.edu.mx)
-
-## Licencia 
-[Pipelines INMEGEN](https://github.com/INMEGEN/Pipelines_INMEGEN/tree/Principal) © 2023 by [INMEGEN](https://www.inmegen.gob.mx/) is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1)
