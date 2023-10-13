@@ -21,9 +21,9 @@ En caso de trabajar con el genoma hg38, los archivos de referencia se pueden des
 	- refGene
  	- ensGene
    	- avsnp150
-   	- clinvar_20221231
+   	- clinvar
    	- gnomad312_genome
-   	- cosmic92_coding
+   	- cosmic92
    	- dbnsfp33a
 
 Consulta esta [liga](https://annovar.openbioinformatics.org/en/latest/user-guide/startup/#a-useful-tutorial) para más información.
