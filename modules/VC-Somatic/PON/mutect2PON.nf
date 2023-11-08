@@ -20,9 +20,6 @@ process mutect2forPanelofNormals {
    -I ${input_bam} \
    -O ${sample}_for_pon.vcf.gz \
    -tumor ${sample} \
-   -L ${interval_list} \
-   --max-mnp-distance 0 \
-   -imr ALL \
    --interval-padding ${params.pading} \
    --germline-resource /ref/${params.onlygnomad} \
    --genotype-germline-sites ${params.germline_sites}

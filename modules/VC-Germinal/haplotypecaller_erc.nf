@@ -2,7 +2,7 @@ process haplotypeCallerERC {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
     containerOptions "-v ${params.refdir}:/ref"
-    publishDir params.out + "/RAW_gvcfs", mode:'copy'
+    publishDir params.out + "/raw_gvcfs", mode:'copy'
 
     input:
     tuple val(pair_id), path(input_bam)
@@ -18,7 +18,6 @@ process haplotypeCallerERC {
         -I $input_bam \
         -O ${pair_id}_raw_variants.g.vcf.gz \
         -max-mnp-distance 0 \
-        -ERC GVCF \
-        -L /ref/${params.intervalname}  
+        -ERC GVCF
     """
 }

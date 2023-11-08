@@ -17,7 +17,7 @@ process genomicsDBimport {
 
     mkdir -p genomicsdb/tmp
 
-    gatk GenomicsDBImport \
+    gatk --java-options "-Xmx32g -Xms32g" GenomicsDBImport \
        --genomicsdb-workspace-path ${project_id}_database \
        --batch-size ${params.batchsize} \
        --sample-name-map cohort.sample_map \
