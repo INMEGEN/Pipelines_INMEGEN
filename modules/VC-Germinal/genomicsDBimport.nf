@@ -1,6 +1,7 @@
 process genomicsDBimport {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
+    containerOptions "-v ${params.outdir}/nextflow_work_dir:${params.outdir}/nextflow_work_dir"
     publishDir params.out + "/Genomicsdb", mode:'symlink'
 
     input:
