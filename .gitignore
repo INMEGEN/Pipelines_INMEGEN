@@ -1,0 +1,2 @@
+# Ignorar los archivos log de nexttlow
+.nextflow*
