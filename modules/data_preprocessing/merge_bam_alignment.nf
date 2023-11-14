@@ -1,6 +1,6 @@
 process merge_bam_alignment {
   cache 'lenient'
-  publishDir params.out, mode:'copy'
+  publishDir params.out, mode:'symlink'
   
   input: 
   tuple val(sample), path(reads_1), path(reads_2)
@@ -14,7 +14,7 @@ process merge_bam_alignment {
   cp ${reads_1} merge_bam_algn/
   cp ${reads_2} merge_bam_algn/
 
-  docker run --cpus ${params.ncrs} -v \$PWD/merge_bam_algn:/data -v "${params.refdir}":/ref pipelinesinmegen/pipelines_inmegen:public \
+  docker run --cpus ${params.ncrs} --user="\$(id -u):\$(id -g)" -v \$PWD/merge_bam_algn:/data -v "${params.refdir}":/ref pipelinesinmegen/pipelines_inmegen:public \
   java -jar /usr/bin/picard.jar MergeBamAlignment \
       -ALIGNED /data/${reads_1} \
       -UNMAPPED /data/${reads_2} \

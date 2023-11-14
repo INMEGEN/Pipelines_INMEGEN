@@ -1,7 +1,7 @@
 process markDuplicatesSpark {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
-    publishDir params.out + "/dedup_sorted", mode:'symlink'
+    publishDir params.out + "/dedup_sorted", mode:'copy'
 
     input:
     tuple val(pair_id), path(aligned_reads)

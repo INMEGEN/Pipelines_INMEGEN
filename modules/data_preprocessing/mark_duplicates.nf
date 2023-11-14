@@ -14,7 +14,7 @@ process mark_duplicates {
     mkdir -p markedDuplicates
     cp ${reads} markedDuplicates/
 
-    docker run --cpus ${params.ncrs} -v \$PWD/markedDuplicates:/data pipelinesinmegen/pipelines_inmegen:public \
+    docker run --cpus ${params.ncrs} --user="\$(id -u):\$(id -g)" -v \$PWD/markedDuplicates:/data pipelinesinmegen/pipelines_inmegen:public \
     java -jar /usr/bin/picard.jar MarkIlluminaAdapters \
       -I /data/${reads} \
       -O /data/${sample}_markilluminaadapters.bam \

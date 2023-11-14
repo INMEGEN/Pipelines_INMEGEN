@@ -2,7 +2,7 @@ process align {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
     containerOptions "-v ${params.refdir}:/ref"
-    publishDir params.out +"/Alignments", mode:'copy'
+    publishDir params.out +"/Alignments", mode:'symlink'
 
     input:
     tuple val(sample), path(reads) 

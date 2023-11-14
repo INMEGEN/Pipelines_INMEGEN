@@ -2,7 +2,7 @@ process bqsr {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
     containerOptions "-v ${params.ref_dir}:/db -v ${params.refdir}:/ref"
-    publishDir params.out + "/bqsr", mode:'copy'
+    publishDir params.out + "/bqsr", mode:'symlink'
 
     input:
     tuple val(sample), path(reads)    

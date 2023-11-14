@@ -1,7 +1,8 @@
 process genomicsDBimport {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
-    publishDir params.out + "/Genomicsdb", mode:'symlink'
+    containerOptions "-v ${params.outdir}/nextflow_work_dir:${params.outdir}/nextflow_work_dir"
+    publishDir params.out + "/Genomicsdb", mode:'copy'
 
     input:
     val(sample_map)
@@ -17,7 +18,7 @@ process genomicsDBimport {
 
     mkdir -p genomicsdb/tmp
 
-    gatk GenomicsDBImport \
+    gatk --java-options "-Xmx32g -Xms32g" GenomicsDBImport \
        --genomicsdb-workspace-path ${project_id}_database \
        --batch-size ${params.batchsize} \
        --sample-name-map cohort.sample_map \
