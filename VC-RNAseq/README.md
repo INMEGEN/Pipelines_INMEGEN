@@ -39,18 +39,21 @@ Los archivos que necesitas se describen en el apartando **"Solicitud de servicio
 
 ### Ejecutar el flujo de trabajo
 
-Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
+Para correr este pipeline se deben clonar este repositorio y ejecutar las siguientes instrucciones:
 
- 1. Generar el archivo sample_info.tsv con la información que se describe en la sección - Formato del archivo con la información de las muestras -
+ 1. Completar el archivo sample_info.tsv con la información que se describe en la sección - Formato del archivo con la información de las muestras -
  2. Editar el archivo de nextflow.config con la siguiente información:
 
-	- Ruta de los archivos *fastq*
-	- Ruta del directorio de salida de nextflow
-	- Nombre del proyecto
-	- Ruta y nombre del genoma de referencia
-	- Ruta del índice de STAR
-	- Ruta del archivo sample_info.tsv
-	- Número de núcleos por proceso (parámetro runOptions) 
+	- Ruta de los archivos *fastq* (params.reads)
+	- Ruta del directorio de salida de nextflow (params.outdir)
+	- Nombre del proyecto (params.project_name)
+ 	- Si son multiples lanes por muestra (params.multiple_samples)
+	- Ruta (params.refdir) y nombre (params.refname) del índice de STAR del genoma de referencia
+ 	- Ruta de los archivos para la recalibración de las bases (params.ref_dir)
+	- Ruta del archivo sample_info.tsv (params.sample_sheet)
+ 	- Tenología de secuenciación (params.pl) ej. ILLUMINA, SOLID, LS454, HELICOS y PACBIO
+	- Tipo de secuencidor  (params.pl) ej. Nextseq, Hiseq, etc,
+ 	- Número de núcleos por proceso (parámetro runOptions) 
 	- Número de procesos que se ejecutarán de forma simultánea (parámetro queueSize)
 
 Para opciones de configuración especificas para tu servidor o cluster puedes consultar la siguiente [liga](https://www.nextflow.io/docs/latest/config.html) 
@@ -63,15 +66,23 @@ Para opciones de configuración especificas para tu servidor o cluster puedes co
 #### Formato del archivo con la información experimental
 
 Para tener un buen control de los archivos a procesar (formato fastq pareados {Read_1,Read_2}), en el archivo sample_info.tsv incluir la siguiente información por columna:
- 
-		Sample_ID	Sample_name	RG	PU	R1	R2
 
- - Sample_ID   = Nombre completo de los archivos, se recomienda el formato [identificador único - número de muestra - número de lane]
- - Sample_name = Nombre de la muestras, se recomienda el formato [nombre de la muestra - número de muestra]
+ - Sample_ID   = Nombre asignadp a los archivos fastq (no tiene que ser identico al nombre del archivo), se debe utilizar el formato [identificador - número de muestra - número de lane]
+ - Sample_name = Nombre de la muestras, se recomienda el formato [identificados - número de muestra]
  - RG          = Nombre del grupo de lectura de la muestra, revisar la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups) para más información
  - PU          = Plataforma + Libreria + número de lane
  - R1          = Ruta absoluta del archivo fastq R1
  - R2          = Ruta absoluta del archivo fastq R2
+
+ Ejemplo:
+ 
+		Sample_ID	Sample_name	RG	PU	R1	R2
+  		ID_S001_L001	ID_S001		Read_gorup_id	FLOWCELL_BARCODE	Path/to/fastq_R1.fq	Path/to/fastq_R2.fq
+
+En caso de que el nombre del archivo sólo sea ID + lane (ID_L001), agregar S1 a la columna SampleID como se muestra a continuación 
+
+		Sample_ID	Sample_name	RG	PU	R1	R2
+  		ID_S1_L001	ID_S1		Read_gorup_id	FLOWCELL_BARCODE	Path/to/fastq_R1.fq	Path/to/fastq_R2.fq
 
 **Nota:** Recuerda que el archivo debe estar separado por tabulador (\t).
 
