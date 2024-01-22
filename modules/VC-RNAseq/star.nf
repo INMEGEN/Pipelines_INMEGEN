@@ -5,11 +5,11 @@ process star {
   publishDir params.out +"/alignments", mode: 'symlink' 
 
   input:
-    tuple val(sample_id), val(sample), val(RG), val(PU), path(reads)
+  tuple val(sample_id), val(sample), val(RG), val(PU), path(read_1), path(read_2)
 
   output:
     tuple val(sample_id), path("*.sam"),   emit: aligned_reads_ch
-    //path("*sortedByCoord.out.bam.bai"),                     emit: aligned_idx_ch
+    //path("*sortedByCoord.out.bam.bai"),  emit: aligned_idx_ch
 
   script:
       readGroup = \
@@ -21,7 +21,7 @@ process star {
          --genomeDir /ref/ \
          --runThreadN ${params.ncrs} \
          --runDirPerm All_RWX \
-         --readFilesIn ${reads[0]} ${reads[1]} \
+         --readFilesIn ${read_1} ${read_2} \
          --outFileNamePrefix $prefix \
          --outReadsUnmapped None \
          --twopassMode Basic \

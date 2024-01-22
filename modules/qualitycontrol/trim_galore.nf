@@ -7,7 +7,7 @@ process trim_Galore {
   tuple val(sample_id), val(sample), val(RG), val(PU), path(read_1), path(read_2)
 
   output:
-  tuple val(sample_id), val(sample), val(RG), val(PU), path("*.fq.gz")  , emit: trim_fq
+  tuple val(sample_id), val(sample), val(RG), val(PU), path("*R1_trimmed.fq.gz"), path("*R2_trimmed.fq.gz")  , emit: trim_fq
   tuple val(sample), path("*report.txt")                                , emit: trim_report
   tuple val(sample), path("*_fastqc.*")                                 , emit: trim_fastqc
 
