@@ -12,8 +12,7 @@ process star {
     //path("*sortedByCoord.out.bam.bai"),  emit: aligned_idx_ch
 
   script:
-      readGroup = \
-          "ID:${RG}\\tLB:${sample}.${PU}\\tPL:${params.pl}\\tPM:${params.pm}\\tSM:${sample}"
+      readGroup = "ID:${RG}	LB:${sample}.${PU}	PL:${params.pl}	PM:${params.pm}	SM:${sample}"
 
       prefix = "${sample_id}" + "_"
   """
