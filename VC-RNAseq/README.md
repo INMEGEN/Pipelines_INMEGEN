@@ -75,7 +75,7 @@ El archivo sample_info.tsv ubicado en la carpeta VC-RNAseq es indispensable y de
  - SampleID   = Nombre que identifica a la muestra (letras de la A a la Z, incluyendo mayúsculas y minúsculas, guiones medios, bajos y puntos; cualquier otro caracter está PROHIBIDO: acentos, espacios y ñ's no se permiten. Se recomienda apegarse al formato [{Sample_name}_numeroDeLane]. En caso de que una muestra se encuentra en únicamente UN LANE el SampleID debe ser igual al Sample_name. En caso contrario el SampleID debe apegarse a la convención mencionada [{Sample_name}_numeroDeLane].
  - Sample_name = Nombre que identifica a la muestra. Se recomienda el formato [identificador_numeroDeMuestra]
  - RG.ID          = El campo ID del Read Group de la muestra. Se recomienda el formato [flowcell_lane]. 
- - RG.PU          = El campo PU del Read Group de la muestra. Se recomienda el formato [flowcell_lane]_sample]
+ - RG.PU          = El campo PU del Read Group de la muestra. Se recomienda el formato [flowcell_lane_sample]
  - R1          = Ruta absoluta del archivo fastq R1 (forward)
  - R2          = Ruta absoluta del archivo fastq R2 (reverse)
 
