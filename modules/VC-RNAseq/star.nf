@@ -12,16 +12,16 @@ process star {
     //path("*sortedByCoord.out.bam.bai"),  emit: aligned_idx_ch
 
   script:
-      readGroup = "ID:${RG}	LB:${sample}.${PU}	PL:${params.pl}	PM:${params.pm}	SM:${sample}"
+      readGroup="ID:${RG}	LB:${sample}.${PU}	PL:${params.pl}	PM:${params.pm}	SM:${sample}"
 
-      prefix = "${sample_id}" + "_"
+      prefix="${sample_id}"+"_"
   """
     STAR --runMode alignReads \
          --genomeDir /ref/ \
          --runThreadN ${params.ncrs} \
          --runDirPerm All_RWX \
          --readFilesIn ${read_1} ${read_2} \
-         --outFileNamePrefix $prefix \
+         --outFileNamePrefix ${prefix} \
          --outReadsUnmapped None \
          --twopassMode Basic \
          --twopass1readsN -1 \
@@ -30,6 +30,5 @@ process star {
          --outSAMunmapped Within \
          --outSAMtype SAM \
          --outSAMattributes NH HI AS nM
-
   """
 }
