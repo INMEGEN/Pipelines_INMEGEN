@@ -21,7 +21,7 @@ process star {
          --runThreadN ${params.ncrs} \
          --runDirPerm All_RWX \
          --readFilesIn ${read_1} ${read_2} \
-         --outFileNamePrefix ${prefix} \
+         --outFileNamePrefix $prefix \
          --outReadsUnmapped None \
          --twopassMode Basic \
          --twopass1readsN -1 \

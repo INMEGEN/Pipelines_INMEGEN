@@ -2,12 +2,13 @@ FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
-LABEL maintainer="Subdirección de genomica poblacional y subdirección de bioinformática del INMEGEN"
-LABEL version="0.1"
+LABEL maintainer="Servicios INMEGEN"
+LABEL version="1.0"
 
-# Building could takes several hours! Be sure to symlink /var/lib/docker to a larger disk.
-# Build the image: docker build -t pipelines_inmegen -f Dockerfile .
-# To run the container: docker run -i -t pipelines_inmegen /bin/bash
+# Building takes several hours! Be sure to symlink /var/lib/docker to a larger disk.
+# Build the image: docker build -t pipelines_inmegen:public -f Dockerfile .
+# Modified image tag: docker tag pipelines_inmegen:public pipelinesinmegen/pipelines_inmegen:public
+# To run the container: docker run -i -t pipelinesinmegen/pipelines_inmegen:public /bin/bash
 
 # Actualiza el sistema operativo e instala las herramientas adecuadas
 RUN apt-get update && \
@@ -19,7 +20,6 @@ RUN apt-get update && \
         bzip2 \
         ca-certificates \
         curl \
-        cutadapt \
         gawk \
         gcc \
         git \
@@ -36,7 +36,11 @@ RUN apt-get update && \
         libcurl4-openssl-dev \
         libxml2-dev \
         libpng-dev \
-        libpcre2-dev \
+        libpcre2-dev \ 
+        libpcre3 \
+        libpcre3-dev \
+	libncurses5-dev \
+        libnss-sss \	
         libcairo2-dev \
         libxt-dev \
         libfontconfig1-dev \
@@ -46,6 +50,7 @@ RUN apt-get update && \
         locales \
         make \
         nano \
+	nim \
         parallel \
         perl \
         pigz \
@@ -111,9 +116,18 @@ RUN wget https://github.com/broadinstitute/gatk/releases/download/4.2.6.1/gatk-4
     rm gatk-4.2.6.1.zip
 
 #### Descargar e instalar Picard    
-RUN wget -q https://github.com/broadinstitute/picard/releases/download/2.27.5/picard.jar && \
+RUN wget https://github.com/broadinstitute/picard/releases/download/2.27.5/picard.jar && \
     mv picard.jar /usr/local/bin/ && \
     chmod +x /usr/local/bin/picard.jar
+
+#### Descargar e instalar Trimmomatic    
+RUN wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip && \
+    unzip Trimmomatic-0.39.zip && \
+    cd Trimmomatic-0.39 && \
+    mv trimmomatic-0.39.jar /usr/local/bin/ && \
+    chmod +x /usr/local/bin/trimmomatic-0.39.jar && \
+    cd ../ && \
+    rm Trimmomatic-0.39.zip
 
 #### Descargar e instalar Trim Galore
 RUN wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/0.6.7.tar.gz && \
@@ -121,12 +135,6 @@ RUN wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/0.6.7.tar.
     mv TrimGalore-0.6.7/trim_galore /usr/local/bin/ && \
     chmod +x /usr/local/bin/trim_galore && \
     rm -rf 0.6.7.tar.gz TrimGalore-0.6.7
-    
-#### Descargar e instalar Annovar 
-#### IMPORTANTE: Debes de obtener tu propia liga para uso de investigación
-#RUN wget link/to/annovar.latest.tar.gz && \
-#    tar -zxvf annovar.latest.tar.gz && \
-#    rm annovar.latest.tar.gz
 
 #### Descargar e instalar Samtools
 RUN wget https://github.com/samtools/samtools/releases/download/1.12/samtools-1.12.tar.bz2 && \
@@ -147,7 +155,23 @@ RUN wget https://github.com/samtools/bcftools/releases/download/1.12/bcftools-1.
     cd .. && \
     rm bcftools-1.12.tar.bz2
 
-### Instalar R version 4.2.3
+#### Descargar e instalar htslib
+RUN wget https://github.com/samtools/htslib/releases/download/1.19.1/htslib-1.19.1.tar.bz2 && \
+    tar -xjvf htslib-1.19.1.tar.bz2 && \
+    cd htslib-1.19.1 && \
+    ./configure --prefix=/usr/local && \
+    make && \
+    make install && \
+    cd .. && \
+    rm htslib-1.19.1.tar.bz2
+ 
+#### Descargar e instalar mosdepth
+RUN wget "https://github.com/brentp/mosdepth/releases/download/v0.3.6/mosdepth" && \
+    cp ./mosdepth /usr/local/bin/ && \
+    ln -s /usr/local/bin/mosdepth /usr/bin/mosdepth && \
+    chmod +x /usr/local/bin/mosdepth
+
+### Instalar R 
 RUN wget https://cdn.posit.co/r/ubuntu-2004/pkgs/r-4.2.3_1_amd64.deb && \
     apt-get update -qq && \
     DEBIAN_FRONTEND=noninteractive apt-get install -f -y ./r-4.2.3_1_amd64.deb && \
@@ -166,9 +190,17 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 RUN R -e "install.packages('BiocManager',repos='http://cran.us.r-project.org')" -e "BiocManager::install(c('GenomicFeatures', 'GenomicAlignments', 'VariantAnnotation', 'S4Vectors', 'SummarizedExperiment', 'Biobase','tximportData', 'tximport', 'BUSpaRse', 'DESeq2', 'PCAtools', 'ComplexHeatmap', 'EnhancedVolcano', 'AnnotationDbi', 'topGO', 'GeneTonic', 'SummarizedExperiment', 'GenomicAlignments', 'org.Hs.eg.db', 'rhdf5', 'pcaExplorer'))"
 
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+   cutadapt && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+#RUN chmod 774 /usr/local/bin/picard.jar
 RUN ln -s /usr/local/bin/picard.jar /usr/bin/picard.jar
-#RUN ln -s /annovar/table_annovar.pl /usr/local/bin/table_annovar.pl
-#RUN ln -s /annovar/table_annovar.pl /usr/bin/table_annovar.pl
+RUN ln -s /usr/local/bin/trimmomatic-0.39.jar /usr/bin/trimmomatic-0.39.jar
+RUN ln -s /annovar/table_annovar.pl /usr/local/bin/table_annovar.pl
+RUN ln -s /annovar/table_annovar.pl /usr/bin/table_annovar.pl
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 ### Configurar la variable de entorno para Java 8 ###
 ENV JAVA_8_HOME "/usr/lib/jvm/java-8-openjdk-amd64"
@@ -177,6 +209,8 @@ ENV TZ "America/Mexico_City"
 
 ## Establecer el directorio de trabajo
 WORKDIR /usr/local/lib/
+
+#ADD /usr/local/bin/picard.jar /usr/local/lib/
 
 # Ejecutar 
 CMD ["/bin/bash"]
