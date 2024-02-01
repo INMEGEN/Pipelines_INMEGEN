@@ -83,30 +83,31 @@ El archivo sample_info.tsv ubicado en la carpeta VC-RNAseq es indispensable y de
 
 Para entender el significado de los campos del Read Group (@RG = etiqueta que indentifica a cada muestra) y como obtener la información para los campos RG.PU, RG.PL y RG.LB revisa la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups).
 
-Sólo utilizar - Letras de la A a la Z (mayúsculas y minúsculas sin aceltos)
-              - No utilizar la letra "ñ"
-              - Sólo los siguientes caracterez especiales ("-","_",".")
-              - No están permitidos los espacios 
+Sólo utilizar:
+		- Letras de la A a la Z (mayúsculas y minúsculas sin aceltos)
+  		- No utilizar la letra "ñ"
+    		- Sólo los siguientes caracterez especiales ("-","_",".")
+      		- No están permitidos los espacios 
 
 A continuación, se muestran algúnos ejemplos de como se rellenar el contenido del archivo sample_info.tsv.
 
 Ejemplo 1, muestras con multiples lanes:
  
-		Sample_name	SampleID	RG.PU		RG.PL	   RG.LB	R1				R2
-  		ID_S001		ID_S001_L001	FLOWCELL.1	ILLUMINA   BARCODE	Path/to/fastq_S001_L001_R1.fq	Path/to/fastq_S001_L001_R2.fq
-    		ID_S001		ID_S001_L002	FLOWCELL.2	ILLUMINA   BARCODE	Path/to/fastq_S001_L002_R1.fq	Path/to/fastq_S001_L002_R2.fq
+		Sample_name	SampleID	RG.PU	RG.PL	RG.LB	R1	R2
+  		ID_S001	ID_S001_L001	FLOWCELL.1	ILLUMINA	BARCODE	Path/to/fastq_S001_L001_R1.fq	Path/to/fastq_S001_L001_R2.fq
+		ID_S001	ID_S001_L002	FLOWCELL.2	ILLUMINA	BARCODE	Path/to/fastq_S001_L002_R1.fq	Path/to/fastq_S001_L002_R2.fq
 
 Ejemplo 2, muestras con un sólo lane
 
-		Sample_name	SampleID	RG.PU		RG.PL	   RG.LB	R1			R2
-  		ID_S1		ID_S1   	FLOWCELL.1	ILLUMINA   BARCODE	Path/to/fastq_S1_R1.fq	Path/to/fastq_S1_R2.fq
-    		ID_S2		ID_S2		FLOWCELL.1	ILLUMINA   BARCODE	Path/to/fastq_S2_R1.fq	Path/to/fastq_S2_R2.fq
+		Sample_name	SampleID	RG.PU	RG.PL	RG.LB	R1	R2
+  		ID_S1	ID_S1	FLOWCELL.1	ILLUMINA	BARCODE	Path/to/fastq_S1_R1.fastq	Path/to/fastq_S1_R2.fastq
+    		ID_S2	ID_S2	FLOWCELL.1	ILLUMINA	BARCODE	Path/to/fastq_S2_R1.fastq	Path/to/fastq_S2_R2.fastq
 
 Ejemplo 3, en caso de no contar con la información del @RG y sea sólo una muestra por lane
 
-		Sample_name	SampleID	RG.PU		RG.PL	   RG.LB	R1			R2
-  		ID_S1		ID_S1   	FC00001.1	ILLUMINA   BC0001	Path/to/fastq_R1.fq	Path/to/fastq_R2.fq
-    		ID_S2		ID_S2		FC00001.1	ILLUMINA   BC0001	Path/to/fastq_R1.fq	Path/to/fastq_R2.fq
+		Sample_name	SampleID	RG.PU	RG.PL	RG.LB	R1	R2
+  		ID_S1	ID_S1	FC00001.1	ILLUMINA	BC0001	Path/to/fastq_R1.fq.gz	Path/to/fastq_R2.fq.gz
+    		ID_S2	ID_S2	FC00001.1	ILLUMINA	BC0001	Path/to/fastq_R1.fastq.gz	Path/to/fastq_R2.fastq.gz
 
 Como se observa no es necesario que el camṕo del Sample_name (ID_S1) coincida con el nombre del archivo que se encuentra en los campos R1 y R2 (fastq)
 
