@@ -71,7 +71,7 @@ Para opciones de configuración especificas para tu servidor o cluster puedes co
 
 ### Formato del archivo con la información experimental
 
-El archivo sample_info.tsv ubicado en la carpeta VC-RNAseq es indispensable y debe incluir la siguiente información por columna. EL ENCABEZADO DE ESTE ARCHIVO ES INDISPENSABLE, LOS NOMBRES DEBEN DE COINCIDIR CON LOS MOSTRADO EN LOS EJEMPLOS:
+El archivo sample_info.tsv ubicado en la carpeta VC-RNAseq es indispensable y debe incluir la siguiente información por columna.
 
  - **Sample_name**  = Nombre de la muestra secuenciada. Se recomienda el formato [identificador_numeroDeMuestra]
  - **SampleID**     = Nombre que identifica a la muestra. Se debe utilizar el formato [Sample_name_numeroDeLane]. Sólo en el caso de que una muestra se encuentra únicamente en UN LANE, el campo **SampleID** debe ser igual al campo **Sample_name**
@@ -81,13 +81,13 @@ El archivo sample_info.tsv ubicado en la carpeta VC-RNAseq es indispensable y de
  - **R1**           = Ruta absoluta del archivo fastq R1 (forward)
  - **R2**           = Ruta absoluta del archivo fastq R2 (reverse)
 
-Para entender el significado de los campos del Read Group (@RG = etiqueta que indentifica a cada muestra) y como obtener la información para los campos RG.PU, RG.PL y RG.LB revisa la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups).
+Para entender el significado de los campos del Read Group (@RG = etiqueta que indentifica a cada muestra) y como obtener la información para los campos **RG.PU**, **RG.PL** y **RG.LB** revisa la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups).
 
 **Recuerda:** 
-	- Utilizar letras de la A a la Z (mayúsculas y minúsculas sin aceltos)
-	- No utilizar la letra "ñ"
-	- Sólo emplear los siguientes caracterez especiales ("-","_",".")
-	- No están permitidos los espacios 
+- Utilizar letras de la A a la Z (mayúsculas y minúsculas sin aceltos)
+- No utilizar la letra "ñ"
+- Sólo emplear los siguientes caracterez especiales ("-","_",".")
+- No están permitidos los espacios 
 
 A continuación, se muestran algúnos ejemplos de como se rellenar el contenido del archivo sample_info.tsv.
 
@@ -109,9 +109,9 @@ Ejemplo 3, en caso de no contar con la información del @RG y sea sólo una mues
   	ID_S1	ID_S1	FC00001.1	ILLUMINA	BC0001	Path/to/fastq_R1.fq.gz	Path/to/fastq_R2.fq.gz
 	ID_S2	ID_S2	FC00001.1	ILLUMINA	BC0001	Path/to/fastq_R1.fastq.gz	Path/to/fastq_R2.fastq.gz
 
-Como se observa no es necesario que el camṕo del Sample_name (ID_S1) coincida con el nombre del archivo que se encuentra en los campos R1 y R2 (fastq)
+Como se observa no es necesario que el camṕo del **Sample_name** coincida con el nombre del archivo que se encuentra en los campos **R1** y **R2**.
 
-**NOTA:** Recuerda cada columna del archivo debe estar separada por tabulador (\t) y el encabezado debe de conservarse exactamente igual al archivo muestra sample_info.tsv.
+**NOTA IMPORTANTE:** Recuerda cada columna del archivo debe estar separada por tabulador (\t) y el **encabezado** debe de conservarse exactamente igual al archivo muestra sample_info.tsv.
 
 #### Las herramientas utilizadas para correr este flujo de trabajo son:
 
