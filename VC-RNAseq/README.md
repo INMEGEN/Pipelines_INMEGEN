@@ -69,25 +69,25 @@ Para opciones de configuración especificas para tu servidor o cluster puedes co
 			bash run_nextflow.sh /path/to/out/dir
 
 
-#### Formato del archivo con la información experimental
+### Formato del archivo con la información experimental
 
 El archivo sample_info.tsv ubicado en la carpeta VC-RNAseq es indispensable y debe incluir la siguiente información por columna. EL ENCABEZADO DE ESTE ARCHIVO ES INDISPENSABLE, LOS NOMBRES DEBEN DE COINCIDIR CON LOS MOSTRADO EN LOS EJEMPLOS:
 
- - Sample_name  = Nombre de la muestra secuenciada. Se recomienda el formato [identificador_numeroDeMuestra]
- - SampleID     = Nombre que identifica a la muestra. Se debe utilizar el formato [Sample_name_numeroDeLane]. Sólo en el caso de que una muestra se encuentra únicamente en UN LANE, el campo "SampleID" debe ser igual al campo "Sample_name"
- - RG.PU        = Campo PU del Read Group (@RG) de la muestra, está asociado al barcode de la flowcell y al número de lane. Se debe utilizar el formato [flowcell.númeroDeLane]
- - RG.PL        = Campo PL del Read Group (@RG) de la muestra, está asociado a la tenología de secuenciación ej. ILLUMINA, SOLID, LS454, HELICOS y PACBIO
- - RG.LB        = Campo PU del Read Group (@RG) de la muestra, está asociado al barcode de la librería de secuenciación
- - R1           = Ruta absoluta del archivo fastq R1 (forward)
- - R2           = Ruta absoluta del archivo fastq R2 (reverse)
+ - **Sample_name**  = Nombre de la muestra secuenciada. Se recomienda el formato [identificador_numeroDeMuestra]
+ - **SampleID**     = Nombre que identifica a la muestra. Se debe utilizar el formato [Sample_name_numeroDeLane]. Sólo en el caso de que una muestra se encuentra únicamente en UN LANE, el campo **SampleID** debe ser igual al campo **Sample_name**
+ - **RG.PU**        = Campo PU del Read Group (@RG) de la muestra, está asociado al barcode de la flowcell y al número de lane. Se debe utilizar el formato [flowcell.númeroDeLane]
+ - **RG.PL**        = Campo PL del Read Group (@RG) de la muestra, está asociado a la tenología de secuenciación ej. ILLUMINA, SOLID, LS454, HELICOS y PACBIO
+ - **RG.LB**        = Campo PU del Read Group (@RG) de la muestra, está asociado al barcode de la librería de secuenciación
+ - **R1**           = Ruta absoluta del archivo fastq R1 (forward)
+ - **R2**           = Ruta absoluta del archivo fastq R2 (reverse)
 
 Para entender el significado de los campos del Read Group (@RG = etiqueta que indentifica a cada muestra) y como obtener la información para los campos RG.PU, RG.PL y RG.LB revisa la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups).
 
 **Recuerda:** 
-- Utilizar letras de la A a la Z (mayúsculas y minúsculas sin aceltos)
-- No utilizar la letra "ñ"
-- Sólo emplear los siguientes caracterez especiales ("-","_",".")
-- No están permitidos los espacios 
+	- Utilizar letras de la A a la Z (mayúsculas y minúsculas sin aceltos)
+	- No utilizar la letra "ñ"
+	- Sólo emplear los siguientes caracterez especiales ("-","_",".")
+	- No están permitidos los espacios 
 
 A continuación, se muestran algúnos ejemplos de como se rellenar el contenido del archivo sample_info.tsv.
 
