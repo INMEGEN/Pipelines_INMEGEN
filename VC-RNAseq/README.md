@@ -66,7 +66,7 @@ Para opciones de configuración especificas para tu servidor o cluster puedes co
 
   3. Ejecutar el comando: 
 
-		bash run_nextflow.sh /path/to/out/dir
+	bash run_nextflow.sh /path/to/out/dir
 
 
 #### Formato del archivo con la información experimental
@@ -83,11 +83,10 @@ El archivo sample_info.tsv ubicado en la carpeta VC-RNAseq es indispensable y de
 
 Para entender el significado de los campos del Read Group (@RG = etiqueta que indentifica a cada muestra) y como obtener la información para los campos RG.PU, RG.PL y RG.LB revisa la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups).
 
-Sólo utilizar:
-	- Letras de la A a la Z (mayúsculas y minúsculas sin aceltos)
-	- No utilizar la letra "ñ"
- 	- Sólo los siguientes caracterez especiales ("-","_",".")
-	- No están permitidos los espacios 
+Sólo utilizar:	- Letras de la A a la Z (mayúsculas y minúsculas sin aceltos)
+		- No utilizar la letra "ñ"
+ 		- Sólo los siguientes caracterez especiales ("-","_",".")
+		- No están permitidos los espacios 
 
 A continuación, se muestran algúnos ejemplos de como se rellenar el contenido del archivo sample_info.tsv.
 
