@@ -109,7 +109,7 @@ Ejemplo 3, en caso de no contar con la información del @RG y sea sólo una mues
   	ID_S1	ID_S1	FC00001.1	ILLUMINA	BC0001	Path/to/fastq_R1.fq.gz	Path/to/fastq_R2.fq.gz
 	ID_S2	ID_S2	FC00001.1	ILLUMINA	BC0001	Path/to/fastq_R1.fastq.gz	Path/to/fastq_R2.fastq.gz
 
-Como se observa no es necesario que el camṕo del **Sample_name** coincida con el nombre del archivo que se encuentra en los campos **R1** y **R2**.
+Como se observa no es necesario que el **Sample_name** coincida con el nombre del archivo que se encuentra en los campos **R1** y **R2**.
 
 **NOTA IMPORTANTE:** Recuerda cada columna del archivo debe estar separada por tabulador (\t) y el **encabezado** debe de conservarse exactamente igual al archivo muestra sample_info.tsv.
 
