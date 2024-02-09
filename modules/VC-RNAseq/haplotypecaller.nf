@@ -1,21 +1,20 @@
 process haplotypeCaller {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
-    containerOptions "-v ${params.refdir}:/ref"
+    containerOptions "-v ${params.refdir_star}:/ref"
     publishDir params.out + "/raw_vcfs", mode:'copy'
     
     input:
-    tuple val(pair_id), path(input_bam)
+    tuple val(sample), path(input_bam)
 
     output:
-    tuple val(pair_id), path("${pair_id}_raw_variants.vcf"), emit: hc_output
-    path("${pair_id}_raw_variants.vcf.idx"), emit: hc_output_index
+    tuple val(sample), path("${sample}_raw_variants.vcf.gz"), path("${sample}_raw_variants.vcf.gz.tbi"), emit: hc_output
 
     script:
     """
     gatk HaplotypeCaller \
-        -R /ref/${params.refname} \
+        -R /ref/${params.refname_star} \
         -I ${input_bam} \
-        -O ${pair_id}_raw_variants.vcf 
+        -O ${sample}_raw_variants.vcf.gz 
     """
 }

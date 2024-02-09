@@ -1,23 +1,21 @@
 process filterSnps {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
-    containerOptions "-v ${params.refdir}:/ref"
+    containerOptions "-v ${params.refdir_star}:/ref"
     publishDir params.out + "/filtered_vcfs", mode:'copy'
 
     input:
-    tuple val(pair_id), path(raw_snps)
+    tuple val(sample), path(raw_snps), path(raw_snps_idx)
 
     output:
-    tuple val(pair_id), \
-    path("${pair_id}_filtered_snps.vcf"), \
-    path("${pair_id}_filtered_snps.vcf.idx"),     emit: filtered_snps
+    tuple val(sample), path("${sample}_filtered_snps.vcf.gz"), path("${sample}_filtered_snps.vcf.gz.tbi"),  emit: filtered_snps
 
     script:
     """
     gatk VariantFiltration \
-        -R /ref/${params.refname} \
+        -R /ref/${params.refname_star} \
         -V ${raw_snps} \
-        -O ${pair_id}_filtered_snps.vcf \
+        -O ${sample}_filtered_snps.vcf.gz \
         -filter-name "QD_filter" -filter "QD < 2.0" \
         -filter-name "FS_filter" -filter "FS > 60.0" \
         -filter-name "MQ_filter" -filter "MQ < 40.0" \

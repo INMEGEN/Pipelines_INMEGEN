@@ -1,31 +1,31 @@
 process star {
   cache 'lenient'
   container 'pipelinesinmegen/pipelines_inmegen:public'
-  containerOptions "-v ${params.refdir}:/ref"
-  publishDir params.out +"/alignments", mode: 'symlink' 
+  containerOptions "-v ${params.refdir_star}:/ref"
+  publishDir params.out +"/alignments", mode: 'symlink'
 
   input:
-  tuple val(sample_id), val(sample), val(RG), val(PU), path(read_1), path(read_2)
+  tuple val(sample), val(sample_id), val(PU), val(PL), val(LB), path(R1), path(R2)
 
   output:
-    tuple val(sample_id), path("*.sam"),   emit: aligned_reads_ch
-    //path("*sortedByCoord.out.bam.bai"),  emit: aligned_idx_ch
+  tuple val(sample_id), path("*.sam"), emit: aligned_reads_ch  
 
   script:
-      readGroup="ID:${RG}	LB:${sample}.${PU}	PL:${params.pl}	PM:${params.pm}	SM:${sample}"
+      readGroup = \
+          "ID:${PU}	PU:${PU}.${sample} PL:${PL}	LB:${LB}	SM:${sample}"
 
-      prefix="${sample_id}"+"_"
+      prefix = "${sample_id}" + "_"
   """
     STAR --runMode alignReads \
          --genomeDir /ref/ \
          --runThreadN ${params.ncrs} \
          --runDirPerm All_RWX \
-         --readFilesIn ${read_1} ${read_2} \
+         --readFilesIn ${R1} ${R2} \
          --outFileNamePrefix $prefix \
          --outReadsUnmapped None \
          --twopassMode Basic \
          --twopass1readsN -1 \
-         --outSAMattrRGline ${readGroup} \
+         --outSAMattrRGline $readGroup \
          --readFilesCommand "gunzip -c" \
          --outSAMunmapped Within \
          --outSAMtype SAM \
