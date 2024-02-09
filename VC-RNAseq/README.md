@@ -80,7 +80,7 @@ El archivo sample_info.tsv ubicado en la carpeta VC-RNAseq es indispensable y de
  - **R1**           = Ruta absoluta del archivo fastq R1 (forward)
  - **R2**           = Ruta absoluta del archivo fastq R2 (reverse)
 
-Para entender el significado de los campos del Read Group (@RG = etiqueta que indentifica a cada muestra) y como obtener la información para los campos **RG.PU**, **RG.PL** y **RG.LB** revisa la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups).
+Para entender el significado de los campos del Read Group (@RG = etiqueta que indentifica a cada muestra) y como obtener la información para los campos **RG_PU**, **RG_PL** y **RG_LB** revisa la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups).
 
 **Recuerda:** 
 - Utilizar letras de la A a la Z (mayúsculas y minúsculas sin aceltos)
