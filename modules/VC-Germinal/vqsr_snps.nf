@@ -1,14 +1,14 @@
-process VQSRsnps {
+process vqsrsnps {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
     containerOptions "-v ${params.refdir}:/ref"
     publishDir params.out + "/filtered_vcfs", mode:'copy'
 
     input:
-    tuple val(project_id), path(raw_snps)
+    tuple val(project_id), path(raw_snps), path(raw_snps_idx)
 
     output:
-    tuple val(project_id), path("${project_id}_filtered_snps.vcf"), path("${project_id}_filtered_snps.vcf.idx"),    emit: snps_filt_ch
+    tuple val(project_id), path("${project_id}_filtered_snps.vcf.gz"), path("${project_id}_filtered_snps.vcf.gz.tbi"),    emit: snps_filt_ch
 
     script:
     """
@@ -31,7 +31,7 @@ process VQSRsnps {
    gatk ApplyVQSR \
    -R /ref/${params.refname} \
    -V ${raw_snps} \
-   -O ${project_id}_filtered_snps.vcf \
+   -O ${project_id}_filtered_snps.vcf.gz \
    -ts-filter-level 99.5 \
    --tranches-file ${project_id}_snps_output.tranches \
    --recal-file ${project_id}_snps_output.recal \

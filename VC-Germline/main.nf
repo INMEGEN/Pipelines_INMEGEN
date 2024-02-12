@@ -1,29 +1,35 @@
 #!/usr/bin/env nextflow
 // Workflow    : Identificación conjunta de variantes germinales con GATK4
 // Institución : Instituto Nacional de Medicina Genómica (INMEGEN)
-// Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática del INMEGEN
-// Versión     : 0.1
-// Docker image - pipelines_inmegen:public -
+// Maintainer  : Subdirección de genómica poblacional y subdifección de bioinformatica del INMEGEN
+// Versión     : 0.2
+// Docker image - pipelinesinmegen/pipelines_inmegen -
 
 nextflow.enable.dsl=2
 
 // Processes for this workflow
-include { fastqc                        } from "../modules/qualitycontrol/fastqc.nf"
-include { multiqc                       } from "../modules/qualitycontrol/multiqc.nf"
-include { trim_Galore                   } from "../modules/qualitycontrol/trim_galore.nf"
-include { align                         } from "../modules/VC-Germinal/bwa_germinal.nf"
-include { mergeSam                      } from "../modules/common/mergesamfiles.nf"
-include { markDuplicatesSpark           } from "../modules/common/markDuplicatesSpark.nf"
-include { getMetrics                    } from "../modules/metricts/getmetrics.nf"
-include { Metrics                       } from "../modules/metricts/metrics.nf"
-include { bqsr                          } from "../modules/VC-Germinal/bqsr_recal.nf"
-include { analyzeCovariates             } from "../modules/metricts/analyzecovariates.nf"
-include { haplotypeCallerERC            } from "../modules/VC-Germinal/haplotypecaller_erc.nf"
-include { genomicsDBimport              } from "../modules/VC-Germinal/genomicsDBimport.nf"
-include { genotypeGVCFs                 } from "../modules/VC-Germinal/genotypegvcfs.nf"
-include { selectVariants                } from "../modules/VC-Germinal/selectvariants.nf"
-include { VQSRsnps                      } from "../modules/VC-Germinal/VQSR_snps.nf"
-include { VQSRindels                    } from "../modules/VC-Germinal/VQSR_indels.nf"
+include { fastqc                             } from "../modules/VC-Germinal/fastqc.nf"
+include { multiqc                            } from "../modules/VC-Germinal/multiqc.nf"
+include { trimmomatic                        } from "../modules/VC-Germinal/trimmomatic.nf"
+include { align                              } from "../modules/VC-Germinal/bwa_germline.nf"
+include { mergeSam                           } from "../modules/common/mergesamfiles.nf"
+include { markDuplicatesSpark                } from "../modules/common/markDuplicatesSpark.nf"
+include { getMetrics                         } from "../modules/metricts/getmetrics.nf"
+include { metricswes                         } from "../modules/metricts/metrics_wes.nf"
+include { metricswgs                         } from "../modules/metricts/metrics_wgs.nf"
+include { summary_wes                        } from "../modules/metricts/summary_wes.nf"
+include { summary_wgs                        } from "../modules/metricts/summary_wgs.nf"
+include { bqsr                               } from "../modules/VC-Germinal/bqsr_recal.nf"
+include { analyzeCovariates                  } from "../modules/metricts/analyzecovariates.nf"
+include { haplotypeCallerERC                 } from "../modules/VC-Germinal/haplotypecaller_erc.nf"
+include { genomicsDBimport                   } from "../modules/VC-Germinal/genomicsDBimport.nf"
+include { genotypeGVCFs                      } from "../modules/VC-Germinal/genotypegvcfs.nf"
+include { selectVariants                     } from "../modules/VC-Germinal/selectvariants.nf"
+include { vqsrsnps                           } from "../modules/VC-Germinal/vqsr_snps.nf"
+include { vqsrindels                         } from "../modules/VC-Germinal/vqsr_indels.nf"
+include { joinvcfs                           } from "../modules/VC-Germinal/joinvcfs.nf"
+include { postfiltervcf                      } from "../modules/VC-Germinal/postfilter.nf"
+include { splitVCFs as split_filt            } from "../modules/VC-Germinal/splitvcf.nf"
 
 // Some useful information
 println " "
@@ -32,55 +38,51 @@ println "Flujo de trabajo: Identificación conjunta de variantes germinales con 
 println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:public"
 println " "
 println "Nombre del proyecto: $params.project_name"
-println "Datos crudos: $params.reads"
-println "Información de las muestras: $params.sample_sheet"
-println "Varios lanes por muestra: $params.multiple_samples"
-println "Referencia: $params.ref"
+println "Directorio con los datos crudos: $params.reads"
+println "Información de las muestras: $params.sample_info"
+println "Tipo de análisis (true = WES, false = WGS): $params.wes"
+println "Varios lanes por muestra (true = sí, false = no): $params.multiple_lanes"
+println "Directorio de la referencia: $params.refdir"
 println "Directorio de salida: $params.out"
 println " "
 
-workflow qualitycontrol {
-
-   data_fq = Channel.fromFilePairs("${params.reads}")
-                    .ifEmpty { error "Cannot find any reads matching: ${params.reads}"  }
-                       
-   fastqc(data_fq)
-   
-   analisis_dir = "${params.out}"+"/fastqc"
-   multiqc(fastqc.out.fq_files.collect(), analisis_dir, "raw_data")   
-}
 
 workflow {
-   
-// Subworkflow for quality control
-   qualitycontrol()
+
+// Declare some parameters 
+   adapters=file("${params.adapters}")
+   bed_file=file("${params.bed_file}")
+   bed_filew=file("${params.bed_filew}")
+   interval_list=file("${params.interval_list}")
 
 // Data preprocessing
-   Channel.fromPath("${params.sample_sheet}" )
-          .splitCsv(sep:"\t", header: true)
-          .map { row ->  def sampleID = "${row.SampleID}"
-                         def sample = "${row.Sample_name}"
-                         def RG = "${row.RG}"
-                         def PU = "${row.PU}"
-                         def read1 = file("${row.R1}")
-                         def read2 = file("${row.R2}")
-                 return [ sampleID, sample, RG, PU, read1, read2 ]
-               }
-          .set { read_pairs_ch}
 
-   trim_Galore(read_pairs_ch)
-    
-     tg_dir = "${params.out}"+"/trimming_files"
-   multiqc(trim_Galore.out.trim_fq.collect(), tg_dir, "trimming_data")
-    
-   align(trim_Galore.out.trim_fq)
+   Channel.fromPath("${params.sample_info}" )
+          .splitCsv(sep:"\t", header: true)
+          .map { row ->  def sample = "${row.Sample_name}"
+                         def sample_id = "${row.SampleID}"
+                         def PU = "${row.RG_PU}"
+                         def PL = "${row.RG_PL}"
+                         def LB = "${row.RG_LB}"
+                         def R1 = file("${row.R1}")
+                         def R2 = file("${row.R2}")
+                 return [ sample, sample_id, PU, PL, LB , R1, R2 ]
+               }
+          .set { read_pairs_ch }
+
+    trimmomatic(read_pairs_ch,adapters)
  
-    if ("${params.multiple_samples}" == true){ 
+    fastqc(trimmomatic.out.trim_fq)
+
+// Align and mark duplicates 
+
+    align(trimmomatic.out.trim_fq)
+ 
+    if ("${params.multiple_lanes}" == true){ 
 
      xa = align.out.aligned_reads_ch.collect().flatten().collate( 2 )
      xa.map { a , b -> def key = a.toString().tokenize('_').get(0)
-                       def keyS = a.toString().tokenize('_').get(2)
-                       return tuple("${key}" + "_" + "${keyS}", b)
+                       return tuple("${key}" , b)
             }.groupTuple() | mergeSam
 
     markDuplicatesSpark(mergeSam.out.merged_sam_ch)
@@ -92,28 +94,52 @@ workflow {
 
     }
 
+// Get metrics 
+   
+    if ("${params.wes}" == true){
+
+    metricswes(markDuplicatesSpark.out.bam_for_variant_calling,bed_file,bed_filew)
+    summary_wes(metricswes.out.summary_file.collect(),"${params.project_name}","${params.out}"+"/metrics/summary")
+
+    }
+    else {
+
+    metricswgs(markDuplicatesSpark.out.bam_for_variant_calling,bed_file)
+    summary_wgs((metricswgs.out.summary_file.collect()),"${params.project_name}","${params.out}"+"/metrics/summary") 
+    }
+
    getMetrics(markDuplicatesSpark.out.bam_for_variant_calling)
 
-   Metrics(markDuplicatesSpark.out.bam_for_variant_calling)
+// Base quality recalibration
 
    bqsr(markDuplicatesSpark.out.bam_for_variant_calling)
 
    analyzeCovariates(bqsr.out.analyze_covariates)
 
 // Variant calling
+
    haplotypeCallerERC(bqsr.out.recalibrated_bam)
 
     hc_files = haplotypeCallerERC.out.hc_erc_out.toList()
-    project_id="${params.project_name}"
-    interval_list=file("${params.interval_list}")    
 
-   genomicsDBimport(hc_files,project_id,interval_list)
+   genomicsDBimport(hc_files,"${params.project_name}",interval_list)
 
    genotypeGVCFs(genomicsDBimport.out.genomics_db)
-   
-   selectVariants(genotypeGVCFs.out.gvcfs_out,genotypeGVCFs.out.gvcfs_index)
 
-   VQSRsnps(selectVariants.out.snps_ch)
+   selectVariants(genotypeGVCFs.out.gvcfs_out)
 
-   VQSRindels(selectVariants.out.indels_ch)
+   vqsrsnps(selectVariants.out.snps_ch)
+
+   vqsrindels(selectVariants.out.indels_ch)
+
+// Concatenate and potsfilter snps + indels 
+ 
+   joinvcfs(vqsrsnps.out.snps_filt_ch,vqsrindels.out.indels_filt_ch)
+
+   postfiltervcf(joinvcfs.out.join_vars_filt)
+   split_filt(postfiltervcf.out.filt_pass_vcf,"filtered")
+
+// Variant summary
+
+   multiqc(split_filt.out.vcf_persample.collect(),"${params.out}")
 }

@@ -2,10 +2,10 @@ process bqsr {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
     containerOptions "-v ${params.refdir}:/ref"
-    publishDir params.out + "/bqsr", mode:'copy'
+    publishDir params.out + "/bqsr", mode:'symlink'
 
     input:
-    tuple val(sample), path(reads)    
+    tuple val(sample), path(reads), path(reads_idx)    
 
     output:
     tuple val(sample), path("${sample}_recalibration_data.table"), path("${sample}_post_recal_data.table"), emit: analyze_covariates

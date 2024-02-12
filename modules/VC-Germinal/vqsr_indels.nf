@@ -1,14 +1,14 @@
-process VQSRindels {
+process vqsrindels {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
     containerOptions "-v ${params.refdir}:/ref"
     publishDir params.out + "/filtered_vcfs", mode:'copy'
     
     input:
-    tuple val(project_id), path(raw_indels)
+    tuple val(project_id), path(raw_indels), path(raw_indels_idx)
 
     output:
-    tuple val(project_id), path("${project_id}_filtered_indels.vcf"), path("${project_id}_filtered_indels.vcf.idx"),   emit: indels_filt_ch
+    tuple val(project_id), path("${project_id}_filtered_indels.vcf.gz"), path("${project_id}_filtered_indels.vcf.gz.tbi"),   emit: indels_filt_ch
 
     script:
     """   
@@ -26,7 +26,7 @@ process VQSRindels {
    gatk ApplyVQSR \
    -R /ref/${params.refname} \
    -V ${raw_indels} \
-   -O ${project_id}_filtered_indels.vcf \
+   -O ${project_id}_filtered_indels.vcf.gz \
    -ts-filter-level 99.0 \
    --tranches-file ${project_id}_indels_output.tranches \
    --recal-file ${project_id}_indels_output.recal \

@@ -1,15 +1,13 @@
 process genotypeGVCFs {
-    cache 'lenient'
-    container 'pipelinesinmegen/pipelines_inmegen:public'
     containerOptions "-v ${params.refdir}:/ref"
-    publishDir params.out + "/join_vcfs", mode:'copy'
+    container 'pipelinesinmegen/pipelines_inmegen:public'
+    publishDir params.out + "/raw_vcfs", mode:'copy'
 
     input:
     tuple val(project_id), path(database)
 
     output:
-    tuple val(project_id), path("${project_id}_raw_variants.vcf.gz"), emit: gvcfs_out
-    path("${project_id}_raw_variants.vcf.gz.tbi"), emit: gvcfs_index
+    tuple val(project_id), path("${project_id}_raw_variants.vcf.gz"), path("${project_id}_raw_variants.vcf.gz.tbi"), emit: gvcfs_out
 
     script:
     """
