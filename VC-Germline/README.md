@@ -64,7 +64,9 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
 Para opciones de configuración especificas para tu servidor o cluster puedes consultar la siguiente [liga](https://www.nextflow.io/docs/latest/config.html) 
 
 **NOTA:** El número máximo de procesadores que utilizará tu corrida es: cpus * queueSize. Esto aplica en el caso de los procesos que permitan multi-threading.
+
 **NOTA:** Si ncrsr es mayor que cpus, los procesos multi-threading utilizarán un número máximo de núcleos igual a cpus.
+
 **NOTA:** En el caso de *WGS* el bundle de GATK proveé un archivo *interval_list* para optimizar el tiempo de ejecución. Se puede utilizar para crear un archivo **BED** de *WGS*. En caso de WGS utilizar el mismo archivo **BED** en las opciones.
 
   3. Ejecutar el comando: 
