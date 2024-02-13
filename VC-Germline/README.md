@@ -46,17 +46,17 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
 
 	- Ruta absoluta del directorio de salida de nextflow (params.outdir)
 	- Ruta del archivo *sample_info.tsv* (params.sample_info)
- 	- Ruta absoluta de los archivos *fastq* (params.reads)
+	- Ruta absoluta de los archivos *fastq* (params.reads)
 	- Nombre del proyecto (params.project_name)
 	- Si son multiples lanes por muestra habilitar la ópción a *true* (params.multiple_lanes)
- 	- Si el tipo de análisis es dirigido o *WES* mantener esta opción como *true* en caso de el tipo de archivos sea *WGS* cambiar a *false* (params.wes)
+	- Si el tipo de análisis es dirigido o *WES* mantener esta opción como *true* en caso de el tipo de archivos sea *WGS* cambiar a *false* (params.wes)
 	- Ruta absoluta de la ubicación del índice de BWA del genoma de referencia (params.refdir)
- 	- Nombre del genoma de referencia sin la ruta absoluta, incluyendo la extensión **FASTA** p.j. Genoma_hg38.fasta, Genoma_hg19.fa, etc. (params.refname)
-  	- Ruta absoluta del archivo *interval_list*, en el caso de *WES* se puede utilizar el archivo **BED** del kit para generarlo, para más información consulta la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035531852-Intervals-and-interval-lists) (params.interval_list)
-   	- Nombre del archivo *interval_list* (params.intervalname)
-    	- Ruta absoluta del archivo **BED** utilizado para la secuenciación (params.bed_file)
-     	- Ruta absoluta del archivo **BED** utilizado para la secuenciación que incluye una ventana de 100 bases (params.bed_filew)
-      	- Ruta absoluta del archivo **FASTA** con la lista de adaptadores para **Trimmomatic**
+	- Nombre del genoma de referencia sin la ruta absoluta, incluyendo la extensión **FASTA** p.j. Genoma_hg38.fasta, Genoma_hg19.fa, etc. (params.refname)
+	- Ruta absoluta del archivo *interval_list*, en el caso de *WES* se puede utilizar el archivo **BED** del kit para generarlo, para más información consulta la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035531852-Intervals-and-interval-lists) (params.interval_list)
+	- Nombre del archivo *interval_list* (params.intervalname)
+	- Ruta absoluta del archivo **BED** utilizado para la secuenciación (params.bed_file)
+	- Ruta absoluta del archivo **BED** utilizado para la secuenciación que incluye una ventana de 100 bases (params.bed_filew)
+	- Ruta absoluta del archivo **FASTA** con la lista de adaptadores para **Trimmomatic**
 	- Número de núcleos que utilizarán los procesos multi-threading (params.ncrs)
 	- En los parámetros para docker, se puede modificar el apartado runOptions la opción --cpus = Número máximo de núcleos por proceso.
 	- En los parámetros de Nextflow (executor) solo se puede cambiar la opción queueSize = Número máximo de procesos que se ejecutarán de forma simultánea
@@ -64,8 +64,6 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
 Para opciones de configuración especificas para tu servidor o cluster puedes consultar la siguiente [liga](https://www.nextflow.io/docs/latest/config.html) 
 
 **NOTA:** El número máximo de procesadores que utilizará tu corrida es: cpus * queueSize. Esto aplica en el caso de los procesos que permitan multi-threading.
-
-**NOTA:** Si ncrsr es mayor que cpus, los procesos multi-threading utilizarán un número máximo de núcleos igual a cpus.
 
 **NOTA:** En el caso de *WGS* el bundle de GATK proveé un archivo *interval_list* para optimizar el tiempo de ejecución. Se puede utilizar para crear un archivo **BED** de *WGS*. En caso de WGS utilizar el mismo archivo **BED** en las opciones.
 
