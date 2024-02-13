@@ -11,10 +11,9 @@ Este pipeline realiza la identificación conjunta de variantes germinales a part
 
 Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN: 
 
-- Archivos de secuenciación FASTQ (Illumina paired-end).
-- Archivo con la información experimental (identificador de la muestra, identificador de la librería, plataforma de secuenciación,  número de lane).
-- En caso de WES específicar el kit utilizado.
-
+- Archivos de secuenciación **FASTQ** (Illumina *paired-end*).
+- Archivo con la información experimental (vease la sección: **Formato del archivo sample_info**).
+- En caso de *WES* específicar el kit utilizado.
 
 ## Implementando este flujo por tu cuenta: Instrucciones de uso 
 
@@ -29,60 +28,99 @@ Los archivos que necesitas se describen en el apartando **"Solicitud de servicio
 
                 docker pull pipelinesinmegen/pipelines_inmegen:public
 
- 
 2. Asegurarse de contar con los siguientes archivos, necesarios para el pipeline:
 	- Genoma hg38
 	- Índice del genoma de referencia (generado con SAMTOOLS faidx)
 	- Índice de [BWA](https://bio-bwa.sourceforge.net/bwa.shtml)
 	- Archivos de recalibración de BQSR y VQSR
 
-**Nota:**
-Todos estos archivos se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).
-Se recomienda que todos estos archivos se encuentreb en el mismo directorio.
+**Nota:** Todos estos archivos se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false). Se recomienda que todos estos archivos se encuentreb en el mismo directorio.
 
 ### Ejecutar el flujo de trabajo
 
 Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
 
- 1. Generar el archivo sample_info.tsv con la información que se describe en la sección - Formato del archivo con la información de las muestras -
+ 1. Completar el archivo *sample_info.tsv* con la información que se describe en la sección **Formato del archivo sample_info**
+    
  2. Editar el archivo de nextflow.config con la siguiente información:
-	- Ruta de los archivos *fastq*
-	- Ruta del directorio de salida de nextflow
-	- Nombre del proyecto 
-	- Ruta y nombre del genoma de referencia
-	- Ruta del índice de BWA
-	- Ruta del archivo sample_info.tsv
-	- Número de muestras (parámetro batchsize)
-	- Ruta del archivo con la lista de intervalos, en el caso de WES es el archivo BED del kit, para más información consulta la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035531852-Intervals-and-interval-lists)
-	- Número de núcleos por proceso (parámetro runOptions) 
-	- Número de procesos que se ejecutarán de forma simultánea (parámetro queueSize)
+
+	- Ruta absoluta del directorio de salida de nextflow (params.outdir)
+	- Ruta del archivo *sample_info.tsv* (params.sample_info)
+ 	- Ruta absoluta de los archivos *fastq* (params.reads)
+	- Nombre del proyecto (params.project_name)
+	- Si son multiples lanes por muestra habilitar la ópción a *true* (params.multiple_lanes)
+ 	- Si el tipo de análisis es dirigido o *WES* mantener esta opción como *true* en caso de el tipo de archivos sea *WGS* cambiar a *false* (params.wes)
+	- Ruta absoluta de la ubicación del índice de BWA del genoma de referencia (params.refdir)
+ 	- Nombre del genoma de referencia sin la ruta absoluta, incluyendo la extensión **FASTA** p.j. Genoma_hg38.fasta, Genoma_hg19.fa, etc. (params.refname)
+  	- Ruta absoluta del archivo *interval_list*, en el caso de *WES* se puede utilizar el archivo **BED** del kit para generarlo, para más información consulta la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035531852-Intervals-and-interval-lists) (params.interval_list)
+   	- Nombre del archivo *interval_list* (params.intervalname)
+    	- Ruta absoluta del archivo **BED** utilizado para la secuenciación (params.bed_file)
+     	- Ruta absoluta del archivo **BED** utilizado para la secuenciación que incluye una ventana de 100 bases (params.bed_filew)
+      	- Ruta absoluta del archivo **FASTA** con la lista de adaptadores para **Trimmomatic**
+	- Número de núcleos que utilizarán los procesos multi-threading (params.ncrs)
+	- En los parámetros para docker, se puede modificar el apartado runOptions la opción --cpus = Número máximo de núcleos por proceso.
+	- En los parámetros de Nextflow (executor) solo se puede cambiar la opción queueSize = Número máximo de procesos que se ejecutarán de forma simultánea
 
 Para opciones de configuración especificas para tu servidor o cluster puedes consultar la siguiente [liga](https://www.nextflow.io/docs/latest/config.html) 
+
+**NOTA:** El número máximo de procesadores que utilizará tu corrida es: cpus * queueSize. Esto aplica en el caso de los procesos que permitan multi-threading.
+**NOTA:** Si ncrsr es mayor que cpus, los procesos multi-threading utilizarán un número máximo de núcleos igual a cpus.
+**NOTA:** En el caso de *WGS* el bundle de GATK proveé un archivo *interval_list* para optimizar el tiempo de ejecución. Se puede utilizar para crear un archivo **BED** de *WGS*. En caso de WGS utilizar el mismo archivo **BED** en las opciones.
 
   3. Ejecutar el comando: 
 
                 bash run_nextflow.sh /path/to/out/dir
 
-### Formato del archivo con la información de las muestras
+### Formato del archivo sample_info
 
-En el archivo sample_info.tsv incluir la siguiente información por columna:
+El archivo sample_info.tsv ubicado en la carpeta VC-RNAseq es indispensable y debe incluir la siguiente información por columna.
+
+ - **Sample_name**  = Nombre de la muestra secuenciada. Se recomienda el formato [identificador_numeroDeMuestra]
+ - **SampleID**     = Nombre que identifica a la muestra. Se debe utilizar el formato [Sample_name_numeroDeLane]. Sólo en el caso de que una muestra se encuentra únicamente en UN LANE, el campo **SampleID** debe ser igual al campo **Sample_name**
+ - **RG_PU**        = Campo PU del Read Group (@RG) de la muestra, está asociado al barcode de la flowcell y al número de lane. Se debe utilizar el formato [flowcell.númeroDeLane]
+ - **RG_PL**        = Campo PL del Read Group (@RG) de la muestra, está asociado a la tenología de secuenciación ej. ILLUMINA, SOLID, LS454, HELICOS y PACBIO
+ - **RG_LB**        = Campo PU del Read Group (@RG) de la muestra, está asociado al barcode de la librería de secuenciación
+ - **R1**           = Ruta absoluta del archivo fastq R1 (forward)
+ - **R2**           = Ruta absoluta del archivo fastq R2 (reverse)
+
+Para entender el significado de los campos del Read Group (@RG = etiqueta que indentifica a cada muestra) y como obtener la información para los campos **RG_PU**, **RG_PL** y **RG_LB** revisa la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups).
+
+**Recuerda:** 
+- Utilizar letras de la A a la Z (mayúsculas y minúsculas sin aceltos)
+- No utilizar la letra "ñ"
+- Sólo emplear los siguientes caracterez especiales ("-","_",".")
+- No están permitidos los espacios 
+
+A continuación, se muestran algúnos ejemplos de como se rellenar el contenido del archivo sample_info.tsv.
+
+Ejemplo 1, muestras con multiples lanes:
  
-		Sample_ID	Sample_name	RG	PU	R1	R2
+	Sample_name	SampleID	RG_PU	RG_PL	RG_LB	R1	R2
+	ID_S001	ID_S001_L001	FLOWCELL.1	ILLUMINA	BARCODE	Path/to/fastq_S001_L001_R1.fq	Path/to/fastq_S001_L001_R2.fq
+	ID_S001	ID_S001_L002	FLOWCELL.2	ILLUMINA	BARCODE	Path/to/fastq_S001_L002_R1.fq	Path/to/fastq_S001_L002_R2.fq
 
- - Sample_ID   = Nombre completo de los archivos, se recomienda el formato [identificador único-número de muestra-número de lane]
- - Sample_name = Nombre de la muestras, se recomienda el formato [nombre de la muestra - número de muestra]
- - RG          = Nombre del grupo de lectura de la muestra, revisar la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups) para más información 
- - PU          = Plataforma + Libreria + número de lane
- - R1          = Ruta absoluta del archivo fastq R1
- - R2          = Ruta absoluta del archivo fastq R2
+Ejemplo 2, muestras con un sólo lane
 
-**Nota:** Recuerda que el archivo debe estar separado por tabulador (\t).
+	Sample_name	SampleID	RG_PU	RG_PL	RG_LB	R1	R2
+	ID_S1	ID_S1	FLOWCELL.1	ILLUMINA	BARCODE	Path/to/fastq_S1_R1.fastq	Path/to/fastq_S1_R2.fastq
+	ID_S2	ID_S2	FLOWCELL.1	ILLUMINA	BARCODE	Path/to/fastq_S2_R1.fastq	Path/to/fastq_S2_R2.fastq
+
+Ejemplo 3, en caso de no contar con la información del @RG y sea sólo una muestra por lane
+
+	Sample_name	SampleID	RG_PU	RG_PL	RG_LB	R1	R2
+	ID_S1	ID_S1	FC00001.1	ILLUMINA	BC0001	Path/to/fastq_R1.fq.gz	Path/to/fastq_R2.fq.gz
+	ID_S2	ID_S2	FC00001.1	ILLUMINA	BC0001	Path/to/fastq_R1.fastq.gz	Path/to/fastq_R2.fastq.gz
+
+Como se observa no es necesario que el **Sample_name** coincida con el nombre del archivo que se encuentra en los campos **R1** y **R2**.
+
+**NOTA IMPORTANTE:** Recuerda cada columna del archivo debe estar separada por tabulador (\t) y el **encabezado** debe de conservarse exactamente igual al archivo muestra **sample_info.tsv**.
 
 ### Las herramientas utilizadas para correr este flujo de trabajo son:
 
  - FastQC (0.11.9)
  - MultiQC (1.11)
- - Trim Galore (0.6.7)
+ - Trimommatic (0.39)
+ - Mosdepth (0.3.6)
  - GATK (4.2.6.1)
  - R (4.2.3)
  - BWA (0.7.17)
