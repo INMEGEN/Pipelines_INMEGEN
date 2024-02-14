@@ -1,21 +1,25 @@
 process multiqc {
   cache 'lenient'
-  container 'pipelinesinmegen/pipelines_inmegen:public'
+  container 'pipelinesinmegen/pipelines_inmegen:QC'
   publishDir params.out, mode: 'copy'
 
   input:
-  val(sample_1)
+  val(dir_1)
+  val(dir_2)
   path(dir_all)
-  val(name)
 
   output:
   path("multiqc/*")   , emit: multiqc_fq_data
 
   script:
   """
-    mkdir -p multiqc/${name}
+    mkdir -p multiqc
 
-    multiqc -o multiqc/${name} ${dir_all}
+    multiqc -o multiqc/ ${dir_all}
+   
+    cd multiqc
+   
+    mv multiqc_report.html QC_report.html    
   """
 }
 

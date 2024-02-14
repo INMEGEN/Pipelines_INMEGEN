@@ -1,18 +1,19 @@
 process fastqc {
   cache 'lenient'
-  container 'pipelinesinmegen/pipelines_inmegen:public'
+  container 'pipelinesinmegen/pipelines_inmegen:QC'
   publishDir params.out + "/fastqc", mode:'copy'
-  
+ 
   input: 
-  tuple val(sample), path(reads)
+  tuple val(sample), path(R1), path(R2)  
   
   output:
   path("${sample}/*"), emit: fq_files
 
   script:
   """
-    mkdir -p ${sample}
-    fastqc -o ${sample} -f fastq -q ${reads[0]} ${reads[1]}
+   mkdir -p ${sample}
+
+  fastqc --threads ${params.ncrs} -o ${sample} -f fastq -q ${R1} ${R2}
   """   
 }
 
