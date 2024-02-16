@@ -11,7 +11,7 @@ process postfiltervcf {
 
     script:
     """
-    bcftools view -f "PASS" -e "FORMAT/DP < 10" -o ${sample}_postfilter.vcf.gz ${vcf_file}
+    bcftools view -f "PASS" -o ${sample}_postfilter.vcf.gz ${vcf_file}
     tabix ${sample}_postfilter.vcf.gz
     """
 }
