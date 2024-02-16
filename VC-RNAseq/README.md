@@ -35,14 +35,15 @@ Los archivos que necesitas se describen en el apartado **"Solicitud de servicio"
 	- Genoma hg38
 	- Índice del genoma de referencia (generado con SAMTOOLS faidx)
 	- Índice de [STAR](https://physiology.med.cornell.edu/faculty/skrabanek/lab/angsd/lecture_notes/STARmanual.pdf)
-	- Archivos de recalibración de BQSR y VQSR **se pueden descargar del** [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).
+	- Los archivos de para la recalibración de BQSR **se pueden descargar del** [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).
 
-**NOTA:** El directorio bin contiene un bash script para generar estos acrhivos y sólo resta descargar los archivos para BQSR y VQSR. 
-**Todos los acrchivos de recalibración archivos deben encuentrarse en el mismo directorio.**
+**NOTA:** El directorio bin contiene un *bash script* para generar el índice de **STAR**. 
+
+**Todos los acrchivos para BQSR deben encontrarse en el mismo directorio.**
 
 ### Ejecutar el flujo de trabajo
 
-Para correr este pipeline se deben clonar este repositorio y ejecutar las siguientes instrucciones:
+Para correr este pipeline se debe clonar este repositorio y ejecutar las siguientes instrucciones:
 
  1. Completar el archivo sample_info.tsv con la información que se describe en la sección - Formato del archivo con la información de las muestras -
  2. Editar el archivo de nextflow.config con la siguiente información:
@@ -52,7 +53,7 @@ Para correr este pipeline se deben clonar este repositorio y ejecutar las siguie
 	- Nombre del proyecto (params.project_name)
 	- Si son multiples lanes por muestra habilitar la ópción a true (params.multiple_samples)
 	- Ruta absoluta de la ubicación del índice de STAR del genoma de referencia (params.refdir_star)
-	- Nombre del genoma de referencia usado por START sin la ruta absoluta, incluyendo la extensión FASTA p.j. Genoma_hg38.fasta, Genoma_hg19.fa, etc. (params.refname_star)
+	- Nombre del genoma de referencia usado por STAR sin la ruta absoluta, incluyendo la extensión FASTA p.j. Genoma_hg38.fasta, Genoma_hg19.fa, etc. (params.refname_star)
 	- Ruta de los archivos VCFs para la recalibración de las bases (params.ref_dir_bsqr)
 	- Número de núcleos que utilizarán los procesos multi-threading (params.ncrs)
 	- En los parámetros para docker, se puede modificar el apartado runOptions la opción --cpus = Número máximo de núcleos por proceso.
@@ -61,6 +62,8 @@ Para correr este pipeline se deben clonar este repositorio y ejecutar las siguie
 **NOTA:** El número máximo de  procesadores que utilizará tu corrida es: cpus * queueSize. Esto aplica en el caso de los procesos que permitan multi-threading.
 
 **NOTA:** Si ncrsr es mayor que cpus, los procesos multi-threading utilizarán un número máximo de núcleos igual a cpus.
+
+**NOTA:** Los archivos *sample_info.tsv* y *nextflow.config* deben encontrarse en el mismo directorio que el archivo *main.nf*
 
 Para opciones de configuración especificas para tu servidor o cluster puedes consultar la siguiente [liga](https://www.nextflow.io/docs/latest/config.html) 
 
@@ -86,12 +89,12 @@ Para entender el significado de los campos del Read Group (@RG = etiqueta que in
 **Recuerda:** 
 - Utilizar letras de la A a la Z (mayúsculas y minúsculas sin aceltos)
 - No utilizar la letra "ñ"
-- Sólo emplear los siguientes caracterez especiales ("-","_",".")
+- Si es absolutamente necesario, puedes emplear los siguientes caracteres especiales (guión -, guión bajo _, punto .)
 - No están permitidos los espacios 
 
 A continuación, se muestran algúnos ejemplos de como se rellenar el contenido del archivo sample_info.tsv.
 
-Ejemplo 1, muestras con multiples lanes:
+Ejemplo 1, muestras con múltiples lanes:
  
 	Sample_name	SampleID	RG_PU	RG_PL	RG_LB	R1	R2
 	ID_S001	ID_S001_L001	FLOWCELL.1	ILLUMINA	BARCODE	Path/to/fastq_S001_L001_R1.fq	Path/to/fastq_S001_L001_R2.fq
