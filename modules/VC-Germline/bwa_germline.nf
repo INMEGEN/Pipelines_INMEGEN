@@ -23,6 +23,6 @@ process align {
         -R \"${readGroup}\" \
         /ref/${params.refname} \
         ${R1} \
-        ${R2} > ${pair_id}_aligned_reads.sam
+        ${R2} > ${sample_id}_aligned_reads.sam
     """
 }
