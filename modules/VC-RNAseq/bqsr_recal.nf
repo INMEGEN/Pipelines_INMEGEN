@@ -2,15 +2,14 @@ process bqsr {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
     containerOptions "-v ${params.ref_dir_bqsr}:/db -v ${params.refdir_star}:/ref"
-    publishDir params.out + "/bqsr", mode:'symlink'
+    //publishDir params.out + "/bqsr", mode:'symlink'
 
     input:
     tuple val(sample), path(reads)    
 
     output:
     tuple val(sample), path("${sample}_recalibration_data.table"), path("${sample}_post_recal_data.table"), emit: analyze_covariates
-    tuple val(sample), path("${sample}_recalibrated.bam"),     emit: recalibrated_bam
-    path("${sample}_recalibrated.bai")
+    tuple val(sample), path("${sample}_recalibrated.bam"), path("${sample}_recalibrated.bai"),              emit: recalibrated_bam
 
     script:
     """

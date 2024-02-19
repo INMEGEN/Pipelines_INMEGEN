@@ -2,7 +2,7 @@ process filterIndels {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
     containerOptions "-v ${params.refdir_star}:/ref"
-    publishDir params.out + "/filtered_vcfs", mode:'symlink'
+    publishDir params.out + "/filtered_vcfs", mode:'copy'
 
     input:
     tuple val(sample), path(raw_indels), path(raw_indels_idx)

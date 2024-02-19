@@ -2,7 +2,7 @@ process star {
   cache 'lenient'
   container 'pipelinesinmegen/pipelines_inmegen:public'
   containerOptions "-v ${params.refdir_star}:/ref"
-  publishDir params.out +"/alignments", mode: 'symlink'
+  publishDir params.out +"/alignments", mode: 'copy'
 
   input:
   tuple val(sample), val(sample_id), val(PU), val(PL), val(LB), path(R1), path(R2)

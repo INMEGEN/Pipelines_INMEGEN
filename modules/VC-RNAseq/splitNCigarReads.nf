@@ -2,7 +2,7 @@ process splitNCigarReads{
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
     containerOptions "-v ${params.refdir_star}:/ref"
-    publishDir params.out + "/splitncigarReads", mode:'symlink'
+    //publishDir params.out + "/splitncigarReads", mode:'symlink'
 
     input:
     tuple val(sample), path(sorted_bam), path(sorted_bam_idx)

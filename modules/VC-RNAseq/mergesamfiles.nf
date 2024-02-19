@@ -1,6 +1,6 @@
 process mergeSam {
    cache 'lenient'
-   publishDir params.out, mode:'symlink'
+   //publishDir params.out, mode:'symlink'
 
    input:
    tuple val(key), path(bam_files)

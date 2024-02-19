@@ -5,7 +5,7 @@ process haplotypeCaller {
     publishDir params.out + "/raw_vcfs", mode:'copy'
     
     input:
-    tuple val(sample), path(input_bam)
+    tuple val(sample), path(input_bam), path(input_bam_idx)
 
     output:
     tuple val(sample), path("${sample}_raw_variants.vcf.gz"), path("${sample}_raw_variants.vcf.gz.tbi"), emit: hc_output
