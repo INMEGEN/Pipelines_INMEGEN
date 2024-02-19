@@ -10,8 +10,8 @@ Este pipeline realiza la identificación de variantes a partir de archivos de se
 
 Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN: 
 
-- Archivos de secuenciación FASTQ (este flujo esta diseñado únicamente para Illumina paired-end).
-- Archivo con la información experimental (veáse la sección "Formato del archivo con la información experimental").
+- Archivos de secuenciación FASTQ (este flujo está diseñado únicamente para Illumina paired-end).
+- Archivo con la información experimental (véase la sección "Formato del archivo con la información experimental").
 
 
 ## Implementando este flujo por tu cuenta: Instrucciones de uso 
@@ -39,7 +39,7 @@ Los archivos que necesitas se describen en el apartado **"Solicitud de servicio"
 
 **NOTA:** El directorio bin contiene un *bash script* para generar el índice de **STAR**. 
 
-**Todos los acrchivos para BQSR deben encontrarse en el mismo directorio.**
+**Todos los archivos para BQSR deben encontrarse en el mismo directorio.**
 
 ### Ejecutar el flujo de trabajo
 
@@ -51,7 +51,7 @@ Para correr este pipeline se debe clonar este repositorio y ejecutar las siguien
 	- Ruta del directorio de salida de nextflow (params.outdir)
 	- Ruta del archivo sample_info.tsv (params.sample_info)
 	- Nombre del proyecto (params.project_name)
-	- Si son multiples lanes por muestra habilitar la ópción a true (params.multiple_samples)
+	- Si son multiples lanes por muestra habilitar la opción a true (params.multiple_samples)
 	- Ruta absoluta de la ubicación del índice de STAR del genoma de referencia (params.refdir_star)
 	- Nombre del genoma de referencia usado por STAR sin la ruta absoluta, incluyendo la extensión FASTA p.j. Genoma_hg38.fasta, Genoma_hg19.fa, etc. (params.refname_star)
 	- Ruta de los archivos VCFs para la recalibración de las bases (params.ref_dir_bsqr)
@@ -65,7 +65,7 @@ Para correr este pipeline se debe clonar este repositorio y ejecutar las siguien
 
 **NOTA:** Los archivos *sample_info.tsv* y *nextflow.config* deben encontrarse en el mismo directorio que el archivo *main.nf*
 
-Para opciones de configuración especificas para tu servidor o cluster puedes consultar la siguiente [liga](https://www.nextflow.io/docs/latest/config.html) 
+Para opciones de configuración específicas para tu servidor o cluster puedes consultar la siguiente [liga](https://www.nextflow.io/docs/latest/config.html) 
 
   3. Ejecutar el comando: 
 
@@ -78,21 +78,21 @@ El archivo sample_info.tsv ubicado en la carpeta VC-RNAseq es indispensable y de
 
  - **Sample_name**  = Nombre de la muestra secuenciada. Se recomienda el formato [identificador_numeroDeMuestra]
  - **SampleID**     = Nombre que identifica a la muestra. Se debe utilizar el formato [Sample_name_numeroDeLane]. Sólo en el caso de que una muestra se encuentra únicamente en UN LANE, el campo **SampleID** debe ser igual al campo **Sample_name**
- - **RG_PU**        = Campo PU del Read Group (@RG) de la muestra, está asociado al barcode de la flowcell y al número de lane. Se debe utilizar el formato [flowcell.númeroDeLane]
- - **RG_PL**        = Campo PL del Read Group (@RG) de la muestra, está asociado a la tenología de secuenciación ej. ILLUMINA, SOLID, LS454, HELICOS y PACBIO
- - **RG_LB**        = Campo PU del Read Group (@RG) de la muestra, está asociado al barcode de la librería de secuenciación
+ - **RG_PU**        = Campo PU del *Read Group* (@RG) de la muestra, está asociado al *barcode* de la *flowcell* y al número de *lane*. Se debe utilizar el formato [flowcell.númeroDeLane]
+ - **RG_PL**        = Campo PL del *Read Group* (@RG) de la muestra, está asociado a la tenología de secuenciación ej. ILLUMINA, SOLID, LS454, HELICOS y PACBIO
+ - **RG_LB**        = Campo PU del *Read Group* (@RG) de la muestra, está asociado al *barcode* de la librería de secuenciación
  - **R1**           = Ruta absoluta del archivo fastq R1 (forward)
  - **R2**           = Ruta absoluta del archivo fastq R2 (reverse)
 
-Para entender el significado de los campos del Read Group (@RG = etiqueta que indentifica a cada muestra) y como obtener la información para los campos **RG_PU**, **RG_PL** y **RG_LB** revisa la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups).
+Para entender el significado de los campos del *Read Group* (@RG = etiqueta que indentifica a cada muestra) y cómo obtener la información para los campos **RG_PU**, **RG_PL** y **RG_LB** revisa la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups).
 
 **Recuerda:** 
-- Utilizar letras de la A a la Z (mayúsculas y minúsculas sin aceltos)
+- Utilizar letras de la A a la Z (mayúsculas y minúsculas sin acentos)
 - No utilizar la letra "ñ"
 - Si es absolutamente necesario, puedes emplear los siguientes caracteres especiales (guión -, guión bajo _, punto .)
 - No están permitidos los espacios 
 
-A continuación, se muestran algúnos ejemplos de como se rellenar el contenido del archivo sample_info.tsv.
+A continuación, se muestran algunos ejemplos de cómo se rellenar el contenido del archivo sample_info.tsv.
 
 Ejemplo 1, muestras con múltiples lanes:
  
