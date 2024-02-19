@@ -17,7 +17,7 @@ include { markDuplicatesSpark                } from "../modules/common/markDupli
 include { getMetrics                         } from "../modules/VC-RNAseq/getmetrics.nf"
 include { splitNCigarReads                   } from "../modules/VC-RNAseq/splitNCigarReads.nf"
 include { bqsr                               } from "../modules/VC-RNAseq/bqsr_recal.nf"
-include { analyzeCovariates                  } from "../modules/metricts/analyzecovariates.nf"
+include { analyzeCovariates                  } from "../modules/common/analyzecovariates.nf"
 include { haplotypeCaller                    } from "../modules/VC-RNAseq/haplotypecaller.nf"
 include { selectVariants                     } from "../modules/VC-RNAseq/selectvariants.nf"
 include { filterSnps                         } from "../modules/VC-RNAseq/filtersnps.nf"
