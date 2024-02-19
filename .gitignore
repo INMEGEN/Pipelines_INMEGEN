@@ -1,2 +1,5 @@
-# Ignorar los archivos log de nexttlow
+### Ignorar los archivos log de nexttlow
 .nextflow*
+
+### Ignorar el directorio test
+test_config/
