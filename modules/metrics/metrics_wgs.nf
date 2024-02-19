@@ -1,6 +1,6 @@
 process metricswgs {
    cache 'lenient'
-   container 'pipelinesinmegen/pipelines_inmegen:public
+   container 'pipelinesinmegen/pipelines_inmegen:public'
    publishDir params.out + "/metrics", mode: 'copy'
 
    input:
