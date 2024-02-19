@@ -24,6 +24,10 @@ Li H: A statistical framework for SNP calling, mutation discovery, association m
 
 Li H: Aligning sequence reads, clone sequences and assembly contigs with BWA-MEM. arXiv 2013. doi: 10.48550/arXiv.1303.3997
 
+- [VariantQC](https://bimberlab.github.io/DISCVRSeq/toolDoc/com_github_discvrseq_walkers_variantqc_VariantQC.html)
+
+VariantQC: a visual quality control report for variant evaluation. Yan MY, Ferguson B, Bimber BN. Bioinformatics. 2019 Dec 15;35(24):5370-5371. PMID: 31309221
+
 - [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
 Andrews, S. (2010). FastQC: A Quality Control Tool for High Throughput Sequence Data
