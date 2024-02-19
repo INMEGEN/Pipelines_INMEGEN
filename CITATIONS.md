@@ -24,10 +24,6 @@ Li H: A statistical framework for SNP calling, mutation discovery, association m
 
 Li H: Aligning sequence reads, clone sequences and assembly contigs with BWA-MEM. arXiv 2013. doi: 10.48550/arXiv.1303.3997
 
-- [VariantQC](https://bimberlab.github.io/DISCVRSeq/toolDoc/com_github_discvrseq_walkers_variantqc_VariantQC.html)
-
-VariantQC: a visual quality control report for variant evaluation. Yan MY, Ferguson B, Bimber BN. Bioinformatics. 2019 Dec 15;35(24):5370-5371. PMID: 31309221
-
 - [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
 Andrews, S. (2010). FastQC: A Quality Control Tool for High Throughput Sequence Data
@@ -71,6 +67,10 @@ Martin, M. (2011) Cutadapt Removes Adapter Sequences from High-Throughput Sequen
 - [Trimmomatic](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4103590/)
 
 Bolger, A. M., Lohse, M., & Usadel, B. (2014). Trimmomatic: A flexible trimmer for Illumina Sequence Data. Bioinformatics, btu170.
+
+- [VariantQC](https://bimberlab.github.io/DISCVRSeq/toolDoc/com_github_discvrseq_walkers_variantqc_VariantQC.html)
+
+VariantQC: a visual quality control report for variant evaluation. Yan MY, Ferguson B, Bimber BN. Bioinformatics. 2019 Dec 15;35(24):5370-5371. PMID: 31309221
 
 - [VCFTools](https://pubmed.ncbi.nlm.nih.gov/21653522/)
 
@@ -117,5 +117,3 @@ Charlotte Soneson, Michael I. Love, Mark D. Robinson. Differential analyses for 
 - [SummarizedExperiment](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html)
 
 Morgan M, Obenchain V, Hester J and Pagès H (2020). SummarizedExperiment: SummarizedExperiment container.
-
-
