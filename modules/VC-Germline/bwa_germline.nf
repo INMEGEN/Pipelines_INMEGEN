@@ -2,13 +2,14 @@ process align {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
     containerOptions "-v ${params.refdir}:/ref"
-    publishDir params.out + "/aligned_reads", mode:'symlink'
+    publishDir params.out + "/aligned_reads", mode:'copy'
 
     input:
     tuple val(sample), val(sample_id), val(PU), val(PL), val(LB), path(R1), path(R2)
 
     output:
     tuple val(sample_id), path("${sample_id}_aligned_reads.sam"),     emit: aligned_reads_ch
+    path("${sample_id}_bwamem_Log.out")
 
     script:
     readGroup = \
@@ -23,6 +24,6 @@ process align {
         -R \"${readGroup}\" \
         /ref/${params.refname} \
         ${R1} \
-        ${R2} > ${sample_id}_aligned_reads.sam
+        ${R2} > ${sample_id}_aligned_reads.sam 2> ${sample_id}_bwamem_Log.out
     """
 }
