@@ -24,10 +24,10 @@ process genomicsDBimport {
        --sample-name-map cohort.sample_map \
        --interval-merging-rule ALL \
        -L ${interval_list} \
-       --merge-input-intervals ${params.interval} \
+       --merge-input-intervals ${params.wes} \
        --tmp-dir genomicsdb/tmp \
-       --reader-threads ${params.GI_cores} \
-       --max-num-intervals-to-import-in-parallel ${params.GI_cores}
+       --reader-threads ${params.ncores} \
+       --max-num-intervals-to-import-in-parallel ${params.ncrs}
 
     rm -r genomicsdb/tmp
     """

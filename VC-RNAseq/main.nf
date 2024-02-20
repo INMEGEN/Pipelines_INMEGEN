@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 // Workflow     : Identificación de variantes de datos RNA-seq con GATK4
 // Institución  : Instituto Nacional de Medicina Genómica (INMEGEN)
-// Maintainer   : Subdirección de genómica poblacional y subdifección de bioinformatica del INMEGEN
+// Maintainer   : Subdirección de genómica poblacional y subdirección de bioinformática del INMEGEN
 // Versión      : 0.2
 // Docker image : - pipelinesinmegen/pipelines_inmegen -
 

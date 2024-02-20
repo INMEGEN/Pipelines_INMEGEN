@@ -8,7 +8,7 @@ process filterMutectCalls {
     tuple val(tumor_id), val(input_vcf), path(orient_model), path(seg_table), path(cont_table)
 
     output:
-    tuple val(tumor_id), path("${tumor_id}_filtered.vcf"),    emit: filt_vcf
+    tuple val(tumor_id), path("${tumor_id}_filtered.vcf.gz"),    emit: filt_vcf
     path("${tumor_id}_filtered.vcf.*")
 
     script:
@@ -16,7 +16,7 @@ process filterMutectCalls {
     gatk FilterMutectCalls \
         -R /ref/${params.refname} \
         -V ${input_vcf} \
-        -O ${tumor_id}_filtered.vcf \
+        -O ${tumor_id}_filtered.vcf.gz \
         --tumor-segmentation ${seg_table} \
         --contamination-table ${cont_table} \
         --ob-priors ${orient_model}

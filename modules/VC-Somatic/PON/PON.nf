@@ -13,6 +13,6 @@ process createSomaticPanelofNormals {
 
     script:
     """
-    gatk CreateSomaticPanelOfNormals -R /ref/${params.refname} --germline-resource /ref/${params.onlygnomad} --output ${project_id}_PON.vcf.gz -V gendb://${database}
+    gatk CreateSomaticPanelOfNormals -R /ref/${params.refname} --output ${project_id}_PON.vcf.gz -V gendb://${database}
     """
 }

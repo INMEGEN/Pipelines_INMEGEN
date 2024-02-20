@@ -6,7 +6,6 @@ process mutect2forPanelofNormals {
     
     input:
     tuple val(sample), path(input_bam)
-    file(interval_list)
 
     output:
     tuple val(sample), path("${sample}_for_pon.vcf.gz"), emit: mtf_PON_out
@@ -20,8 +19,6 @@ process mutect2forPanelofNormals {
    -I ${input_bam} \
    -O ${sample}_for_pon.vcf.gz \
    -tumor ${sample} \
-   --interval-padding ${params.pading} \
-   --germline-resource /ref/${params.onlygnomad} \
-   --genotype-germline-sites ${params.germline_sites}
+   -max-mnp-distance 0 
     """
 }
