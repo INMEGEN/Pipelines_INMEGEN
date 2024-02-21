@@ -38,9 +38,13 @@ Los archivos que necesitas se describen en el apartando "Solicitud de servicio".
 
 ### Requisitos previos
 
-Antes de correr estos flujos de trabajo asegurate de contar con las siguientes herramientas y archivos.
+Antes de correr este *pipeline* asegúrate de contar con las siguientes herramientas y archivos:
 
-1. Verifica si tienes las siguientes herramientas informáticas:
+1. Clonar el repositorio principal siguiendo las instrucciones:
+
+		git clone https://github.com/INMEGEN/Pipelines_INMEGEN.git
+
+2. Verifica si tienes las siguientes herramientas informáticas:
 	- [NextFlow](https://www.nextflow.io/docs/latest/index.html) (versión mayor o gual a 22.10.7)
 	- [Docker](https://docs.docker.com/) (versión mayor o gual a 23.0.5)
 	- Imagen de docker pipelinesinmegen/pipelines_inmegen:public, la puedes descargar con el comando: 
@@ -61,7 +65,7 @@ Estos flujos de trabajo utiliza archivos bam previamente procesados con el flujo
 
 ### Ejecutar el flujo de trabajo
 
-Para correr este pipeline se debe clonar este repositorio y ejecutar las siguientes instrucciones:
+Para correr este *pipeline* ejecuta las siguientes instrucciones:
 
  1. Completar el archivo sample_info.tsv con la información que se describe en la sección **Formato del archivo sample_info.**
  2. Editar el archivo de nextflow.config acorde a cada flujo de trabajo con la siguiente información:
