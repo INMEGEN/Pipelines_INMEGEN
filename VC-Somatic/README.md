@@ -136,7 +136,7 @@ Para tener un buen control de los archivos a procesar (formato bam), el archivo 
 		Tumor_sample_id	/path/to/tumor/bam/file/Tumor_sample_id.bam
 
 
-**NOTA:** Cualquier archivo sample_info.tsv **DEBEN** estar separado por tabulador **(\t)**.
+**NOTA IMPORTANTE:** Recuerda cada columna del archivo sample_info **DEBE** estar separada por tabulador (\t) y el **encabezado** debe de conservarse exactamente igual al archivo muestra **sample_info.tsv**.
 
 #### Las herramientas utilizadas para correr este flujo de trabajo son:
 
