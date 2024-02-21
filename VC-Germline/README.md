@@ -21,16 +21,20 @@ Los archivos que necesitas se describen en el apartando **"Solicitud de servicio
 
 ### Requisitos previos
 
-Antes de correr estos flujos de trabajo asegurate de contar con las siguientes herramientas y archivos.
+Antes de correr este *pipeline* asegúrate de contar con las siguientes herramientas y archivos:
 
-1. Verifica si tienes las siguientes herramientas informáticas:
+1. Clonar el repositorio principal siguiendo las instrucciones:
+
+		git clone https://github.com/INMEGEN/Pipelines_INMEGEN.git
+
+2. Verifica si tienes las siguientes herramientas informáticas:
 	- [NextFlow](https://www.nextflow.io/docs/latest/index.html) (versión mayor o gual a 22.10.7)
 	- [Docker](https://docs.docker.com/) (versión mayor o gual a 23.0.5)
 	- Imagen de docker pipelinesinmegen/pipelines_inmegen:public, la puedes descargar con el comando: 
 
                 docker pull pipelinesinmegen/pipelines_inmegen:public
 
-2. Asegurarse de contar con los siguientes archivos, necesarios para el pipeline:
+3. Asegurarse de contar con los siguientes archivos, necesarios para el pipeline:
 	- Genoma hg38
 	- Índice del genoma de referencia (generado con SAMTOOLS faidx)
 	- Índice de [BWA](https://bio-bwa.sourceforge.net/bwa.shtml)
@@ -42,7 +46,7 @@ Antes de correr estos flujos de trabajo asegurate de contar con las siguientes h
 
 ### Ejecutar el flujo de trabajo
 
-Para correr este pipeline se debe clonar este repositorio y ejecutar las siguientes instrucciones:
+Para correr este *pipeline* sigue las siguientes instrucciones:
 
  1. Completar el archivo sample_info.tsv con la información que se describe en la sección **Formato del archivo sample_info**
     
@@ -119,20 +123,20 @@ Ejemplo 3, en caso de no contar con la información del @RG y sea sólo una mues
 
 Como se observa no es necesario que el **Sample_name** coincida con el nombre del archivo que se encuentra en los campos **R1** y **R2**.
 
-**NOTA IMPORTANTE:** Recuerda cada columna del archivo **DEBE** estar separada por tabulador (\t) y el **encabezado** debe de conservarse exactamente igual al archivo muestra **sample_info.tsv**.
+**NOTA IMPORTANTE:** Recuerda cada columna del archivo sample_info **DEBE** estar separada por tabulador (\t) y el **encabezado** debe de conservarse exactamente igual al archivo muestra **sample_info.tsv**.
 
 ### Las herramientas utilizadas para correr este flujo de trabajo son:
 
- - FastQC (0.11.9)
- - MultiQC (1.11)
- - Trimommatic (0.39)
- - Mosdepth (0.3.6)
- - GATK (4.2.6.1)
- - R (4.2.3)
+ - BCFTools (1.12)
  - BWA (0.7.17)
+ - FastQC (0.11.9)
+ - GATK (4.2.6.1)
+ - Mosdepth (0.3.6)
+ - MultiQC (1.11)
  - Picard Tools (2.27.5)
- - Samtools (1.12)
- - Bcftools (1.12)
+ - R (4.2.3)
+ - SAMTools (1.12)
+ - Trimommatic (0.39)
 
 ## Diagrama de flujo del pipeline 
 
