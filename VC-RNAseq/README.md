@@ -114,19 +114,19 @@ Ejemplo 3, en caso de no contar con la información del @RG y sea sólo una mues
 
 Como se observa no es necesario que el **Sample_name** coincida con el nombre del archivo que se encuentra en los campos **R1** y **R2**.
 
-**NOTA IMPORTANTE:** Recuerda cada columna del archivo debe estar separada por tabulador (\t) y el **encabezado** debe de conservarse exactamente igual al archivo muestra **sample_info.tsv**.
+**NOTA IMPORTANTE:** Recuerda cada columna del archivo **DEBE** estar separada por tabulador (\t) y el **encabezado** debe de conservarse exactamente igual al archivo muestra **sample_info.tsv**.
 
 #### Las herramientas utilizadas para correr este flujo de trabajo son:
 
+ - BCFTools (1.12)
  - FastQC (0.11.9)
- - MultiQC (1.11)
- - Trim Galore (0.6.7)
  - GATK (4.2.6.1)
- - R (4.2.3)
- - BWA (0.7.17)
+ - MultiQC (1.11)
  - Picard Tools (2.27.5)
- - Samtools (1.12)
- - Bcftools (1.12)
+ - R (4.2.3)
+ - STAR (2.7.9a)
+ - SAMTools (1.12)
+ - Trim Galore (0.6.7)
 
 ## Diagrama de flujo del pipeline 
 
