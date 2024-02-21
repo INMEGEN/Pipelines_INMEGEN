@@ -119,7 +119,7 @@ Ejemplo 3, en caso de no contar con la información del @RG y sea sólo una mues
 
 Como se observa no es necesario que el **Sample_name** coincida con el nombre del archivo que se encuentra en los campos **R1** y **R2**.
 
-**NOTA IMPORTANTE:** Recuerda cada columna del archivo debe estar separada por tabulador (\t) y el **encabezado** debe de conservarse exactamente igual al archivo muestra **sample_info.tsv**.
+**NOTA IMPORTANTE:** Recuerda cada columna del archivo **DEBE** estar separada por tabulador (\t) y el **encabezado** debe de conservarse exactamente igual al archivo muestra **sample_info.tsv**.
 
 ### Las herramientas utilizadas para correr este flujo de trabajo son:
 
