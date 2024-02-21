@@ -18,15 +18,17 @@ Para solicitar este flujo de trabajo como servicio debes de entregar al personal
 
 Los archivos que necesitas se describen en el apartado **"Solicitud de servicio"**.
 
-### Preparar el ambiente de trabajo
+### Requisitos previos
 
-1. Asegurarse de haber clonado el repositorio principal siguiendo las instrucciones:
+Antes de correr este *pipeline* asegúrate de contar con las siguientes herramientas y archivos:
+
+1. Clonar el repositorio principal siguiendo las instrucciones:
 
 		git clone https://github.com/INMEGEN/Pipelines_INMEGEN.git
 
-2. Te debes asegurar de contar con las siguientes herramientas informaticas:
-	- [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7)
-	- [Docker](https://docs.docker.com/) (23.0.5)
+2. Verifica si tienes las siguientes herramientas informáticas:
+	- [NextFlow](https://www.nextflow.io/docs/latest/index.html) (versión mayor o gual a 22.10.7)
+	- [Docker](https://docs.docker.com/) (versión mayor o gual a 23.0.5)
 	- Imagen de docker pipelinesinmegen/pipelines_inmegen:public, la puedes descargar con el comando: 
 
 			docker pull pipelinesinmegen/pipelines_inmegen:public
@@ -43,7 +45,7 @@ Los archivos que necesitas se describen en el apartado **"Solicitud de servicio"
 
 ### Ejecutar el flujo de trabajo
 
-Para correr este pipeline se debe clonar este repositorio y ejecutar las siguientes instrucciones:
+Para correr este flujo de trabajo sigue las siguientes instrucciones:
 
  1. Completar el archivo sample_info.tsv con la información que se describe en la sección - Formato del archivo con la información de las muestras -
  2. Editar el archivo de nextflow.config con la siguiente información:
@@ -114,7 +116,7 @@ Ejemplo 3, en caso de no contar con la información del @RG y sea sólo una mues
 
 Como se observa no es necesario que el **Sample_name** coincida con el nombre del archivo que se encuentra en los campos **R1** y **R2**.
 
-**NOTA IMPORTANTE:** Recuerda cada columna del archivo **DEBE** estar separada por tabulador (\t) y el **encabezado** debe de conservarse exactamente igual al archivo muestra **sample_info.tsv**.
+**NOTA IMPORTANTE:** Recuerda cada columna del archivo sample_info **DEBE** estar separada por tabulador (\t) y el **encabezado** debe de conservarse exactamente igual al archivo muestra **sample_info.tsv**.
 
 #### Las herramientas utilizadas para correr este flujo de trabajo son:
 
