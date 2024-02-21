@@ -21,7 +21,6 @@ process mutect2 {
    -L ${interval_list} \
    -I ${tumor_bam} \
    -imr ALL \
-   --interval-padding ${params.pading} \
    --germline-resource /ref/${params.onlygnomad} \
    -pon ${panel_normales} \
    --f1r2-tar-gz ${tumor_id}_f1r2.tar.gz \
