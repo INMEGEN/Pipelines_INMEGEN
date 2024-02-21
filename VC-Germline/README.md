@@ -19,11 +19,13 @@ Para solicitar este flujo de trabajo como servicio debes de entregar al personal
 
 Los archivos que necesitas se describen en el apartando **"Solicitud de servicio"**.
 
-### Preparar el ambiente de trabajo
+### Requisitos previos
 
-1. Te debes asegurar de contar con las siguientes herramientas informaticas:
-	- [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7)
-	- [Docker](https://docs.docker.com/) (23.0.5)
+Antes de correr estos flujos de trabajo asegurate de contar con las siguientes herramientas y archivos.
+
+1. Verifica si tienes las siguientes herramientas informáticas:
+	- [NextFlow](https://www.nextflow.io/docs/latest/index.html) (versión mayor o gual a 22.10.7)
+	- [Docker](https://docs.docker.com/) (versión mayor o gual a 23.0.5)
 	- Imagen de docker pipelinesinmegen/pipelines_inmegen:public, la puedes descargar con el comando: 
 
                 docker pull pipelinesinmegen/pipelines_inmegen:public
