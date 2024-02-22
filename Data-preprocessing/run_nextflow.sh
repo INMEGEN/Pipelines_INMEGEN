@@ -8,7 +8,6 @@ nextflow run main.nf -resume -with-trace trace_dp.txt -with-report report_dp.htm
 mkdir -p $path/run_files/modules
 
 ## Copiar los ejecutables, la configuración y los modulos de nextflow utilizados
-cp ../modules/qualitycontrol/* $path/run_files/modules
 cp ../modules/data_preprocessing/* $path/run_files/modules
 cp ../modules/metricts/* $path/run_files/modules
 cp ../modules/common/* $path/run_files/modules

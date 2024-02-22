@@ -5,7 +5,7 @@ process bqsr {
     publishDir params.out + "/bqsr", mode:'symlink'
 
     input:
-    tuple val(sample), path(reads), path(reads_idx)    
+    tuple val(sample), path(bam), path(bam_idx)    
 
     output:
     tuple val(sample), path("${sample}_recalibration_data.table"), path("${sample}_post_recal_data.table"), emit: analyze_covariates
@@ -17,7 +17,7 @@ process bqsr {
     mkdir -p tmp/bqsr/${sample}
 
     gatk BaseRecalibrator \
-    -I ${reads} \
+    -I ${bam} \
     -R /ref/${params.refname} \
     --known-sites /ref/1000G_phase1.snps.high_confidence.hg38.vcf.gz \
     --known-sites /ref/Homo_sapiens_assembly38.dbsnp138.vcf \
@@ -28,7 +28,7 @@ process bqsr {
 
     gatk ApplyBQSR \
     -R /ref/${params.refname} \
-    -I ${reads} \
+    -I ${bam} \
     -bqsr ${sample}_recalibration_data.table \
     -O ${sample}_recalibrated.bam \
     --tmp-dir tmp/bqsr/${sample}

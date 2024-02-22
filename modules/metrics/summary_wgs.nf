@@ -13,7 +13,7 @@ process summary_wgs {
 
    script:
    """
-   echo	"Sample id	Depth mean	N alingned reads	N aligned reads on target	On target reads percent	Total bases(in bed)	N bases on target	Percent of bases on target" >> ${project_id}_summary_QCmetrics.txt
+   echo	"Sample id	Depth mean	Total bases	N bases on target	Percent of bases on target" >> ${project_id}_summary_QCmetrics.txt
 
    cat ${summary_dir}/*.txt >> ${project_id}_summary_QCmetrics.txt
    """
