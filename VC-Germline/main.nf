@@ -38,7 +38,6 @@ println "Flujo de trabajo: Identificación conjunta de variantes germinales con 
 println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:public"
 println " "
 println "Nombre del proyecto: $params.project_name"
-println "Directorio con los datos crudos: $params.reads"
 println "Información de las muestras: $params.sample_info"
 println "Tipo de análisis (true = WES, false = WGS): $params.wes"
 println "Varios lanes por muestra (true = sí, false = no): $params.multiple_lanes"
