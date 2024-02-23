@@ -65,7 +65,6 @@ Para correr este *pipeline* sigue las siguientes instrucciones:
 	- Nombre del archivo *interval_list* (params.intervalname)
 	- Ruta absoluta del archivo **BED** utilizado para la secuenciación (params.bed_file)
 	- Ruta absoluta del archivo **BED** utilizado para la secuenciación que incluye una ventana de 100 bases (params.bed_filew)
-	- Ruta absoluta del archivo **FASTA** con la lista de adaptadores para **Trimmomatic**
 	- Número de núcleos que utilizarán los procesos multi-threading (params.ncrs)
 	- En los parámetros para docker, se puede modificar el apartado runOptions la opción --cpus = Número máximo de núcleos por proceso.
 	- En los parámetros de Nextflow (executor) solo se puede cambiar la opción queueSize = Número máximo de procesos que se ejecutarán de forma simultánea
