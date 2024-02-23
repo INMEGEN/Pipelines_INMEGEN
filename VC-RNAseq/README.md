@@ -1,6 +1,6 @@
-# Flujo de trabajo llamado de variantes de datos RNAseq utilizando NextFlow y GATK4.
+# Identificación de variantes germinales a partir de datos de RNAseq
 
-Este pipeline realiza la identificación de variantes a partir de archivos de secuenciación masiva (RNA-seq).
+Este flujo de trabajo realiza la identificación de variantes germinales a partir de archivos de secuenciación masiva (RNA-seq).
 
 **NOTA:** Por el momento el análisis sólo está disponible para datos de lectura corta de humano (Illumina paired-end).
 
@@ -10,8 +10,8 @@ Este pipeline realiza la identificación de variantes a partir de archivos de se
 
 Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN: 
 
-- Archivos de secuenciación FASTQ (este flujo está diseñado únicamente para Illumina paired-end).
-- Archivo con la información experimental (véase la sección "Formato del archivo con la información experimental").
+- Archivos de secuenciación **FASTQ** (este flujo está diseñado únicamente para Illumina *paired-end*).
+- Archivo con la información experimental (vease la sección: **Formato del archivo sample_info**).
 
 
 ## Implementando este flujo por tu cuenta: Instrucciones de uso 
@@ -47,7 +47,7 @@ Antes de correr este *pipeline* asegúrate de contar con las siguientes herramie
 
 Para correr este flujo de trabajo sigue las siguientes instrucciones:
 
- 1. Completar el archivo sample_info.tsv con la información que se describe en la sección - Formato del archivo con la información de las muestras -
+ 1. Completar el archivo sample_info.tsv con la información que se describe en la sección - **Formato del archivo sample_info** -
  2. Editar el archivo de nextflow.config con la siguiente información:
 
 	- Ruta del directorio de salida de nextflow (params.outdir)
@@ -74,7 +74,7 @@ Para opciones de configuración específicas para tu servidor o cluster puedes c
 			bash run_nextflow.sh /path/to/out/dir
 
 
-### Formato del archivo con la información experimental
+### Formato del archivo sample_info.
 
 El archivo sample_info.tsv ubicado en la carpeta VC-RNAseq es indispensable y debe incluir la siguiente información por columna.
 
