@@ -5,7 +5,7 @@ process bqsr {
     publishDir params.out + "/bqsr", mode:'symlink'
 
     input:
-    tuple val(sample), path(input_bam) 
+    tuple val(sample), path(input_bam), path(input_bam_idx) 
     tuple val(sample), path(filtered_snps), path(filtered_snps_index) 
     tuple val(sample), path(filtered_indels), path(filtered_indels_index)  
 

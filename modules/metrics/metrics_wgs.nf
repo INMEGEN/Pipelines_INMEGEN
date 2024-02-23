@@ -5,7 +5,6 @@ process metricswgs {
 
    input:
    tuple val(sample_id), path(input_bam), path(bam_idx)
-   file(bed_file)
 
    output:
    tuple val(sample_id), path("summary/${sample_id}_QCmetrics.txt"), emit: summary_file

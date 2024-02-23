@@ -104,8 +104,8 @@ workflow {
     }
     else {
 
-    metricswgs(markDuplicatesSpark.out.bam_for_variant_calling,bed_file)
-    summary_wgs((metricswgs.out.summary_file.collect()),"${params.project_name}","${params.out}"+"/metrics/summary") 
+    metricswgs(markDuplicatesSpark.out.bam_for_variant_calling)
+    summary_wgs(metricswgs.out.summary_file.collect(),"${params.project_name}","${params.out}"+"/metrics/summary") 
     }
 
    getMetrics(markDuplicatesSpark.out.bam_for_variant_calling)
