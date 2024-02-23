@@ -1,6 +1,6 @@
-# Flujo de trabajo identificación de variantes de línea germinal utilizando NextFlow y GATK
+# Identificación de variantes germinales utilizando **bootstrapping**
 
-Este pipeline realiza la identificación conjunta de variantes germinales utilizando bootstrapping a partir de archivos de secuenciación masiva (WGS/WES), por lo que es útil para especies diferentes al humano donde sólo se cuenta con la referencia sin los archivos con los sitios de snps e indels conocidos.
+Este flujo de trabajo realiza la identificación conjunta de variantes germinales utilizando bootstrapping a partir de archivos de secuenciación masiva (WGS/WES), por lo que es útil para especies diferentes al humano donde sólo se cuenta con la referencia sin los archivos con los sitios de snps e indels conocidos.
 
 **NOTA:** 
  - Por el momento el análisis sólo está disponible para datos ilummina *paired-end*.
@@ -84,7 +84,7 @@ Para opciones de configuración específicas para tu servidor o cluster puedes c
 
 ### Formato del archivo sample_info
 
-El archivo sample_info.tsv ubicado en la carpeta VC-Germline es indispensable y debe incluir la siguiente información por columna.
+El archivo sample_info.tsv ubicado en la carpeta Bt-VC-Germline es indispensable y debe incluir la siguiente información por columna.
 
  - **Sample_name**  = Nombre de la muestra secuenciada. Se recomienda el formato [identificador_numeroDeMuestra]
  - **SampleID**     = Nombre que identifica a la muestra. Se debe utilizar el formato [Sample_name_numeroDeLane]. Sólo en el caso de que una muestra se encuentra únicamente en UN LANE, el campo **SampleID** debe ser igual al campo **Sample_name**
