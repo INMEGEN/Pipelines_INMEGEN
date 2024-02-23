@@ -52,7 +52,7 @@ En caso de querer construir la imagen de docker con el Dockerfile que se encuent
 
 y modificar el tag de la imagen con el comando:
 
-        docker tag pipelines_inmegen:public pipelinesinmegen/pipelines_inmegen:public
+	docker tag pipelines_inmegen:public pipelinesinmegen/pipelines_inmegen:public
 
 Debes asegurarte de que el directorio de docker cuente con suficiente espacio para generar la imagen (~ 6 GB)
 
