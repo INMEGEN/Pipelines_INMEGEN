@@ -30,9 +30,9 @@ Antes de correr este pipeline asegúrate de contar con las siguientes herramient
 	- [Docker](https://docs.docker.com/) (versión mayor o gual a 23.0.5)
 	- Imagen de docker pipelinesinmegen/pipelines_inmegen:public, la puedes descargar con el comando: 
 
-                docker pull pipelinesinmegen/pipelines_inmegen:public
+          docker pull pipelinesinmegen/pipelines_inmegen:public
 
-3. Asegurarse de contar con los siguientes archivos, necesarios para el pipeline:
+3. Asegurarse de contar con los siguientes archivos, necesarios para el pipeline::
 	- Genoma hg38
 	- Índice del genoma de referencia (generado con SAMTOOLS faidx)
 	- Índice de [BWA](https://bio-bwa.sourceforge.net/bwa.shtml)
