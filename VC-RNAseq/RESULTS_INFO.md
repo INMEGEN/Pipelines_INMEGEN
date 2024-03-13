@@ -1,21 +1,21 @@
 # Identificación de variantes germinales a partir de datos de RNAseq
-##Descripción de los archivos de salida del flujo de trabajo 
 
-Como parte del servicio de análisis bioinformático del INMEGEN [VC-RNAseq]
-Se entregarán los siguientes directorios con los siguientes archivos:
+## Descripción de los archivos de salida del flujo de trabajo [VC-RNAseq]
 
-- Directorio: Archivos_bam
+Como parte de los servicios de análisis bioinformáticos del INMEGEN, después de ejecutar el flujo de trabajo se entregarán los siguientes directorios con los siguientes archivos:
+
+- Directorio: **Archivos_bam**
 
 Este directorio contiene los alineados a hg38 (genoma humano versión GRCh38) **por muestra** en formato [bam](https://support.illumina.com/help/BS_App_RNASeq_Alignment_OLH_1000000006112/Content/Source/Informatics/BAM-Format.htm).
 Estos archivos está ordenados y con los duplicados ya marcados. 
 
-- Directorio: VCFs_filtrados
+- Directorio: **VCFs_filtrados**
 
 Esta carpeta contiene diversos archivos en formato [VCF](https://support.illumina.com/help/BS_App_RNASeq_Alignment_OLH_1000000006112/Content/Source/Informatics/VCF-Format.htm) con las variantes identificadas y marcadas con los filtros duros de GATK [ver](https://gatk.broadinstitute.org/hc/en-us/articles/360035890471-Hard-filtering-germline-short-variants), se proporciona un archivo VCF por muestra.
 
 **NOTA:** Dependiendo de la configuración de la solicitud del servicio, puede haber un archivo por tipo de variante (SNPs o INDELs) o un archivo que contenga ambas (SNPs + INDELs).
 
-- Directorio: VCFs_anotados 
+- Directorio: **VCFs_anotados** 
 
 Esta carpeta contiene diversos archivos en formato [VCF](https://support.illumina.com/help/BS_App_RNASeq_Alignment_OLH_1000000006112/Content/Source/Informatics/VCF-Format.htm) con las variantes identificadas, que pasaron los filtros duros de GATK (bandera **PASS**) y anotadas con los catálogos de genes refGene y ensGene, junto con las bases de datos avSNP, CLINVAR, gnomAD, COSMIC y dbNSFP utilizando Annovar. 
 Para más información de las bases de datos utilizadas consultar la siguiente [liga](https://annovar.openbioinformatics.org/en/latest/user-guide/filter/#overview). 
@@ -24,7 +24,7 @@ También, se incluye un archivo de texto separado por tabulador (/t) que contien
 
 **NOTA:** Dependiendo de la configuración de la solicitud del servicio, puede haber un archivo por tipo de variante (SNPs o INDELs) o un archivo que contenga ambas (SNPs + INDELs). 
 
-- Directorio: Reportes de calidad
+- Directorio: **Reportes de calidad**
 
 Esta carpeta contiene diversos archivos que resumen las métricas de calidad del análisis.
 
