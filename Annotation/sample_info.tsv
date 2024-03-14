@@ -1,2 +1,2 @@
-Sample	Path
-id_sample	/path/tovcfs/filtered/dir/id_sample.vcf
+Sample	Path	Index
+sample	/path/to/sample.vcf.gz	/path/to/sample.vcf.gz.tbi

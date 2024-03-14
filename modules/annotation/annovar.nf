@@ -3,7 +3,8 @@ process annovar {
     publishDir params.out, mode:'copy'
 
     input:
-    tuple val(sample_id), path(filtered_vcfs)
+    tuple val(sample_id), path(filtered_vcfs), path(filtered_vcfs_idx)
+
 
     output:
     tuple val("${sample_id}"), path("annovar/*_multianno.vcf.gz"), path("annovar/*_multianno.vcf.gz.tbi"), emit: annovar_ch_vcf
@@ -15,7 +16,7 @@ process annovar {
    mkdir -p annovar/
    cp ${filtered_vcfs} annovar/
 
-   docker run --cpus ${params.ncrs} --user="\$(id -u):\$(id -g)" -v "\$PWD/annovar/":/data -v "${params.annovar}/humandb/":/humandb pipelines_inmegen:local \
+   docker run --cpus ${params.ncrs} --user="\$(id -u):\$(id -g)" -v "\$PWD/annovar/":/data -v "${params.annovar}/humandb/":/humandb pipelinesinmegen/pipelines_inmegen:public \
    perl /annovar/table_annovar.pl /data/${filtered_vcfs} /humandb/ --buildver hg38 -out /data/${sample_id}_annovar \
    -remove -protocol refGene,ensGene,avsnp150,clinvar_20221231,gnomad312_genome,cosmic92_coding,dbnsfp33a -operation g,g,f,f,f,f,f --vcfinput --thread ${params.ncrs}
    
