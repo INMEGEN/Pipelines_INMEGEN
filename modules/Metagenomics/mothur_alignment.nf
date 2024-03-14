@@ -1,6 +1,6 @@
 process mothur_alignment {
     cache 'lenient'
-    conda '/scratch/home/dperez/programas/miniconda3/envs/nf-meta'
+    conda params.conda_env
     //container 'pipelinesinmegen/pipelines_inmegen:public'
     //containerOptions "-v ${params.ref_silva}:/ref_silva"
     publishDir params.out + "/mothur_align", mode:'copy'

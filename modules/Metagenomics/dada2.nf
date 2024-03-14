@@ -1,6 +1,6 @@
 process dada2 {
     cache 'lenient'
-    conda '/scratch/home/dperez/programas/miniconda3/envs/nf-meta'
+    conda params.conda_env
     //container 'pipelinesinmegen/pipelines_inmegen:public'
     //containerOptions "-v ${params.ref_dada2}:/ref_dada2"
     publishDir params.out + "/dada2", mode:'copy'

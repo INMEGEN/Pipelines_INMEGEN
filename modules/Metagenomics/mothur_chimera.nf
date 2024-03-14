@@ -1,6 +1,6 @@
 process mothur_chimera {
     cache 'lenient'
-    conda '/scratch/home/dperez/programas/miniconda3/envs/nf-meta'
+    conda params.conda_env
     //container 'pipelinesinmegen/pipelines_inmegen:public'
     publishDir params.out + "/mothur_chimera", mode:'copy'
 

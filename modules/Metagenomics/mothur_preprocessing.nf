@@ -1,6 +1,6 @@
 process mothur_preprocessing {
     cache 'lenient'
-    conda '/scratch/home/dperez/programas/miniconda3/envs/nf-meta'
+    conda params.conda_env
     //container 'pipelinesinmegen/pipelines_inmegen:public'
     publishDir params.out + "/mothur_preprocessing", mode:'copy'
 

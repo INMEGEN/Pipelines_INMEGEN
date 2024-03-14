@@ -1,6 +1,6 @@
 process mothur_classify_OTUS {
     cache 'lenient'
-    conda '/scratch/home/dperez/programas/miniconda3/envs/nf-meta'
+    conda params.conda_env
     //container 'pipelinesinmegen/pipelines_inmegen:public'
     //containerOptions "-v ${params.ref_green}:/ref"
     publishDir params.out + "/mothur_OTUS", mode:'copy'
