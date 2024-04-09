@@ -24,6 +24,6 @@ process align {
         -R \"${readGroup}\" \
         /ref/${params.refname} \
         ${R1} \
-        ${R2} > ${sample_id}_aligned_reads.sam 2> ${sample_id}_bwamem_Log.out
+        ${R2} > ${sample_id}_aligned_reads.sam 2 > ${sample_id}_bwamem_Log.out
     """
 }

@@ -1,6 +1,6 @@
 process multiqc {
   cache 'lenient'
-  container 'pipelinesinmegen/pipelines_inmegen:QC'
+  container 'pipelinesinmegen/pipelines_inmegen:public'
   publishDir params.out, mode: 'copy'
 
   input:

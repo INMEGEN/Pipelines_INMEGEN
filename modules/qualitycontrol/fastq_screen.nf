@@ -1,6 +1,6 @@
 process fastqScreen {
   cache 'lenient'
-  container 'pipelinesinmegen/pipelines_inmegen:QC'
+  container 'pipelinesinmegen/pipelines_inmegen:public'
   containerOptions "-v ${params.refdir}:/ref"
   publishDir params.out + "/fastq_screen", mode:'copy'
  
