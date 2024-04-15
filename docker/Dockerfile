@@ -6,8 +6,8 @@ LABEL maintainer="Servicios INMEGEN"
 LABEL version="1.0"
 
 # Building takes several hours! Be sure to symlink /var/lib/docker to a larger disk.
-# Build the image: docker build -t pipelines_inmegen -f Dockerfile .
-# To run the container: docker run -i -t pipelines_inmegen:local /bin/bash
+# Build the image: docker build -t pipelines_inmegen:public -f Dockerfile .
+# To run the container: docker run -i -t pipelines_inmegen:public /bin/bash
 
 # Actualiza el sistema operativo e instala las herramientas adecuadas
 RUN apt-get update && \
