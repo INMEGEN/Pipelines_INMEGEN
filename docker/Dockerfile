@@ -6,9 +6,8 @@ LABEL maintainer="Servicios INMEGEN"
 LABEL version="1.0"
 
 # Building takes several hours! Be sure to symlink /var/lib/docker to a larger disk.
-# Build the image: docker build -t pipelines_inmegen:public -f Dockerfile .
-# Modified image tag: docker tag pipelines_inmegen:public pipelinesinmegen/pipelines_inmegen:public
-# To run the container: docker run -i -t pipelinesinmegen/pipelines_inmegen:public /bin/bash
+# Build the image: docker build -t pipelines_inmegen -f Dockerfile .
+# To run the container: docker run -i -t pipelines_inmegen:local /bin/bash
 
 # Actualiza el sistema operativo e instala las herramientas adecuadas
 RUN apt-get update && \
@@ -135,6 +134,11 @@ RUN wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/0.6.7.tar.
     mv TrimGalore-0.6.7/trim_galore /usr/local/bin/ && \
     chmod +x /usr/local/bin/trim_galore && \
     rm -rf 0.6.7.tar.gz TrimGalore-0.6.7
+    
+#### Descargar e instalar Annovar
+##RUN wget -URL to annovar.latest.tar.gz- && \
+##    tar -zxvf annovar.latest.tar.gz && \
+##    rm annovar.latest.tar.gz
 
 #### Descargar e instalar Samtools
 RUN wget https://github.com/samtools/samtools/releases/download/1.12/samtools-1.12.tar.bz2 && \
@@ -147,13 +151,13 @@ RUN wget https://github.com/samtools/samtools/releases/download/1.12/samtools-1.
     rm samtools-1.12.tar.bz2
 
 #### Descargar e instalar Bcftools
-RUN wget https://github.com/samtools/bcftools/releases/download/1.12/bcftools-1.12.tar.bz2 && \
-    tar -xjvf bcftools-1.12.tar.bz2 && \
-    cd bcftools-1.12 && \
+RUN wget https://github.com/samtools/bcftools/releases/download/1.19/bcftools-1.19.tar.bz2 && \
+    tar -xjvf bcftools-1.19.tar.bz2 && \
+    cd bcftools-1.19 && \
     make && \
     make install && \
     cd .. && \
-    rm bcftools-1.12.tar.bz2
+    rm bcftools-1.19.tar.bz2
 
 #### Descargar e instalar htslib
 RUN wget https://github.com/samtools/htslib/releases/download/1.19.1/htslib-1.19.1.tar.bz2 && \
@@ -194,6 +198,27 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends \
    cutadapt && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
+
+#### Descargar e instalar FastQSreen
+RUN wget https://github.com/StevenWingett/FastQ-Screen/archive/refs/tags/v0.15.3.zip && \
+    unzip v0.15.3.zip  && \
+    chmod +x FastQ-Screen-0.15.3/fastq_screen && \
+    ln -s /FastQ-Screen-0.15.3/fastq_screen /usr/local/bin/fastq_screen && \
+    rm v0.15.3.zip
+
+#### Descargar e instalar Bowtie
+RUN wget https://github.com/BenLangmead/bowtie/releases/download/v1.3.1/bowtie-1.3.1-linux-x86_64.zip  && \
+    unzip bowtie-1.3.1-linux-x86_64.zip && \
+    chmod +x bowtie-1.3.1-linux-x86_64/bowtie && \
+    ln -s /bowtie-1.3.1-linux-x86_64/bowtie /usr/local/bin/bowtie && \
+    rm bowtie-1.3.1-linux-x86_64.zip
+
+#### Descargar e instalar Bowtie2
+RUN wget https://github.com/BenLangmead/bowtie2/releases/download/v2.5.3/bowtie2-2.5.3-linux-x86_64.zip  && \ 
+    unzip bowtie2-2.5.3-linux-x86_64.zip && \
+    chmod +x bowtie2-2.5.3-linux-x86_64/bowtie2 && \
+    ln -s /bowtie2-2.5.3-linux-x86_64/bowtie2 /usr/local/bin/bowtie2 && \ 
+    rm bowtie2-2.5.3-linux-x86_64.zip
 
 #RUN chmod 774 /usr/local/bin/picard.jar
 RUN ln -s /usr/local/bin/picard.jar /usr/bin/picard.jar
