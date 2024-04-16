@@ -70,7 +70,7 @@ Para correr este *pipeline* ejecuta las siguientes instrucciones:
  1. Completar el archivo sample_info.tsv con la información que se describe en la sección **Formato del archivo sample_info.**
  2. Editar el archivo de nextflow.config acorde a cada flujo de trabajo con la siguiente información:
 	- Ruta del directorio de salida de nextflow (params.outdir)
- 	- Ruta del archivo sample_info.tsv (params.sample_info)
+	- Ruta del archivo sample_info.tsv (params.sample_info)
 	- Nombre del proyecto (params.project_name)
 	- Si el tipo de análisis es dirigido o WES mantener esta opción como true en caso de el tipo de archivos sea WGS cambiar a false (params.wes)
 	- Ruta absoluta de la ubicación del índice de BWA del genoma de referencia (params.refdir)
@@ -144,7 +144,7 @@ Para tener un buen control de los archivos a procesar (formato bam), el archivo 
 
 #### Las herramientas utilizadas para correr este flujo de trabajo son:
 
- - BCFTools (1.12)
+ - BCFTools (1.19)
  - GATK (4.2.6.1)
  - R (4.2.3)
  - Picard Tools (2.27.5)

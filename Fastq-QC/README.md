@@ -101,5 +101,5 @@ Como se observa no es necesario que el **Sample_name** coincida con el nombre de
 
 ## Diagrama de flujo del pipeline 
 
-Próximamente ...
+![Flujo identificación de variantes germinal](../flowcharts/flow_FastqQC.PNG)
 

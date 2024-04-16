@@ -120,7 +120,7 @@ Como se observa no es necesario que el **Sample_name** coincida con el nombre de
 
 #### Las herramientas utilizadas para correr este flujo de trabajo son:
 
- - BCFTools (1.12)
+ - BCFTools (1.19)
  - FastQC (0.11.9)
  - GATK (4.2.6.1)
  - MultiQC (1.11)

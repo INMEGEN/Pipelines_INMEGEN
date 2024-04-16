@@ -19,7 +19,7 @@ include { metricswes                         } from "../modules/metrics/metrics_
 include { metricswgs                         } from "../modules/metrics/metrics_wgs.nf"
 include { summary_wes                        } from "../modules/metrics/summary_wes.nf"
 include { summary_wgs                        } from "../modules/metrics/summary_wgs.nf"
-include { bqsr                               } from "../modules/VC-Germinal/bqsr_recal.nf"
+include { bqsr                               } from "../modules/VC-Germline/bqsr_recal.nf"
 include { analyzeCovariates                  } from "../modules/common/analyzecovariates.nf"
 include { haplotypeCallerERC                 } from "../modules/VC-Germline/haplotypecaller_erc.nf"
 include { genomicsDBimport                   } from "../modules/VC-Germline/genomicsDBimport.nf"
@@ -28,13 +28,14 @@ include { selectVariants                     } from "../modules/VC-Germline/sele
 include { vqsrsnps                           } from "../modules/VC-Germline/vqsr_snps.nf"
 include { vqsrindels                         } from "../modules/VC-Germline/vqsr_indels.nf"
 include { joinvcfs                           } from "../modules/VC-Germline/joinvcfs.nf"
+include { variantQC                          } from "../modules/metrics/variantQC.nf"
 include { postfiltervcf                      } from "../modules/VC-Germline/postfilter.nf"
-include { splitVCFs as split_filt            } from "../modules/VC-Germline/splitvcf.nf"
+include { splitVCFs                          } from "../modules/VC-Germline/splitvcf.nf"
 
 // Some useful information
 println " "
 println "Pipelines INMEGEN"
-println "Flujo de trabajo: Identificación conjunta de variantes germinales con GATK4"
+println "Flujo de trabajo: Identificación conjunta de variantes germinales"
 println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:public"
 println " "
 println "Nombre del proyecto: $params.project_name"
@@ -134,11 +135,13 @@ workflow {
 // Concatenate and potsfilter snps + indels 
  
    joinvcfs(vqsrsnps.out.snps_filt_ch,vqsrindels.out.indels_filt_ch)
+   
+   variantQC(joinvcfs.out.join_vars_filt) 
 
    postfiltervcf(joinvcfs.out.join_vars_filt)
-   split_filt(postfiltervcf.out.filt_pass_vcf,"filtered")
+   splitVCFs(postfiltervcf.out.filt_pass_vcf,"filtered")
 
 // Variant summary
 
-   multiqc(split_filt.out.vcf_persample.collect(),"${params.out}")
+   multiqc(splitVCFs.out.vcf_persample.collect(),"${params.out}")
 }

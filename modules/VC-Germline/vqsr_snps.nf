@@ -10,6 +10,8 @@ process vqsrsnps {
     output:
     tuple val(project_id), path("${project_id}_filtered_snps.vcf.gz"), path("${project_id}_filtered_snps.vcf.gz.tbi"),    emit: snps_filt_ch
 
+    //--rscript-file ${project_id}_snps_plots.R \
+
     script:
     """
    mkdir -p vqsr/tmp
@@ -21,11 +23,10 @@ process vqsrsnps {
    --resource:omni,known=false,training=true,truth=false,prior=12.0 /ref/1000G_omni2.5.hg38.vcf.gz \
    --resource:1000G,known=false,training=true,truth=false,prior=10.0 /ref/1000G_phase1.snps.high_confidence.hg38.vcf.gz \
    --resource:dbsnp,known=true,training=false,truth=false,prior=2.0 /ref/Homo_sapiens_assembly38.dbsnp138.vcf \
-   -an QD -an MQ -an MQRankSum -an ReadPosRankSum -an FS -an SOR \
+   -an QD -an MQ -an MQRankSum -an ReadPosRankSum -an FS -an SOR -an DP \
    -mode SNP \
    -O ${project_id}_snps_output.recal \
    --tranches-file ${project_id}_snps_output.tranches \
-   --rscript-file ${project_id}_snps_output.plots.R \
    --tmp-dir vqsr/tmp
 
    gatk ApplyVQSR \
