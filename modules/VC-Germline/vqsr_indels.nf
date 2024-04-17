@@ -19,12 +19,13 @@ process vqsrindels {
    -V ${raw_indels} \
    -resource:mills,known=false,training=true,truth=true,prior=12.0 /ref/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz \
    -resource:dbsnp,known=true,training=false,truth=false,prior=2.0 /ref/Homo_sapiens_assembly38.dbsnp138.vcf \
-   -an QD -an DP -an FS -an SOR -an ReadPosRankSum -an MQRankSum \
+   -an QD -an MQRankSum -an ReadPosRankSum -an FS -an SOR -an DP \
    -mode INDEL \
    -O ${project_id}_indels_output.recal \
    --tranches-file ${project_id}_indels_output.tranches \
+   --rscript-file ${project_id}_indels_output.plots.R \
    --tmp-dir vqsr/tmp
-
+   
    gatk ApplyVQSR \
    -R /ref/${params.refname} \
    -V ${raw_indels} \
@@ -33,9 +34,9 @@ process vqsrindels {
    --tranches-file ${project_id}_indels_output.tranches \
    --recal-file ${project_id}_indels_output.recal \
    -mode INDEL \
-   --create-output-variant-index true \ 
+   --create-output-variant-index true \
    --tmp-dir vqsr/tmp
 
-   rm -r vqsr/tmp
+  rm -r vqsr/tmp
     """
 }

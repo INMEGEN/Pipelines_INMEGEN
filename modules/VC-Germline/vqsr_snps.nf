@@ -10,8 +10,6 @@ process vqsrsnps {
     output:
     tuple val(project_id), path("${project_id}_filtered_snps.vcf.gz"), path("${project_id}_filtered_snps.vcf.gz.tbi"),    emit: snps_filt_ch
 
-    //--rscript-file ${project_id}_snps_plots.R \
-
     script:
     """
    mkdir -p vqsr/tmp
@@ -27,6 +25,7 @@ process vqsrsnps {
    -mode SNP \
    -O ${project_id}_snps_output.recal \
    --tranches-file ${project_id}_snps_output.tranches \
+   --rscript-file ${project_id}_snps_output.plots.R \
    --tmp-dir vqsr/tmp
 
    gatk ApplyVQSR \
