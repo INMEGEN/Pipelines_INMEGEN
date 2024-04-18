@@ -6,8 +6,8 @@ LABEL maintainer="Servicios INMEGEN"
 LABEL version="1.0"
 
 # Building takes several hours! Be sure to symlink /var/lib/docker to a larger disk.
-# Build the image: docker build -t pipelines_inmegen:public -f Dockerfile .
-# To run the container: docker run -i -t pipelines_inmegen:public /bin/bash
+# Build the image: docker build -t pipelinesinmegen/pipelines_inmegen:public -f Dockerfile .
+# To run the container: docker run -i -t pipelines_inmegen:local /bin/bash
 
 # Actualiza el sistema operativo e instala las herramientas adecuadas
 RUN apt-get update && \
@@ -18,6 +18,7 @@ RUN apt-get update && \
         build-essential \
         bzip2 \
         ca-certificates \
+        cutadapt \
         curl \
         gawk \
         gcc \
@@ -136,7 +137,7 @@ RUN wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/0.6.7.tar.
     rm -rf 0.6.7.tar.gz TrimGalore-0.6.7
     
 #### Descargar e instalar Annovar
-##RUN wget -URL to annovar.latest.tar.gz- && \
+##RUN wget URL-to/annovar.latest.tar.gz && \
 ##    tar -zxvf annovar.latest.tar.gz && \
 ##    rm annovar.latest.tar.gz
 
@@ -175,30 +176,6 @@ RUN wget "https://github.com/brentp/mosdepth/releases/download/v0.3.6/mosdepth" 
     ln -s /usr/local/bin/mosdepth /usr/bin/mosdepth && \
     chmod +x /usr/local/bin/mosdepth
 
-### Instalar R 
-RUN wget https://cdn.posit.co/r/ubuntu-2004/pkgs/r-4.2.3_1_amd64.deb && \
-    apt-get update -qq && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -f -y ./r-4.2.3_1_amd64.deb && \
-    ln -s /opt/R/4.2.3/bin/R /usr/bin/R && \
-    ln -s /opt/R/4.2.3/bin/Rscript /usr/bin/Rscript && \
-    ln -s /opt/R/4.2.3/lib/R /usr/lib/R && \
-    rm r-4.2.3_1_amd64.deb && \
-    rm -rf /var/lib/apt/lists/*
-
-#### Instalar las librerías de R necesarias para los pipelines
-RUN R -e "install.packages(c('data.table', 'dplyr', 'getopt', 'ggplot2', 'gplots', 'gsalib', 'optparse', 'backports', 'readr', 'ggrepel'), repos='http://cran.us.r-project.org')"
-RUN apt-get update \
- && apt-get install -y --no-install-recommends \
-   libfftw3-dev \
-   gcc && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
-RUN R -e "install.packages('BiocManager',repos='http://cran.us.r-project.org')" -e "BiocManager::install(c('GenomicFeatures', 'GenomicAlignments', 'VariantAnnotation', 'S4Vectors', 'SummarizedExperiment', 'Biobase','tximportData', 'tximport', 'BUSpaRse', 'DESeq2', 'PCAtools', 'ComplexHeatmap', 'EnhancedVolcano', 'AnnotationDbi', 'topGO', 'GeneTonic', 'SummarizedExperiment', 'GenomicAlignments', 'org.Hs.eg.db', 'rhdf5', 'pcaExplorer'))"
-
-RUN apt-get update \
- && apt-get install -y --no-install-recommends \
-   cutadapt && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
-
 #### Descargar e instalar FastQSreen
 RUN wget https://github.com/StevenWingett/FastQ-Screen/archive/refs/tags/v0.15.3.zip && \
     unzip v0.15.3.zip  && \
@@ -214,10 +191,10 @@ RUN wget https://github.com/BenLangmead/bowtie/releases/download/v1.3.1/bowtie-1
     rm bowtie-1.3.1-linux-x86_64.zip
 
 #### Descargar e instalar Bowtie2
-RUN wget https://github.com/BenLangmead/bowtie2/releases/download/v2.5.3/bowtie2-2.5.3-linux-x86_64.zip  && \ 
+RUN wget https://github.com/BenLangmead/bowtie2/releases/download/v2.5.3/bowtie2-2.5.3-linux-x86_64.zip  && \
     unzip bowtie2-2.5.3-linux-x86_64.zip && \
     chmod +x bowtie2-2.5.3-linux-x86_64/bowtie2 && \
-    ln -s /bowtie2-2.5.3-linux-x86_64/bowtie2 /usr/local/bin/bowtie2 && \ 
+    ln -s /bowtie2-2.5.3-linux-x86_64/bowtie2 /usr/local/bin/bowtie2 && \
     rm bowtie2-2.5.3-linux-x86_64.zip
 
 #RUN chmod 774 /usr/local/bin/picard.jar
@@ -226,6 +203,32 @@ RUN ln -s /usr/local/bin/trimmomatic-0.39.jar /usr/bin/trimmomatic-0.39.jar
 RUN ln -s /annovar/table_annovar.pl /usr/local/bin/table_annovar.pl
 RUN ln -s /annovar/table_annovar.pl /usr/bin/table_annovar.pl
 RUN ln -s /usr/bin/python3 /usr/bin/python
+
+### Instalar R 
+RUN wget https://cdn.posit.co/r/ubuntu-2004/pkgs/r-4.3.2_1_amd64.deb && \
+    apt-get update -qq && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -f -y ./r-4.3.2_1_amd64.deb && \
+    ln -s /opt/R/4.3.2/bin/R /usr/bin/R && \
+    ln -s /opt/R/4.3.2/bin/Rscript /usr/bin/Rscript && \
+    ln -s /opt/R/4.3.2/lib/R /usr/lib/R && \
+    rm r-4.3.2_1_amd64.deb && \
+    rm -rf /var/lib/apt/lists/*
+
+#### Instalar las librerías de R necesarias para los pipelines
+RUN R -e "install.packages(c('devtools','data.table','tidyr','dplyr','getopt','gplots','gsalib','optparse','backports','readr','ggrepel','mutSignatures'), repos='http://cran.us.r-project.org')"
+RUN apt-get update && apt-get install -y --no-install-recommends \
+   libfftw3-dev \
+   gcc && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+RUN R -e "install.packages('BiocManager',repos='http://cran.us.r-project.org')" -e "BiocManager::install(c('GenomicFeatures', 'GenomicAlignments', 'VariantAnnotation', 'S4Vectors', 'SummarizedExperiment', 'Biobase','tximportData', 'tximport', 'BUSpaRse', 'DESeq2', 'PCAtools', 'ComplexHeatmap', 'maftools' , 'pheatmap', 'NMF', 'EnhancedVolcano', 'AnnotationDbi', 'topGO', 'GeneTonic', 'SummarizedExperiment', 'GenomicAlignments', 'org.Hs.eg.db', 'rhdf5', 'pcaExplorer','BSgenome.Hsapiens.UCSC.hg38','IRanges','GenomicRanges','BSgenome','GenomeInfoDb'))"
+
+RUN R -e "cat(\"local(options(repos = c(CRAN = 'https://cloud.r-project.org')))\n\", file = R.home('etc/Rprofile.site'), append = TRUE)"
+RUN R -e "install.packages('remotes')"
+RUN R -e "remotes::install_version('yaml', version = '2.3.7', upgrade = FALSE)"
+RUN R -e "remotes::install_version('vroom', version = '1.6.5', upgrade = FALSE)"
+RUN R -e "remotes::install_version('plotly', version = '4.10.3', upgrade = FALSE)"
+RUN R -e "remotes::install_version('ggplot2', version = '3.4.4', upgrade = FALSE)"
+Run R -e "remotes::install_version('scales', version = '1.2.1', upgrade = FALSE)"
 
 ### Configurar la variable de entorno para Java 8 ###
 ENV JAVA_8_HOME "/usr/lib/jvm/java-8-openjdk-amd64"
