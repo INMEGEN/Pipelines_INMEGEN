@@ -1,46 +1,51 @@
 [![INMEGEN](./flowcharts/inmegen_t1.png)](https://www.inmegen.gob.mx/)
-#  Pipelines INMEGEN
+#  [Pipelines INMEGEN](https://serviciosbio.inmegen.gob.mx/)
 [![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A522.10.7-23aa62.svg)](https://www.nextflow.io/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 
-## Flujos de trabajo automatizados 
+## Flujos de trabajo 
 
-Este repositorio contiene diversos flujos de trabajo (pipelines) desarrollados y automatizados en el Instituto Nacional de Medicina Genómica (INMEGEN).
-El principal objetivo de estos pipelines es el procesamiento de datos provenientes de secuenciación masiva (Whole Genome Sequencing [WGS]/Whole Exome Sequencing [WES], RNA sequencing [RNA-seq])
+Este repositorio contiene información detallada sobre los flujos de trabajo (pipelines) desarrollados y automatizados en el Instituto Nacional de Medicina Genómica (INMEGEN), vinculados los **servicios de anślisis bioinformśticos**.
 
-Los siguientes directorios de este repositorio contienen un flujo de trabajo. En cada uno de estos directorios [marcado entre corchetes] se encuentran las instrucciones necesarias para ejecutar ese flujo de trabajo: 
+Para saber más y solicitar el servicio de análisis, visita nuestro sitio web dando clic [**aquí**](https://serviciosbio.inmegen.gob.mx/).
 
- - Cuantificación y Análisis de expresión diferencial a partir de datos de RNA-seq [QDEA-RNAseq]
+El principal objetivo de estos pipelines es el procesamiento de datos provenientes de secuenciación masiva (Whole Genome Sequencing [WGS]/Whole Exome Sequencing [WES], RNA sequencing [RNA-seq]) de manera reproducible y repetible, con base en el uso de herramientas confiables y avaladas por la comunidad científica. 
 
- - Identificación conjunta de variantes germinales a partir de datos WGS/WES [VC-Germline]
+En cada uno de los siguientes directorios de este repositorio [marcado entre corchetes] se encuentran las instrucciones necesarias para ejecutar cada flujo de trabajo: 
+
+ - **Cuantificación y Análisis de expresión diferencial a partir de datos de RNA-seq** [QDEA-RNAseq]
+
+ - **Identificación conjunta de variantes germinales a partir de datos WGS/WES** [VC-Germline]
    
- - Identificación conjunta de variantes germinales a partir de datos WGS/WES con bootstrapping [BT-VC-Germinal]
+ - **Identificación de variantes somáticas a partir de datos WGS/WES** [VC-Somatic]
 
- - Identificación de variantes somáticas a partir de datos WGS/WES [VC-Somatic]
+ - **Identificación de variantes a partir de datos de RNA-seq**  [VC-RNAseq]
 
- - Identificación de variantes a partir de datos de RNA-seq  [VC-RNAseq]
+ - **Análisis de calidad de archivos de secuenciación masiva en formato FASTQ** [Fastq-QC]
+
+ - **Identificación conjunta de variantes germinales a partir de datos WGS/WES con bootstrapping** [BT-VC-Germinal]
    
 **Nota:** El pipeline [VC-Germline] requiere los archivos necesarios para realizar VQSR (variant quality score recalibration), por lo que  está diseñado para utilizar el bundle de gatk para el genoma humano hg38. En caso de no contar con estos archivos se recomienda utilizar el flujo [BT-VC-Germinal], ya que este sólo necesita la referencia, el índice de SAMTOOLS y el índice de BWA creados a partir de la referencia. 
 
-
 Algunos directorios contienen pipelines de procesamiento que son requeridos por más de un flujo de trabajo
  
- - Preprocesamiento de archivos FASTQ [Data-preprocessing]
+ - **Preprocesamiento de archivos FASTQ** [Data-preprocessing]
 
- - Anotación de variantes [Annotation]
+ - **Anotación de variantes con Annovar** [Annotation]
 
 Otros directorios contienen información general:
 
- - Los flujos de trabajo están divididos en procesos. Estos procesos se encuentran en el directorio **modules**.
+ - Los procesos en los que están divididos los flujos de trabajo se encuentran en el directorio **modules**.
    
  - El diagrama de flujo correspondiente a cada pipeline se encuentra en la carpeta **flowcharts**. 
 
 
+##  Para ejecutar los pipelines 
 
+Como pre-requisito para ejecutar los pipelines es necesario contar con:
 
-##  Instrucciones para ejecutar los pipelines 
-
-Para ejecutar los pipelines es necesario contar con [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7) y [Docker](https://docs.docker.com/) (23.0.5)
+1.[NextFlow](https://www.nextflow.io/docs/latest/index.html) (versión mayor o gual a 22.10.7)
+2.[Docker](https://docs.docker.com/) (versión mayor o gual a 23.0.5)
 
 Además, es necesario clonar la imagen de docker de este repositorio con el comando 
 
@@ -48,15 +53,13 @@ Además, es necesario clonar la imagen de docker de este repositorio con el coma
 
 En caso de querer construir la imagen de docker con el Dockerfile que se encuentra en el directorio docker/ utilizar:
 
-	docker build -t pipelines_inmegen:public -f Dockerfile .
+	docker build -t pipelinesinmegen/pipelines_inmegen:public -f Dockerfile .
 
-y modificar el tag de la imagen con el comando:
+Finalmente, clonar este repositorio utilizando: 
 
-	docker tag pipelines_inmegen:public pipelinesinmegen/pipelines_inmegen:public
+ 	git clone https://github.com/INMEGEN/Pipelines_INMEGEN.git
 
-Debes asegurarte de que el directorio de docker cuente con suficiente espacio para generar la imagen (~ 6 GB)
-
-Finalmente, clonar el repositorio github de interés.
+**NOTA:** Debes asegurarte de que el directorio de docker cuente con suficiente espacio para generar la imagen (~ 8 GB).
 
 ## Políticas de uso
 
@@ -84,4 +87,7 @@ Alejandra Cervera Taboada [acerverat@inmegen.gob.mx](acerverat@inmegen.gob.mx)
 [Pipelines INMEGEN](https://github.com/INMEGEN/Pipelines_INMEGEN/tree/Principal) © 2023 by [INMEGEN](https://www.inmegen.gob.mx/) is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1)
 
 ## Contacto
+
+[**Visita nuestro sitio web**](https://serviciosbio.inmegen.gob.mx/).
+
 Cualquier duda o comentario escribir a [nuestro correo de contacto](serviciosbioinfo@inmegen.edu.mx)
