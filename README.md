@@ -5,9 +5,9 @@
 
 ## Flujos de trabajo 
 
-Este repositorio contiene información detallada sobre los flujos de trabajo (pipelines) desarrollados y automatizados en el Instituto Nacional de Medicina Genómica (INMEGEN), vinculados los **servicios de anślisis bioinformśticos**.
+Este repositorio contiene información detallada sobre los flujos de trabajo (pipelines) desarrollados y automatizados en el Instituto Nacional de Medicina Genómica (INMEGEN), asociados a los **servicios de anślisis bioinformśticos del INMEGEN**.
 
-Para saber más y solicitar el servicio de análisis, visita nuestro sitio web dando clic [**aquí**](https://serviciosbio.inmegen.gob.mx/).
+Para saber más y realizar una solicitud del servicio de análisis, visita nuestro sitio web dando clic [**aquí**](https://serviciosbio.inmegen.gob.mx/).
 
 El principal objetivo de estos pipelines es el procesamiento de datos provenientes de secuenciación masiva (Whole Genome Sequencing [WGS]/Whole Exome Sequencing [WES], RNA sequencing [RNA-seq]) de manera reproducible y repetible, con base en el uso de herramientas confiables y avaladas por la comunidad científica. 
 
@@ -88,6 +88,6 @@ Alejandra Cervera Taboada [acerverat@inmegen.gob.mx](acerverat@inmegen.gob.mx)
 
 ## Contacto
 
-[**Visita nuestro sitio web**](https://serviciosbio.inmegen.gob.mx/).
+[Visita nuestro sitio web](https://serviciosbio.inmegen.gob.mx/).
 
 Cualquier duda o comentario escribir a [nuestro correo de contacto](serviciosbioinfo@inmegen.edu.mx)
