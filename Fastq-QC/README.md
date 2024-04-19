@@ -1,12 +1,12 @@
-# Análisis de calidad de archivos de secuenciación masiva en formato Fastq
+# Análisis de calidad de archivos de secuenciación masiva en formato FASTQ
 
-Este flujo de trabajo realiza la identificación de variantes germinales a partir de archivos de secuenciación masiva en formato **Fastq**.
+Este flujo de trabajo realiza la identificación de variantes germinales a partir de archivos de secuenciación masiva en formato **FASTQ**.
 
 ## Solicitud de servicio
 
-Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN: 
+Este flujo de trabajo se ejecuta como prueba de calidad previa a cualquier flujo de análisis solicitado.
 
-- Archivos de secuenciación **FASTQ** (este flujo está diseñado únicamente para Illumina *paired-end*).
+- Archivos de secuenciación **FASTQ** (este flujo está diseñado únicamente para datos Illumina *paired-end*).
 
 ## Implementando este flujo por tu cuenta: Instrucciones de uso 
 
@@ -28,6 +28,7 @@ Antes de correr este *pipeline* asegúrate de contar con las siguientes herramie
           docker pull pipelinesinmegen/pipelines_inmegen:public
 
 3. Asegurarse de contar con los siguientes archivos, necesarios para el pipeline:
+   
 	- Referencias de Fastq Screen
 
 **NOTA:** El directorio bin contiene un *bash script* para descargar las referencias de Fastq Screen.
