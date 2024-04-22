@@ -9,7 +9,6 @@
 nextflow.enable.dsl=2
 
 // Processes for this workflow
-include { fastqc                        } from "../modules/VC-Germline/fastqc.nf"
 include { multiqc                       } from "../modules/VC-Germline/multiqc.nf"
 include { trim_Galore                   } from "../modules/bootstrapping/trim_galore.nf"
 include { align                         } from "../modules/VC-Germinal/bwa_germline.nf"
@@ -30,6 +29,7 @@ include { selectVariants                } from "../modules/VC-Germinal/selectvar
 include { filterSnps                    } from "../modules/bootstrapping/filtersnps.nf"
 include { filterIndels                  } from "../modules/bootstrapping/filterindels.nf"
 include { joinvcfs                      } from "../modules/VC-Germline/joinvcfs.nf"
+include { variantQC                     } from "../modules/metrics/variantQC.nf"
 include { postfiltervcf                 } from "../modules/VC-Germline/postfilter.nf"
 include { splitVCFs as split_filt       } from "../modules/VC-Germline/splitvcf.nf"
 
@@ -160,6 +160,8 @@ workflow {
    ch_fsnps.join(ch_findels).groupTuple().flatten().collate( 5 ).set{join_vcfs}
 
    joinvcfs(join_vcfs)
+
+   variantQC(joinvcfs.out.join_vars_filt)
 
    postfiltervcf(joinvcfs.out.join_vars_filt)
 
