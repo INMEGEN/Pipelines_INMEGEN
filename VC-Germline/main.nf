@@ -2,7 +2,7 @@
 // Workflow    : Identificación conjunta de variantes germinales con GATK4
 // Institución : Instituto Nacional de Medicina Genómica (INMEGEN)
 // Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática del INMEGEN
-// Versión     : 0.2
+// Versión     : 0.1
 // Docker image - pipelinesinmegen/pipelines_inmegen -
 
 nextflow.enable.dsl=2

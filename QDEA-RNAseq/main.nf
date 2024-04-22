@@ -2,46 +2,31 @@
 // Workflow    : Cuantificación y análisis de expresión diferencial de datos RNA-seq
 // Institución : Instituto Nacional de Medicina Genómica (INMEGEN)
 // Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática (INMEGEN)
-// Versión     : 0.1 
+// Versión     : 0.1
 // Docker image - pipelines_inmegen:public -
 
 nextflow.enable.dsl=2
 
-include { fastqc                   } from "../modules/qualitycontrol/fastqc.nf"
-include { multiqc                  } from "../modules/qualitycontrol/multiqc.nf"
 include { trim_Galore              } from "../modules/QDEA_RNAseq/trim_galore.nf"
 include { kallisto                 } from "../modules/QDEA_RNAseq/kallisto.nf"
 include { tximport_deseq2          } from "../modules/QDEA_RNAseq/DEA.nf"
 include { tximport_q               } from "../modules/QDEA_RNAseq/tximport.nf"
+include { multiqc                  } from "../modules/QDEA_RNAseq/multiqc.nf"
          
 // Imprimir algunos directorios importantes
 println " "
 println "Pipelines INMEGEN"
-println "Flujo de trabajo: Cuantificación y Análisis de Expresión"
-println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:public"
+println "Flujo de trabajo: Cuantificación y Análisis de Expresión Diferencial"
+println "Imagen de docker: pipelinesinmegen/pipelines_inmegen"
 println " "
-println "Datos crudos: $params.reads"
-println "Información de las muestras: $params.csv_info"
-println "Realizar análsis de expresión diferencial: $params.QDEA"
-println "Referencia: $params.ref"
+println "Nombre del proyecto: $params.project_name"
+println "Información de las muestras: $params.sample_info"
+println "Tipo de análisis (true = cuantificación y DEG, false = sólo cuantificación): $params.QDEA"
+println "Directorio de la referencia: $params.refdir"
 println "Directorio de salida: $params.out"
 println " "
 
-workflow qualitycontrol {
-
-   data_fq = Channel.fromFilePairs("${params.reads}")
-                    .ifEmpty { error "Cannot find any reads matching: ${params.reads}"  }
-                       
-   fastqc(data_fq)
-   
-   analisis_dir = "${params.out}"+"/fastqc"
-   multiqc(fastqc.out.fq_files.collect(), analisis_dir, "raw_data")   
-}
-
 workflow {
-
- // Subworkflow for quality control
-   qualitycontrol()
 
 // Data preprocessing
    Channel.fromPath("${params.csv_info}" )
@@ -63,12 +48,17 @@ workflow {
       sample_info=file("${params.csv_info}")
       klx_files="${params.out}"+"/kallisto_quants"
 
+
     if ("${params.QDEA}" == true){
       script_r=file("${params.rscript_DEA_dir}") 
     tximport_deseq2(kallisto.out.abundance_h5.collect(),sample_info,klx_files,script_r) 
+    
+    multiqc(tximport_deseq2.out.R_sesion_info,"${params.out}")
     } 
     else { 
       script_r2=file("${params.rscript_q_dir}")
     tximport_q(kallisto.out.abundance_h5.collect(),sample_info,klx_files,script_r2) 
+
+    multiqc(tximport_q.out.R_sesion_info,"${params.out}")
     }
 }

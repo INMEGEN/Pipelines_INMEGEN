@@ -9,7 +9,6 @@ mkdir -p $path/run_files/modules
 
 ## Copiar los ejecutables, la configuración y los modulos de nextflow utilizados
 cp ../modules/QDEA_RNAseq/* $path/run_files/modules
-cp ../modules/qualitycontrol/* $path/run_files/modules
 cp main.nf nextflow.config samples_info.tsv $path/run_files
 
 ## Mover los reportes de nextflow a una carpeta en el directrio de salida de nextflow
