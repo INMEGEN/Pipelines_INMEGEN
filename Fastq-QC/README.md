@@ -31,7 +31,7 @@ Antes de correr este *pipeline* asegúrate de contar con las siguientes herramie
    
 	- Referencias de Fastq Screen
 
-**NOTA:** El directorio bin contiene un *bash script* para descargar las referencias de Fastq Screen.
+Para mayor información consulta el manual de [Fastq Screen](https://stevenwingett.github.io/FastQ-Screen/)
 
 ### Ejecutar el flujo de trabajo
 
