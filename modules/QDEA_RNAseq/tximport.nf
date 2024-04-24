@@ -25,7 +25,7 @@ process tximport_q {
    --sample_info ${sample_info} \
    --dir_quants "kallisto_quants" \
    --gtf_file /ref/${params.gtfname} \
-   --countsmat ${params.mcounts} \
+   --countmat ${params.mcounts} \
    --countpm ${params.mcounts_tpm}
 
   rm -r ${klx_dir}

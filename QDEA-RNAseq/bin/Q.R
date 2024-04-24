@@ -20,7 +20,7 @@ option_list <- list(
     make_option(c("-i","--sample_info"), type="character", default=NULL            ,metavar="character" ,help="csv file that contains the samples info (-i)"                  ),
     make_option(c("-q","--dir_quants" ), type="character", default="kallisto_quant",metavar="character" ,help="directory name with kallisto quants (-q)"                      ),
     make_option(c("-g","--gtf_file"   ), type="character", default=NULL            ,metavar="character" ,help="path to gtf file (-g)"                                         ),
-    make_option(c("-b","--countsmat"  ), type="character", default="countmat.csv"  ,metavar="character" ,help="name of csv with the matrix counts (countmat.csv. -b)"         ),
+    make_option(c("-b","--countmat"  ), type="character", default="countmat.csv"  ,metavar="character" ,help="name of csv with the matrix counts (countmat.csv. -b)"         ),
     make_option(c("-d","--countpm"    ), type="character", default="countpm.csv"   ,metavar="character" ,help="name of csv with the TPM matrix counts (countmaTPM.csv, -d)"   ))
 
 # convertir la lista de opciones a argumentos 
@@ -55,7 +55,7 @@ geneNames <- distinct(geneIds[,c("gene","gene_name")])
 m_counts1 <- as.data.frame(txi.kallisto$counts)
 m_counts1$gene <- row.names(m_counts1)
 m_counts2 <- merge(geneNames, m_counts1, by="gene")
-write.table(m_counts2,file=opt$countsmat, sep="\t", row.names = FALSE, quote=FALSE)
+write.table(m_counts2,file=opt$countmat, sep="\t", row.names = FALSE, quote=FALSE)
 
 # Exportar la matriz de cuentas TPM 
 m_countst1 <- as.data.frame(txi.countpm$counts)
