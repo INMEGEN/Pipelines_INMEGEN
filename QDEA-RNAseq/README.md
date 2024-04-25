@@ -70,7 +70,7 @@ Para opciones de configuración especificas para tu servidor o cluster puedes co
 
   3. Ejecutar el comando: 
 
-                bash run_nextflow.sh /path/to/out/dir
+	bash run_nextflow.sh /path/to/out/dir
 
 #### Formato del archivo con la información experimental 
 
@@ -92,9 +92,8 @@ Para tener un buen control de los archivos a procesar (formato fastq pareados {R
 
 A continuación, se muestran algunos ejemplos de cómo rellenar el contenido del archivo sample_info.tsv.
 
-
-                        Sample_id       Sample_name     replica         condition       R1      R2
-			ID_N1	sample_label	1	condición	/path/to/read_1/file/sample_label1_R1.fastq.gz	/path/to/read_2/file/sample_label1_R2.fastq.g
+	Sample_id       Sample_name     replica         condition       R1      R2
+	ID_N1	sample_label	1	condición	/path/to/read_1/file/sample_label1_R1.fastq.gz	/path/to/read_2/file/sample_label1_R2.fastq.g
    
 **Nota:** Recuerda que el archivo debe estar separado por tabulador (\t).
 
