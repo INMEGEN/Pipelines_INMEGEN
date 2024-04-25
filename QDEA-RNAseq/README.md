@@ -4,7 +4,7 @@ Este flujo de trabajo realiza la cuantificación de los transcritos y el anális
 
 **Nota:** 
  - Por el momento el análisis sólo está disponible para datos ilummina paired-end 
- - Se puede obtener sólo la matriz de cuentas cruda y TPM o la matriz de cuentas cruda, TPM y el análisis de la expresión diferencial entre dos condiciones distintas.
+ - Se puede obtener sólo la matriz de cuentas cruda y la matriz TPM (transcritos por millón) y el análisis de la expresión diferencial entre dos condiciones distintas.
 
 ## Solicitud de servicio
 
@@ -18,43 +18,55 @@ Para solicitar este flujo de trabajo como servicio debes de entregar al personal
 
 Los archivos que necesitas se describen en el apartando **"Solicitud de servicio"**.
 
-### Preparar el ambiente de trabajo
+### Requisitos previos
 
-1. Te debes asegurar de contar con las siguientes herramientas informaticas:
-	- [NextFlow](https://www.nextflow.io/docs/latest/index.html) (22.10.7)
- 	- [Docker](https://docs.docker.com/) (23.0.5)
+Antes de correr este pipeline asegúrate de contar con las siguientes herramientas y archivos:
+
+1. Clonar el repositorio principal siguiendo las instrucciones:
+
+		git clone https://github.com/INMEGEN/Pipelines_INMEGEN.git
+
+2. Te debes asegurar de contar con las siguientes herramientas informaticas:
+	- [NextFlow](https://www.nextflow.io/docs/latest/index.html) (versión mayor o gual a 22.10.7)
+ 	- [Docker](https://docs.docker.com/) (versión mayor o gual a 23.0.5)
 	- Imagen de docker pipelinesinmegen/pipelines_inmegen:public, la puedes clonar con el comando:
 
                 docker pull pipelinesinmegen/pipelines_inmegen:public
 
- 
-2. Asegurarse de contar con los siguientes archivos, necesarios para el pipeline:
+3. Asegurarse de contar con los siguientes archivos, necesarios para el pipeline:
    	- Genoma hg38
 	- Archivo gtf del genoma
 	- Índice de [kallisto](https://pachterlab.github.io/kallisto/manual)
-	  En el directorio bin/ se ecnuentra un bash script para descargar la referencia, el archivo gft y generar el índice
 
-** Se recomienda que todos estos archivos se encuentreb en el mismo directorio.
+**NOTA:** En el directorio bin/ se ecnuentra un bash script para descargar la referencia, el archivo gft y generar el índice
 
 ### Ejecutar el flujo de trabajo
 
 Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
 
- 1. Generar el archivo sample_info.tsv con la información que se describe en la sección - Formato del archivo con la información de las muestras -
+ 1. Completar el archivo sample_info.tsv con la información que se describe en la sección **Formato del archivo sample_info**
  2. Editar el archivo de nextflow.config con la siguiente información:
-	- Ruta de los archivos fastq
-	- Ruta del directorio de salida de nextflow
-	- Nombre del proyecto 
-	- Ruta del índice de kallisto
-	- Ruta del archivo sample_info.tsv
-	- Nombre del índice de kallisto
-	- Nombre del archivo gtf (debe de encontrarse en el mismo directorio del índice de kallisto)
-	- Ruta de los scripts de R utilizados en este pipeline [directorio R]
-	- Condiciones del análisis de expresión diferencial (condiciones a comparar, umbrales y nombres de los archivos de salida)
-	- Número de núcleos por proceso (parámetro runOptions)
-	- Número de procesos que se ejecutarán de forma simultánea (parámetro queueSize)
+	- Ruta absoluta del directorio de salida de nextflow (params.outdir)
+	- Ruta del archivo sample_info.tsv (params.sample_info)
+	- Nombre del proyecto (params.project_name)
+	- Ruta absoluta de la ubicación del índice de kallisto del transcriptoma de referencia (params.ref)
+	- Ruta absoluta al directorio que contiene el índice de kallisto (params.refdir)
+	- Nombre del indice de kallinto sin la ruta absoluta, incluyendo la extensión idx (params.refname)
+	- Nombre del archivo gtf sin la ruta absoluta, incluyendo la extensión gtf (params.gtfname)
+	- Número de núcleos que utilizarán los procesos multi-threading (params.ncrs)
+	- Elegir si se hará un análisis de expresión diferencial true = sí, false = no (params.QDEA)
+	- Condiciones del análisis de expresión diferencial condition_1 vs condition_2 (comparación: params.condition_1 vs params.condition_2)
+	- Umbrales del análisis de expresión diferencial LogFC y FDR (params.th_l2fc  y params.th_padj)
+	- En los parámetros para docker, se puede modificar el apartado runOptions la opción --cpus = Número máximo de núcleos por proceso.
+	- En los parámetros de Nextflow (executor) solo se puede cambiar la opción queueSize = Número máximo de procesos que se ejecutarán de forma simultánea
 
 Para opciones de configuración especificas para tu servidor o cluster puedes consultar la siguiente [liga](https://www.nextflow.io/docs/latest/config.html)
+
+**NOTA:** El número máximo de procesadores que utilizará tu corrida es: cpus * queueSize. Esto aplica en el caso de los procesos que permitan multi-threading.
+
+**NOTA:** El archivo gtf y el indice de kallito deben ubicarse en el mismo directorio 
+
+**NOTA:** Los archivos sample_info.tsv y nextflow.config deben encontrarse en el mismo directorio que el archivo main.nf.
 
   3. Ejecutar el comando: 
 
@@ -62,11 +74,7 @@ Para opciones de configuración especificas para tu servidor o cluster puedes co
 
 #### Formato del archivo con la información experimental 
 
-Para tener un buen control de los archivos a procesar (formato fastq pareados {Read_1,Read_2}), en el archivo sample_info.tsv incluir la siguiente información por columna:
-
-                        Sample_id       Sample_name     replica         condition       R1      R2
-
-Cada conlumna contine la siguiente información:
+Para tener un buen control de los archivos a procesar (formato fastq pareados {Read_1,Read_2}), en el archivo sample_info.tsv debe incluir la siguiente información por columna:
 
  - Sample_id   = Nombre completo de los archivos, se recomienda el formato [identificador único-número de muestra-número de lane]
  - Sample_name = Nombre de la muestras, se recomienda el formato [nombre de la muestra - número de muestra], este nombre es el nombre que aparecerá en los graficos generados
@@ -75,12 +83,24 @@ Cada conlumna contine la siguiente información:
  - R1          = Ruta absoluta del archivo de lectura en formato fastq R1
  - R2          = Ruta absoluta del archivo de lectura en formato fastq R2
 
+**Recuerda:**
+
+- Utilizar letras de la A a la Z (mayúsculas y minúsculas sin aceltos)
+- No utilizar la letra "ñ"
+- Sólo emplear los siguientes caracterez especiales (guión -, guión bajo _, punto .)
+- No están permitidos los espacios
+
+A continuación, se muestran algunos ejemplos de cómo rellenar el contenido del archivo sample_info.tsv.
+
+
+                        Sample_id       Sample_name     replica         condition       R1      R2
+			ID_N1	sample_label	1	condición	/path/to/read_1/file/sample_label1_R1.fastq.gz	/path/to/read_2/file/sample_label1_R2.fastq.g
+   
 **Nota:** Recuerda que el archivo debe estar separado por tabulador (\t).
 
 ## Las herramientas utilizadas por este flujo de trabajo son:
  
- - R (4.2.3) 
- - FastQC (0.11.9) 
+ - R (4.3.2) 
  - MultiQC (1.13.deb0)
  - Trim Galore (0.6.7) 
  - Kallisto (0.46.1) 
@@ -99,10 +119,6 @@ Además de las herramientas arriba enunciadas, son utilizan las siguientes libre
  - EnhancedVolcano (1.13.2)
  - optparse (1.7.1)
  - ComplexHeatmap (2.10.0)
- - topGO (2.46.0)
- - GeneTonic (1.6.4)
- - org.Hs.eg.db (3.14.0)
- - org.Mm.eg.db (3.15.0)
  - AnnotationDbi (1.56.2)
  - SummarizedExperiment (1.24.0)
  - rhdf5 (2.38.1)
