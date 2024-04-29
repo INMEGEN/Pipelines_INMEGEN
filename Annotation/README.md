@@ -1,4 +1,4 @@
-# Flujo de trabajo identificación de variantes somáticas utilizando NextFlow y GATK
+# Anotación de archivos VCF con Annovar 
 
 Este pipeline realiza la anotación de variantes a partir de archivos VCF filtrados.
 En caso de trabajar con el genoma hg38, los archivos de referencia se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).  
