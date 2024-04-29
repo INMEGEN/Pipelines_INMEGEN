@@ -1,7 +1,6 @@
-# Anotación de archivos VCF con Annovar 
+# Anotación de variantes (archivos vcf) con Annovar
 
-Este pipeline realiza la anotación de variantes a partir de archivos VCF filtrados.
-En caso de trabajar con el genoma hg38, los archivos de referencia se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false).  
+Este pipeline realiza la anotación de variantes a partir de archivos VCF.
 
 **Nota:** Para poder utilizar annovar es necesario conseguir tu propia liga en el siguiente [link](https://www.openbioinformatics.org/annovar/annovar_download_form.php) y descargar tus propias bases de datos para realizar la anotación.
 
@@ -53,7 +52,8 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
  
 Para tener un buen control de los archivos a procesar (formato vcf), el archivo sample_info.tsv debe de incluir la siguiente información por columna:
  
-		Sample	Path	
+	Sample	Path	Index
+  	Sample_name	/paht/to/vcf_file	/path/to/vcf_index
 
  - Sample   = Nombre completo de los archivos vcf, se recomienda el formato [nombre de la muestra - número de muestra]
  - Path     = Ruta absoluta del archivo vcf de la muestra sample
