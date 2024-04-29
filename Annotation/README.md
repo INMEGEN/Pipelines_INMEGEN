@@ -13,9 +13,8 @@ Este pipeline realiza la anotación de variantes a partir de archivos VCF.
         - [Docker](https://docs.docker.com/) (23.0.5)
         - Imagen de docker pipelinesinmegen/pipelines_inmegen:public, la puedes clonar con el comando:
 
-                docker pull pipelinesinmegen/pipelines_inmegen:public
+		docker pull pipelinesinmegen/pipelines_inmegen:public
 
- 
 2. Asegurarse de contar con las siguientes bases de datos, necesarias para el pipeline:
 	- refGene
  	- ensGene
@@ -46,7 +45,7 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
 
   3. Ejecutar el comando correspondiente a cada subflujo de trabajo: 
 
-                bash run_nextflow.sh /path/to/out/dir
+         bash run_nextflow.sh /path/to/out/dir
 
 ### Formato del archivo con la información experimental
  
