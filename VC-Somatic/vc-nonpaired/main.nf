@@ -53,9 +53,7 @@ workflow {
 
    filterMutectCalls(forfilter)
    
-   variantQC(filterMutectCalls.out.filt_vcf)
+   variantQC(filterMutectCalls.out.filt_vcf.collect()."${params.project_name}")
 
    postfilter(filterMutectCalls.out.filt_vcf)
-
-    
 }
