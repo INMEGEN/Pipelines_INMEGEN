@@ -11,7 +11,7 @@ nextflow.enable.dsl=2
 include {  mutect2                   } from "../../modules/VC-Somatic/vc-paired/mutect2.nf"
 include {  calculateContamination    } from "../../modules/VC-Somatic/vc-scommon/contamination.nf"
 include {  filterMutectCalls         } from "../../modules/VC-Somatic/vc-scommon/filtermutect.nf"
-include {  variantQC                 } from "../../modules/metrics/variantQC.nf"
+include {  variantQC                 } from "../../modules/VC-Somatic/vc-scommon/variantQC.nf"
 include {  postfilter                } from "../../modules/VC-Somatic/vc-paired/postfilter.nf"
 
 // Imprimir la ruta de algunos directorios importantes
@@ -64,7 +64,7 @@ workflow {
 
    filterMutectCalls(forfilter)
 
-   variantQC(filterMutectCalls.out.filt_vcf)
+   variantQC(filterMutectCalls.out.filt_vcf.collect()."${params.project_name}")
 
    postfilter(filterMutectCalls.out.filt_vcf)
 }

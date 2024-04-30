@@ -1,7 +1,7 @@
 process postfiltervcf {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
-    publishDir params.out + "/filtered_vcfs" , mode:'copy'
+    publishDir params.out + "/postfiltered_vcfs" , mode:'copy'
 
     input:
     tuple val(project_id), path(vcf_file), path(vcf_index)
@@ -11,7 +11,7 @@ process postfiltervcf {
 
     script:
     """
-    bcftools view -f "PASS" -o ${project_id}_postfilter.vcf.gz ${vcf_file}
+    bcftools view -f "PASS" -Oz -o ${project_id}_postfilter.vcf.gz ${vcf_file}
     tabix ${project_id}_postfilter.vcf.gz
     """
 }

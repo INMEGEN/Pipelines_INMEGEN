@@ -11,7 +11,7 @@ process joinvcfs {
 
     script:
     """
-    bcftools concat -a -o ${sample}_filtered.vcf.gz ${vcf_snps} ${vcf_indels}
+    bcftools concat -a -Oz -o ${sample}_filtered.vcf.gz ${vcf_snps} ${vcf_indels}
     tabix  ${sample}_filtered.vcf.gz
     """
 }

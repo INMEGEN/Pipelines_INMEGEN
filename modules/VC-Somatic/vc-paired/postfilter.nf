@@ -1,7 +1,7 @@
 process postfilter {
     cache 'lenient'
-    container 'pipelinesinmegen/pipelines_inmegen:local'    
-    publishDir params.out + "/filtered_vcfs" , mode:'copy'
+    container 'pipelinesinmegen/pipelines_inmegen:public'    
+    publishDir params.out + "/postfiltered_vcfs" , mode:'copy'
 
     input:
     tuple val(sample_id), path(vcf_file), path(index_file)
@@ -11,6 +11,6 @@ process postfilter {
 
     script:
     """
-    bcftools view -f "PASS" -e "FORMAT/DP < 10" -e "FORMAT/AD[1:1] < 10" --output ${sample_id}_postfilter.vcf.gz ${vcf_file}
+    bcftools view -f "PASS" -e "FORMAT/DP < 10" -e "FORMAT/AD[1:1] < 10" -Oz --output ${sample_id}_postfilter.vcf.gz ${vcf_file}
     """
 }

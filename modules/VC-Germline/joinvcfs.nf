@@ -13,7 +13,7 @@ process joinvcfs {
 
     script:
     """
-    bcftools concat -a -o ${project_id}_filtered.vcf.gz ${vcf_snps} ${vcf_indels}
+    bcftools concat -a -Oz -o ${project_id}_filtered.vcf.gz ${vcf_snps} ${vcf_indels}
     tabix  ${project_id}_filtered.vcf.gz
     """
 }

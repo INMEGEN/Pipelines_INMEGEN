@@ -23,7 +23,7 @@ include { selectVariants                     } from "../modules/VC-RNAseq/select
 include { filterSnps                         } from "../modules/VC-RNAseq/filtersnps.nf"
 include { filterIndels                       } from "../modules/VC-RNAseq/filterindels.nf"
 include { joinvcfs                           } from "../modules/VC-RNAseq/joinvcfs.nf"
-include { variantQC                          } from "../modules/metrics/variantQC.nf"
+include { variantQC                          } from "../modules/VC-RNAseq/variantQC.nf"
 include { postfiltervcf                      } from "../modules/VC-RNAseq/postfilter.nf"
 include { multiqc                            } from "../modules/VC-RNAseq/multiqc.nf"
 
@@ -104,7 +104,7 @@ workflow {
 
    joinvcfs(join_vcfs)
 
-   variantQC(joinvcfs.out.join_vars_filt)
+   variantQC(joinvcfs.out.join_vars_filt.collect(),"${params.project_name}")
 
    postfiltervcf(joinvcfs.out.join_vars_filt)
 

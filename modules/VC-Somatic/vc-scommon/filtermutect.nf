@@ -2,7 +2,7 @@ process filterMutectCalls {
     cache 'lenient'
     container 'pipelinesinmegen/pipelines_inmegen:public'
     containerOptions "-v ${params.refdir}:/ref"
-    publishDir params.out + "/filteredVCF" , mode:'copy'
+    publishDir params.out + "/filtered_vcfs" , mode:'copy'
 
     input:
     tuple val(tumor_id), val(input_vcf), path(orient_model), path(seg_table), path(cont_table)
