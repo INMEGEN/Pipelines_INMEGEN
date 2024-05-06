@@ -2,7 +2,7 @@
 
 ## Descripción de los archivos de salida del flujo de trabajo [VC-Germinal]
 
-Como parte de los servicios de análisis bioinformáticos del INMEGEN, después de ejecutar el flujo de trabajo se entregarán los siguientes directorios con los siguientes archivos:
+Como parte de los servicios de análisis bioinformáticos del Inmegen, después de ejecutar el flujo de trabajo se entregarán los siguientes directorios con los siguientes archivos:
 
 #### - Directorio: **Alineamientos**
 
