@@ -38,7 +38,7 @@ Este reporte clasifica a las variantes en tres categorías:
   2. Filtered son el número de variantes que no pasaron algún filtro de VQSR.
   3. Called son el número de variantes que pasaron los filtros de VQSR (marcadas con la bandera **PASS**).
 
-Adicionalmente, en esta carpeta se encuentra el **Subdirectorio FastQC** donde se encuentra el reporte de calidad obtenido con FastQC de cada pareja de archivos **Fastq** (R1 + R2). 
+Adicionalmente, en esta carpeta se encuentra el **Subdirectorio FastQC** donde se encuentra el reporte de calidad obtenido con FastQC de cada pareja de archivos **Fastq** (R1 y R2). 
 
 **NOTA:** Dependiendo de la configuración de la solicitud del servicio, también puede haber un archivo por tipo de variante (SNPs o INDELs) o un archivo que contenga ambas (SNPs + INDELs).
 
