@@ -4,13 +4,13 @@
 
 Como parte de los servicios de análisis bioinformáticos del INMEGEN, después de ejecutar el flujo de trabajo se entregarán los siguientes directorios con los siguientes archivos:
 
-- Directorio: **Alineamientos**
+> Directorio: **Alineamientos**
 
 Este directorio contiene los archivos alineados a hg38 (genoma humano versión GRCh38) **por muestra** en formato [bam](https://support.illumina.com/help/BS_App_RNASeq_Alignment_OLH_1000000006112/Content/Source/Informatics/BAM-Format.htm).
 
 **MOTA:** Regularmente los archivos alineados son de un peso aproximado que oscila entre ~1 Gb a 20 Gb por lo que se recomienda elegir un lugar con suficiente espacio para la transferencia de dichos archivos
 
-- Direcotrio **Resultados**
+> Direcotrio **Resultados**
 
 Este directorio contiene las siguientes carpetas:
 
