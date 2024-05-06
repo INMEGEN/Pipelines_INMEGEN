@@ -4,29 +4,31 @@
 
 Como parte de los servicios de análisis bioinformáticos del INMEGEN, después de ejecutar el flujo de trabajo se entregarán los siguientes directorios con los siguientes archivos:
 
-- Directorio: **Archivos_bam**
+- Directorio: **Alineamientos**
 
-Este directorio contiene los alineados a hg38 (genoma humano versión GRCh38) **por muestra** en formato [bam](https://support.illumina.com/help/BS_App_RNASeq_Alignment_OLH_1000000006112/Content/Source/Informatics/BAM-Format.htm).
-Estos archivos está ordenados y con los duplicados ya marcados. 
+Este directorio contiene los archivos alineados a hg38 (genoma humano versión GRCh38) **por muestra** en formato [bam](https://support.illumina.com/help/BS_App_RNASeq_Alignment_OLH_1000000006112/Content/Source/Informatics/BAM-Format.htm).
 
-- Directorio: **VCFs_filtrados**
+**MOTA:** Regularmente los archivos alineados son de un peso aproximado que oscila entre ~1 Gb a 20 Gb por lo que se recomienda elegir un lugar con suficiente espacio para la transferencia de dichos archivos
 
-Esta carpeta contiene diversos archivos en formato [VCF](https://support.illumina.com/help/BS_App_RNASeq_Alignment_OLH_1000000006112/Content/Source/Informatics/VCF-Format.htm) con las variantes identificadas y marcadas con los filtros de GATK [VQSR](https://gatk.broadinstitute.org/hc/en-us/articles/360035531612-Variant-Quality-Score-Recalibration-VQSR) de todas las muestras.
-Esta carpeta también contiene el subdirectorio **vcfs_pormuestra** donde se proporciona un archivo VCF por muestra.
+-Direcotrio **Resultados**
 
-**NOTA:** Dependiendo de la configuración de la solicitud del servicio, puede haber un archivo por tipo de variante (SNPs o INDELs) o un archivo que contenga ambas (SNPs + INDELs).
+  - Subdirectorio: **Variantes**
 
-- Directorio: **VCFs_anotados** 
+Esta carpeta contiene diversos archivos en formato de llamado de variantes [VCF](https://support.illumina.com/help/BS_App_RNASeq_Alignment_OLH_1000000006112/Content/Source/Informatics/VCF-Format.htm) con las variantes identificadas , que pasaron los filtros de [VQSR](https://gatk.broadinstitute.org/hc/en-us/articles/360035531612-Variant-Quality-Score-Recalibration-VQSR) (bandera **PASS**) de todas las muestras.
+Esta carpeta también puede contener el subdirectorio **variantes_por_muestra** donde se proporciona un archivo VCF por muestra.
 
-Esta carpeta contiene diversos archivos en formato [VCF](https://support.illumina.com/help/BS_App_RNASeq_Alignment_OLH_1000000006112/Content/Source/Informatics/VCF-Format.htm) con las variantes identificadas, que pasaron los filtros de VQSR (bandera **PASS**) y anotadas con los catálogos de genes refGene y ensGene, junto con las bases de datos avSNP, CLINVAR, gnomAD, COSMIC y dbNSFP utilizando Annovar. 
-Para más información de las bases de datos utilizadas consultar la siguiente [liga](https://annovar.openbioinformatics.org/en/latest/user-guide/filter/#overview). 
+  - Subdirectorio: **Variantes_anotadas** 
+
+Esta carpeta contiene diversos archivos en formato de llamado de variantes [VCF](https://support.illumina.com/help/BS_App_RNASeq_Alignment_OLH_1000000006112/Content/Source/Informatics/VCF-Format.htm) con las variantes identificadas, que pasaron los filtros de VQSR (bandera **PASS**) y anotadas con los catálogos de genes refGene y ensGene, junto con las bases de datos avSNP, CLINVAR, gnomAD, COSMIC y dbNSFP utilizando Annovar. 
+
+Para más información de las bases de datos puedes consultar la siguiente [liga](https://annovar.openbioinformatics.org/en/latest/user-guide/filter/#overview). 
 Esta carpeta también contiene el subdirectorio **vcfs_pormuestra** donde se proporciona un archivo VCF por muestra.  
 
 También, se incluye un archivo de texto separado por tabulador (/t) que contiene la información del VCF anotado.
 
-**NOTA:** Dependiendo de la configuración de la solicitud del servicio, puede haber un archivo por tipo de variante (SNPs o INDELs) o un archivo que contenga ambas (SNPs + INDELs). 
+**NOTA:** Dependiendo de la configuración de la solicitud del servicio, también puede haber un archivo por tipo de variante (SNPs o INDELs) o un archivo que contenga ambas (SNPs + INDELs).
 
-- Directorio: **Reportes de calidad**
+  - Subdirectorio: **Reportes de calidad**
 
 Esta carpeta contiene dos archivos que resumen las métricas de calidad del análisis.
 
