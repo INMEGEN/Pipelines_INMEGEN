@@ -22,8 +22,6 @@ Esta carpeta contiene diversos archivos en formato de llamado de variantes [VCF]
 
 Esta carpeta contiene diversos archivos en formato de llamado de variantes [VCF](https://support.illumina.com/help/BS_App_RNASeq_Alignment_OLH_1000000006112/Content/Source/Informatics/VCF-Format.htm) con las variantes identificadas, que pasaron los filtros duros de GATK (bandera **PASS**) y anotadas con los catálogos de genes refGene y ensGene, junto con las bases de datos avSNP, CLINVAR, gnomAD, COSMIC y dbNSFP utilizando Annovar. Para más información de las bases de datos puedes consultar la siguiente [liga](https://annovar.openbioinformatics.org/en/latest/user-guide/filter/#overview).  
 
-Este subddirectorio también contiene la carpeta **variantes_pormuestra** donde se proporciona un archivo VCF por muestra.  
-
   - Subdirectorio: **Reportes de calidad**
 
 Esta carpeta contiene dos archivos que resumen las métricas de calidad del análisis.
