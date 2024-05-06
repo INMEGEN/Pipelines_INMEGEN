@@ -37,9 +37,9 @@ El archivo **[nombre del proyecto]_variantqc.html** contiene un resumen del núm
 E
 ste reporte clasifica a las variantes en tres categorías:
 
-  1- RAW son las variantes sin filtro.
-  2- Filtered son las variantes que no pasaron algún filtro de VQSR.
-  3- Called son las variantes que pasaron los filtros de VQSR (bandera **PASS**).
+  1. RAW son las variantes sin filtro.
+  2. Filtered son las variantes que no pasaron algún filtro de VQSR.
+  3. Called son las variantes que pasaron los filtros de VQSR (bandera **PASS**).
 
 Adicionalmente, en esta carpeta se encuentra el **Subdirectorio FastQC** donde se encuentra el reporte de calidad obtenido con FastQC de cada pareja de archivos **Fastq** (R1 + R2). 
 
