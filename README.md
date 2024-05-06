@@ -1,11 +1,11 @@
 [![INMEGEN](./flowcharts/inmegen_t1.png)](https://www.inmegen.gob.mx/)
-#  [Pipelines INMEGEN](https://serviciosbio.inmegen.gob.mx/)
+#  [Pipelines Inmegen](https://serviciosbio.inmegen.gob.mx/)
 [![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A522.10.7-23aa62.svg)](https://www.nextflow.io/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 
 ## Flujos de trabajo 
 
-Este repositorio contiene información detallada sobre los flujos de trabajo (pipelines) desarrollados y automatizados en el Instituto Nacional de Medicina Genómica (INMEGEN), asociados a los **servicios de anślisis bioinformśticos del INMEGEN**.
+Este repositorio contiene información detallada sobre los flujos de trabajo (pipelines) desarrollados y automatizados en el Instituto Nacional de Medicina Genómica (INMEGEN), asociados a los **servicios de anślisis bioinformśticos del Inmegen**.
 
 Para saber más y realizar una solicitud del servicio de análisis, visita nuestro sitio web dando clic [**aquí**](https://serviciosbio.inmegen.gob.mx/).
 
