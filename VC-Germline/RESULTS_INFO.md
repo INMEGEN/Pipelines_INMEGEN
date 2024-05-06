@@ -14,18 +14,20 @@ Como parte de los servicios de análisis bioinformáticos del INMEGEN, después 
 
 Este directorio contiene las siguientes carpetas:
 
-> - Subdirectorio: **Variantes**
+- Subdirectorio: **Variantes**
 >
 >Esta carpeta contiene diversos archivos en formato de llamado de variantes [VCF](https://support.illumina.com/help/BS_App_RNASeq_Alignment_OLH_1000000006112/Content/Source/Informatics/VCF-Format.htm) con las variantes identificadas , que pasaron los filtros de [VQSR](https://gatk.broadinstitute.org/hc/en-us/articles/360035531612-Variant-Quality-Score-Recalibration-VQSR) (bandera **PASS**) de todas las muestras.
 >Esta carpeta también puede contener el subdirectorio **variantes_por_muestra** donde se proporciona un archivo VCF por muestra.
 
-> - Subdirectorio: **Variantes_anotadas** 
+
+- Subdirectorio: **Variantes_anotadas** 
 >
 >Esta carpeta contiene diversos archivos en formato de llamado de variantes [VCF](https://support.illumina.com/help/BS_App_RNASeq_Alignment_OLH_1000000006112/Content/Source/Informatics/VCF-Format.htm) con las variantes identificadas, que pasaron los filtros de VQSR (bandera **PASS**) y anotadas con los catálogos de genes refGene y ensGene, junto con las bases de datos avSNP, CLINVAR, gnomAD, COSMIC y dbNSFP utilizando Annovar. Para más información de las bases de datos puedes consultar la siguiente [liga](https://annovar.openbioinformatics.org/en/latest/user-guide/filter/#overview).  
 >
 >Este subddirectorio también contiene la carpeta **variantes_pormuestra** donde se proporciona un archivo VCF por muestra.  
 
-> - Subdirectorio: **Reportes de calidad**
+
+- Subdirectorio: **Reportes de calidad**
 >
 >Esta carpeta contiene dos archivos que resumen las métricas de calidad del análisis.
 >
