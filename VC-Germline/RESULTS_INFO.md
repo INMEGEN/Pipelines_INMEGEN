@@ -10,7 +10,7 @@ Este directorio contiene los archivos alineados a hg38 (genoma humano versión G
 
 **MOTA:** Regularmente los archivos alineados son de un peso aproximado que oscila entre ~1 Gb a 20 Gb por lo que se recomienda elegir un lugar con suficiente espacio para la transferencia de dichos archivos
 
--Direcotrio **Resultados**
+- Direcotrio **Resultados**
 
   - Subdirectorio: **Variantes**
 
