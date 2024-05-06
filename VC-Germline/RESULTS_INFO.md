@@ -34,11 +34,12 @@ Esta carpeta contiene dos archivos que resumen las métricas de calidad del aná
 El archivo **[nombre del proyecto]_multiqc.html** contiene el resumen del reporte de calidad de las lecturas después de que se eliminaron los adaptadores y las lecturas de mala calidad para cada par de archivos **Fastq** (R1 + R2). También, se incluyen el número de lecturas y bases on target junto a la profundidad de cada muestra (archivo bam) y algunas métricas adicionales de la calidad del alineamiento. 
 
 El archivo **[nombre del proyecto]_variantqc.html** contiene un resumen del número de variantes encontradas en conjunto y por muestra. También, contiene métricas por tipo de variante (SNPs e INDELs). 
-Este reporte clasifica a las variantes en tres categorías:
+E
+ste reporte clasifica a las variantes en tres categorías:
 
- - RAW son las variantes sin filtro
- - Filtered son las variantes que no pasaron algún filtro de VQSR
- - Called son las variantes que pasaron los filtros de VQSR (bandera **PASS**) 
+1 RAW son las variantes sin filtro
+2 Filtered son las variantes que no pasaron algún filtro de VQSR
+3 Called son las variantes que pasaron los filtros de VQSR (bandera **PASS**) 
 
 Adicionalmente, en esta carpeta se encuentra el **Subdirectorio FastQC** donde se encuentra el reporte de calidad obtenido con FastQC de cada pareja de archivos **Fastq** (R1 + R2). 
 
