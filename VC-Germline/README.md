@@ -11,9 +11,9 @@ Este flujo de trabajo realiza la identificación conjunta de variantes germinale
 
 Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN: 
 
-- Archivos de secuenciación **FASTQ** (Illumina *paired-end*).
-- Archivo con la información experimental (vease la sección: **Formato del archivo sample_info**).
-- En caso de *WES* especificar el kit utilizado.
+- Archivos de secuenciación **FASTQ** (Illumina *paired-end*)
+- Archivo con la información experimental (vease la sección: **Formato del archivo sample_info**)
+- En caso de *WES* especificar el kit utilizado
 
 ## Implementando este flujo por tu cuenta: Instrucciones de uso 
 
