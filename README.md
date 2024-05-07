@@ -35,8 +35,9 @@ Otros directorios contienen información general:
 
 Como pre-requisito para ejecutar los pipelines es necesario contar con:
 
-1.[NextFlow](https://www.nextflow.io/docs/latest/index.html) (versión mayor o gual a 22.10.7)
-2.[Docker](https://docs.docker.com/) (versión mayor o gual a 23.0.5)
+1. [NextFlow](https://www.nextflow.io/docs/latest/index.html) (versión mayor o gual a 22.10.7)
+   
+2. [Docker](https://docs.docker.com/) (versión mayor o gual a 23.0.5)
 
 Además, es necesario clonar la imagen de docker de este repositorio con el comando 
 
