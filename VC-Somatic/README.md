@@ -28,9 +28,9 @@ En el caso de que no contar con 40 muestras normales secuenciadas con las mismas
 
 Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN: 
 
-- Archivos de secuenciación **FASTQ** (Illumina *paired-end*).
-- Archivo con la información experimental (los identificadores de las muestras indicando si son normales o de tumor y la información que se señala en la sección: **Formato del archivo sample_info**).
-- En caso de *WES* específicar el kit utilizado.
+- Archivos de secuenciación **FASTQ** (Illumina *paired-end*)
+- Archivo con la información experimental (los identificadores de las muestras indicando si son normales o de tumor y la información que se señala en la sección: **Formato del archivo sample_info**)
+- En caso de *WES* específicar el kit utilizado
 
 ## Implementando este flujo por tu cuenta: Instrucciones de uso
 
