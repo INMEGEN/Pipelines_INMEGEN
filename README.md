@@ -43,7 +43,7 @@ Además, es necesario clonar la imagen de docker de este repositorio con el coma
 
 	docker pull pipelinesinmegen/pipelines_inmegen:public
 
-En caso de querer construir la imagen de docker con el Dockerfile que se encuentra en el directorio **[docker]** utilizar:
+En caso de querer construir la imagen de docker con el Dockerfile que se encuentra en el directorio **[docker]** utiliza:
 
 	docker build -t pipelinesinmegen/pipelines_inmegen:public -f Dockerfile .
 
