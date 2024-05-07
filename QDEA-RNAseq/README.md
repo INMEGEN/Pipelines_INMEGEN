@@ -4,14 +4,14 @@ Este flujo de trabajo realiza la cuantificación de los transcritos y el anális
 
 **Nota:** 
  - Por el momento el análisis sólo está disponible para datos ilummina paired-end 
- - Se puede obtener sólo la matriz de cuentas cruda y la matriz TPM (transcritos por millón) y el análisis de la expresión diferencial entre dos condiciones distintas.
+ - Se puede obtener sólo la matriz de cuentas cruda y la matriz TPM (transcritos por millón) y el análisis de la expresión diferencial entre dos condiciones distintas
 
 ## Solicitud de servicio
 
 Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN: 
 
-- Archivos de secuenciación FASTQ (Illumina paired-end).
-- Archivo con la información experimental (identificador de los archivos, nombre de la muestra, condición experimental).
+- Archivos de secuenciación FASTQ (Illumina paired-end)
+- Archivo con la información experimental (identificador de los archivos, nombre de la muestra, condición experimental)
 
 
 ## Implementando este flujo por tu cuenta: Instrucciones de uso 
