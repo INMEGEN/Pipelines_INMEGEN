@@ -24,10 +24,8 @@ En cada uno de los siguientes directorios de este repositorio [marcado entre cor
  - **Análisis de calidad de archivos de secuenciación masiva en formato FASTQ** [Fastq-QC]
 
  - **Identificación conjunta de variantes germinales a partir de datos WGS/WES con bootstrapping** [BT-VC-Germinal]
-   
-**Nota:** El pipeline [VC-Germline] requiere los archivos necesarios para realizar VQSR (variant quality score recalibration), por lo que  está diseñado para utilizar el bundle de gatk para el genoma humano hg38. En caso de no contar con estos archivos se recomienda utilizar el flujo [BT-VC-Germinal], ya que este sólo necesita la referencia, el índice de SAMTOOLS y el índice de BWA creados a partir de la referencia. 
 
-Algunos directorios contienen pipelines de procesamiento que son requeridos por más de un flujo de trabajo
+Los directorios que contienen pipelines de procesamiento que son requeridos por más de un flujo de trabajo
  
  - **Preprocesamiento de archivos FASTQ** [Data-preprocessing]
 
@@ -35,9 +33,9 @@ Algunos directorios contienen pipelines de procesamiento que son requeridos por 
 
 Otros directorios contienen información general:
 
- - Los procesos en los que están divididos los flujos de trabajo se encuentran en el directorio **modules**.
-   
- - El diagrama de flujo correspondiente a cada pipeline se encuentra en la carpeta **flowcharts**. 
+ - Los procesos en los que están divididos los flujos de trabajo se encuentran en el directorio **modules**
+ - El diagrama de flujo correspondiente a cada pipeline se encuentra en la carpeta **flowcharts**
+ - El directorio docker contiene el Dockerfile para crear el repositorio *pipelines_inmegen*
 
 
 ##  Para ejecutar los pipelines 
