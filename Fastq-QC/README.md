@@ -31,7 +31,7 @@ Antes de correr este *pipeline* asegúrate de contar con las siguientes herramie
    
 	- Referencias de Fastq Screen
 
-Para mayor información consulta el manual de [Fastq Screen](https://stevenwingett.github.io/FastQ-Screen/)
+Para mayor información consulta el manual de [Fastq Screen](https://stevenwingett.github.io/FastQ-Screen/).
 
 ### Ejecutar el flujo de trabajo
 
@@ -61,7 +61,7 @@ Para opciones de configuración específicas para tu servidor o cluster puedes c
 			bash run_nextflow.sh /path/to/out/dir
 
 
-### Formato del archivo sample_info.
+### Formato del archivo sample_info
 
 El archivo sample_info.tsv ubicado en la carpeta VC-RNAseq es indispensable y debe incluir la siguiente información por columna.
 
