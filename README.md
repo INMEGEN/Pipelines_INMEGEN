@@ -27,10 +27,9 @@ Los directorios que contienen pipelines de procesamiento que son requeridos por 
 
 Otros directorios contienen información general:
 
- - Los procesos en los que están divididos los flujos de trabajo se encuentran en el directorio **modules**
- - El diagrama de flujo correspondiente a cada pipeline se encuentra en la carpeta **flowcharts**
- - El directorio docker contiene el Dockerfile para crear el repositorio *pipelines_inmegen*
-
+ - Los procesos en los que están divididos los flujos de trabajo se encuentran en el directorio **[modules]**
+ - El diagrama de flujo correspondiente a cada pipeline se encuentra en la carpeta **[flowcharts]**
+ - El directorio **[docker]** contiene el Dockerfile para crear el repositorio *pipelines_inmegen*
 
 ##  Para ejecutar los pipelines 
 
