@@ -14,21 +14,15 @@ El principal objetivo de estos pipelines es el procesamiento de datos provenient
 En cada uno de los siguientes directorios de este repositorio [marcado entre corchetes] se encuentran las instrucciones necesarias para ejecutar cada flujo de trabajo: 
 
  - **Cuantificación y Análisis de expresión diferencial a partir de datos de RNA-seq** [QDEA-RNAseq]
-
  - **Identificación conjunta de variantes germinales a partir de datos WGS/WES** [VC-Germline]
-   
  - **Identificación de variantes somáticas a partir de datos WGS/WES** [VC-Somatic]
-
  - **Identificación de variantes a partir de datos de RNA-seq**  [VC-RNAseq]
-
  - **Análisis de calidad de archivos de secuenciación masiva en formato FASTQ** [Fastq-QC]
-
  - **Identificación conjunta de variantes germinales a partir de datos WGS/WES con bootstrapping** [BT-VC-Germinal]
 
 Los directorios que contienen pipelines de procesamiento que son requeridos por más de un flujo de trabajo
  
  - **Preprocesamiento de archivos FASTQ** [Data-preprocessing]
-
  - **Anotación de variantes con Annovar** [Annotation]
 
 Otros directorios contienen información general:
