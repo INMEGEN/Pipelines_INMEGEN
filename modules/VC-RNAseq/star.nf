@@ -9,7 +9,7 @@ process star {
 
   output:
   tuple val(sample_id), path("*.sam"), emit: aligned_reads_ch  
-  path("*_Log.final.out")
+  path("*.out*")
 
   script:
       readGroup = \

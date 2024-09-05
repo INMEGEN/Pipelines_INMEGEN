@@ -1,35 +1,29 @@
 process merge_bam_alignment {
   cache 'lenient'
-  publishDir params.out, mode:'symlink'
+  container 'pipelinesinmegen/pipelines_inmegen:public'
+  containerOptions "-v ${params.refdir}:/ref"
+  publishDir params.out + "/merge_bam_algn", mode:'symlink'
   
   input: 
   tuple val(sample), path(reads_1), path(reads_2)
   
   output:
-  tuple val(sample), path("merge_bam_algn/${sample}_merged.bam"),     emit: bam_alignment_ch
+  tuple val(sample), path("${sample}_merged.bam"), emit: bam_alignment_ch
 
   script:
   """
-  mkdir -p merge_bam_algn
-  cp ${reads_1} merge_bam_algn/
-  cp ${reads_2} merge_bam_algn/
-
-  docker run --cpus ${params.ncrs} --user="\$(id -u):\$(id -g)" -v \$PWD/merge_bam_algn:/data -v "${params.refdir}":/ref pipelinesinmegen/pipelines_inmegen:public \
-  java -jar /usr/bin/picard.jar MergeBamAlignment \
-      -ALIGNED /data/${reads_1} \
-      -UNMAPPED /data/${reads_2} \
-      -O /data/${sample}_merged.bam \
-      -R /ref/${params.refname} \
-      --CREATE_INDEX true \
-      --ADD_MATE_CIGAR true \
-      --CLIP_ADAPTERS false \
-      --CLIP_OVERLAPPING_READS true \
-      --INCLUDE_SECONDARY_ALIGNMENTS true \
-      --MAX_INSERTIONS_OR_DELETIONS -1 \
-      --PRIMARY_ALIGNMENT_STRATEGY MostDistant \
-      --ATTRIBUTES_TO_RETAIN XS
-  
-  rm merge_bam_algn/${reads_1}
-  rm merge_bam_algn/${reads_2} 
+  picard MergeBamAlignment \
+         -ALIGNED ${reads_1} \
+         -UNMAPPED ${reads_2} \
+         -O ${sample}_merged.bam \
+         -R /ref/${params.refname} \
+         --CREATE_INDEX true \
+         --ADD_MATE_CIGAR true \
+         --CLIP_ADAPTERS false \
+         --CLIP_OVERLAPPING_READS true \
+         --INCLUDE_SECONDARY_ALIGNMENTS true \
+         --MAX_INSERTIONS_OR_DELETIONS -1 \
+         --PRIMARY_ALIGNMENT_STRATEGY MostDistant \
+         --ATTRIBUTES_TO_RETAIN XS
   """
 }

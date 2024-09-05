@@ -13,7 +13,7 @@ process fastqc {
   """
    mkdir -p ${sample_id}
 
-   fastqc -o ${sample_id} -f fastq -q ${R1} ${R2}
+   fastqc -o ${sample_id} -t ${params.ncrs} -f fastq -q ${R1} ${R2}
   """   
 }
 

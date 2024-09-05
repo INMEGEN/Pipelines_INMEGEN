@@ -1,14 +1,14 @@
   #!/usr/bin/env nextflow
-// Workflow:    Preprocesamiento de datos para identificación de variantes con GATK4  
-// Institución: Instituto Nacional de Medicina Genómica (INMEGEN)
-// Maintainer:  Subdirección de genómica poblacional y subdirección de bioinformática (INMEGEN)
-// Versión:     0.1 
+// Workflow:    Preprocesamiento de datos para identificación de variantes 
+// Institution: Instituto Nacional de Medicina Genómica (INMEGEN)
+// Maintainer:  Subdirección de genómica poblacional y subdirección de bioinformática
+// Version:     0.1 
 // Docker image - pipelinesinmegen/pipelines_inmegen -
 
 nextflow.enable.dsl=2
 
+include { fastp                         } from "../modules/data_preprocessing/fastp.nf"
 include { fastqc                        } from "../modules/data_preprocessing/fastqc.nf"
-include { trimmomatic                   } from "../modules/data_preprocessing/trimmomatic.nf"
 include { fastq_to_sam                  } from "../modules/data_preprocessing/fastq_to_sam.nf"
 include { mark_duplicates               } from "../modules/data_preprocessing/mark_duplicates.nf"
 include { sam_to_fastq                  } from "../modules/data_preprocessing/sam_to_fastq.nf"
@@ -26,8 +26,7 @@ include { analyzeCovariates             } from "../modules/common/analyzecovaria
 include { multiqc                       } from "../modules/data_preprocessing/multiqc.nf"
 
 // Imprimir la ruta de algunos directorios importantes
-println " "
-println "Pipelines INMEGEN"
+println "Pipelines Inmegen"
 println "Flujo de trabajo: Preprocesamiento de datos para GATK4"
 println "Imagen de docker: pipelinesinmegen/pipelines_inmegen"
 println " "
@@ -61,11 +60,12 @@ workflow {
                }
           .set { read_pairs_ch}
 
-   trimmomatic(read_pairs_ch,adapters)
 
-   fastqc(trimmomatic.out.trim_fq)    
+   fastp(read_pairs_ch,adapters)
 
-   fastq_to_sam(trimmomatic.out.trim_fq)
+   fastqc(fastp.out.trim_fq)
+
+   fastq_to_sam(fastp.out.trim_fq)
 
        ch_fqtsam=fastq_to_sam.out.fastq_to_sam_ch.collect().flatten().collate( 2 )
 

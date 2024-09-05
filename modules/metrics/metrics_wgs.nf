@@ -26,6 +26,14 @@ process metricswgs {
 
    Bontarget=\$(awk "BEGIN {x=\$ontargetbases;y=\$totalbases;print x/y}")
    Bontargetp=\$(awk "BEGIN {x=\$Bontarget;y=100;print x*y}")
+   
+   canonicos=\$(grep -no "chrY" ${sample_id}.mosdepth.region.dist.txt  | cut -d":" -f1 | tail -n 1)
+   
+   head -n \$canonicos ${sample_id}.mosdepth.region.dist.txt > ${sample_id}_canonicos.mosdepth.region.dist.txt 
+
+   rm ${sample_id}.mosdepth.region.dist.txt
+ 
+   mv ${sample_id}_canonicos.mosdepth.region.dist.txt ${sample_id}.mosdepth.region.dist.txt
 
    cd summary
    echo -e "${sample_id}	\$dpth	\$totalbases	\$ontargetbases	\$Bontargetp" >> ${sample_id}_QCmetrics.txt

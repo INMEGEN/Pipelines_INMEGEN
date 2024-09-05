@@ -28,7 +28,5 @@ process genomicsDBimport {
        --tmp-dir genomicsdb/tmp \
        --reader-threads ${params.ncrs} \
        --max-num-intervals-to-import-in-parallel ${params.ncrs}
-
-    rm -r genomicsdb/tmp
     """
 }

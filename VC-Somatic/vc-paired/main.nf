@@ -1,8 +1,8 @@
 #!/usr/bin/env nextflow
-// Workflow    : Identificación de variantes somáticas con GATK4
-// Importante  : Pipeline para muestras emparejadas (normal-tumor)
-// Institución : Instituto Nacional de Medicina Genómica (INMEGEN)
-// Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática del INMEGEN
+// Workflow    : Identificación de variantes somáticas
+// Important   : Pipeline para muestras emparejadas (normal-tumor)
+// Institution : Instituto Nacional de Medicina Genómica (INMEGEN)
+// Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática
 // Versión     : 0.1 
 // Docker image - pipelinesinmegen/pipelines_inmegen -
 
@@ -13,10 +13,12 @@ include {  calculateContamination    } from "../../modules/VC-Somatic/vc-scommon
 include {  filterMutectCalls         } from "../../modules/VC-Somatic/vc-scommon/filtermutect.nf"
 include {  variantQC                 } from "../../modules/VC-Somatic/vc-scommon/variantQC.nf"
 include {  postfilter                } from "../../modules/VC-Somatic/vc-paired/postfilter.nf"
+include {  snpEff                    } from "../../modules/annotation/snpEff.nf"
+include {  annovar                   } from "../../modules/annotation/annovar.nf"
+include {  multiqc                   } from "../../modules/VC-Somatic/vc-scommon/multiqc.nf"
 
-// Imprimir la ruta de algunos directorios importantes
-println " "
-println "Pipelines INMEGEN"
+// Print some pipeline information
+println "Pipelines Inmegen"
 println "Flujo de trabajo: Indentificación de variantes somáticas"
 println "Nota: Pipeline para muestras emparejadas (normal-tumor) "
 println "Imagen de docker: pipelinesinmegen/pipelines_inmegen"
@@ -29,6 +31,14 @@ println " "
 
 workflow {
 
+// Declare some parameters
+   interval_list          = file("${params.interval_list}")
+   panel_normales         = file("${params.panel_normales}")
+   panel_normales_index   = file("${params.panel_normales_idx}")
+   common_biallelic       = file("${params.common_biallelic}")
+   common_biallelic_index = file("${params.common_biallelic_idx}")
+
+// Data processing
      Channel.fromPath("${params.sample_info}" )
           .splitCsv(sep:"\t", header: true)
           .map { row ->  def tumor_id   = "${row.Tumor_ID}"
@@ -37,12 +47,6 @@ workflow {
                          def normal_bam = file("${row.Normal_Path}")
                  return [ tumor_id, tumor_bam, normal_id, normal_bam]
                }.set { ready_bam_ch }
-
-   interval_list          = file("${params.interval_list}")
-   panel_normales         = file("${params.panel_normales}")
-   panel_normales_index   = file("${params.panel_normales_idx}")
-   common_biallelic       = file("${params.common_biallelic}")
-   common_biallelic_index = file("${params.common_biallelic_idx}")
 
    mutect2(ready_bam_ch, interval_list, panel_normales, panel_normales_index)
 
@@ -64,7 +68,17 @@ workflow {
 
    filterMutectCalls(forfilter)
 
+   postfilter(filterMutectCalls.out.filt_vcf)
+
+// Variant annotation
+
+   snpEff(postfiltervcf.out.filt_pass_vcf)
+
+   annovar(postfiltervcf.out.filt_pass_vcf)
+
+// Variant summary
+
    variantQC(filterMutectCalls.out.filt_vcf.collect()."${params.project_name}")
 
-   postfilter(filterMutectCalls.out.filt_vcf)
+   multiqc(snpEff.out.snpeff_ch_txt,"${params.out}")
 }

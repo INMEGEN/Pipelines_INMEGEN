@@ -7,9 +7,9 @@ LABEL version="1.0"
 
 # Building takes several hours! Be sure to symlink /var/lib/docker to a larger disk.
 # Build the image: docker build -t pipelinesinmegen/pipelines_inmegen:public -f Dockerfile .
-# To run the container: docker run -i -t pipelines_inmegen:local /bin/bash
+# To run the container: docker run -i -t pipelinesinmegen/pipelines_inmegen:public /bin/bash
 
-# Actualiza el sistema operativo e instala las herramientas adecuadas
+# Install linux tools
 RUN apt-get update && \
     apt-get install -y \
         ant \
@@ -25,7 +25,6 @@ RUN apt-get update && \
         git \
         g++ \
         hmmer \
-        kallisto \
         openjdk-8-jdk \
         openjdk-11-jdk \
         libbz2-dev \
@@ -61,6 +60,7 @@ RUN apt-get update && \
         python3-pip \
         rna-star \
         software-properties-common \
+        tabix \
         tar \
         tzdata \
         unzip \
@@ -72,25 +72,25 @@ RUN apt-get update && \
         && \
     rm -rf /var/lib/apt/lists/*
 
-#### Descargar e instalar FastQC
-RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip && \
-    unzip fastqc_v0.11.9.zip && \
-    chmod +x FastQC/fastqc && \
+#### Download and set FastQC
+RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.12.1.zip && \
+    unzip fastqc_v0.12.1.zip && \
+    chmod a+x FastQC/fastqc && \
     ln -s /FastQC/fastqc /usr/local/bin/fastqc && \
-    rm fastqc_v0.11.9.zip
+    rm fastqc_v0.12.1.zip
 
-#### Descargar e instalar MultiQC
+#### Install MultiQC
 RUN pip3 install --upgrade numpy
 RUN pip3 install multiqc 
 
-#### Descarga e instala Kallisto
+#### Download and set Kallisto
 RUN wget https://github.com/pachterlab/kallisto/releases/download/v0.46.1/kallisto_linux-v0.46.1.tar.gz && \
     tar -zxvf kallisto_linux-v0.46.1.tar.gz && \
-    chmod +x kallisto/kallisto && \
+    chmod a+x kallisto/kallisto && \
     ln -s /kallisto/kallisto /usr/local/bin/kallisto && \
     rm kallisto_linux-v0.46.1.tar.gz
 
-#### Descargar e instalar BWA
+#### Download and install BWA
 RUN wget https://github.com/lh3/bwa/releases/download/v0.7.17/bwa-0.7.17.tar.bz2 && \
     tar -xjvf bwa-0.7.17.tar.bz2 && \
     cd bwa-0.7.17 && \
@@ -99,7 +99,7 @@ RUN wget https://github.com/lh3/bwa/releases/download/v0.7.17/bwa-0.7.17.tar.bz2
     cd .. && \
     rm bwa-0.7.17.tar.bz2
 
-#### Descargar e instalar STAR
+#### Download and install STAR
 RUN wget https://github.com/alexdobin/STAR/archive/2.7.9a.tar.gz && \
     tar -zxvf 2.7.9a.tar.gz && \
     cd STAR-2.7.9a/source && \
@@ -108,40 +108,42 @@ RUN wget https://github.com/alexdobin/STAR/archive/2.7.9a.tar.gz && \
     cd ../.. && \
     rm 2.7.9a.tar.gz
 
-#### Descargar e Instalar GATK4
+#### Download and set GATK4
 RUN wget https://github.com/broadinstitute/gatk/releases/download/4.2.6.1/gatk-4.2.6.1.zip && \
     unzip gatk-4.2.6.1.zip && \
-    chmod +x gatk-4.2.6.1/gatk && \
+    chmod a+x gatk-4.2.6.1/gatk && \
     ln -s /gatk-4.2.6.1/gatk /usr/local/bin/gatk && \
     rm gatk-4.2.6.1.zip
 
-#### Descargar e instalar Picard    
+#### Download and set Picard    
 RUN wget https://github.com/broadinstitute/picard/releases/download/2.27.5/picard.jar && \
-    mv picard.jar /usr/local/bin/ && \
-    chmod +x /usr/local/bin/picard.jar
+    mkdir -p /picard/bin && \
+    mv picard.jar /picard/ && \
+    echo '#!/usr/bin/env bash' > /picard/bin/picard && \
+    echo 'java -jar /picard/picard.jar ${@}' >> /picard/bin/picard && \
+    chmod a+x /picard/bin/*
 
-#### Descargar e instalar Trimmomatic    
+#### Download and set Trimmomatic    
 RUN wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip && \
     unzip Trimmomatic-0.39.zip && \
-    cd Trimmomatic-0.39 && \
-    mv trimmomatic-0.39.jar /usr/local/bin/ && \
-    chmod +x /usr/local/bin/trimmomatic-0.39.jar && \
+    mv Trimmomatic-0.39 trimmomatic && \
+    cd /trimmomatic && \
+    mv trimmomatic-0.39.jar trimmomatic.jar && \
+    mkdir -p bin/ && \
+    echo '#!/usr/bin/env bash' > /trimmomatic/bin/trimmomatic && \
+    echo 'java -jar /trimmomatic/trimmomatic.jar ${@}' >> /trimmomatic/bin/trimmomatic && \
+    chmod a+x /trimmomatic/bin/* && \
     cd ../ && \
     rm Trimmomatic-0.39.zip
 
-#### Descargar e instalar Trim Galore
+#### Download and set Trim Galore
 RUN wget https://github.com/FelixKrueger/TrimGalore/archive/refs/tags/0.6.7.tar.gz && \
     tar xvzf 0.6.7.tar.gz && \
     mv TrimGalore-0.6.7/trim_galore /usr/local/bin/ && \
-    chmod +x /usr/local/bin/trim_galore && \
+    chmod a+x /usr/local/bin/trim_galore && \
     rm -rf 0.6.7.tar.gz TrimGalore-0.6.7
     
-#### Descargar e instalar Annovar
-##RUN wget URL-to/annovar.latest.tar.gz && \
-##    tar -zxvf annovar.latest.tar.gz && \
-##    rm annovar.latest.tar.gz
-
-#### Descargar e instalar Samtools
+#### Download and install Samtools
 RUN wget https://github.com/samtools/samtools/releases/download/1.12/samtools-1.12.tar.bz2 && \
     tar -xjvf samtools-1.12.tar.bz2 && \
     cd samtools-1.12 && \
@@ -151,7 +153,7 @@ RUN wget https://github.com/samtools/samtools/releases/download/1.12/samtools-1.
     cd .. && \
     rm samtools-1.12.tar.bz2
 
-#### Descargar e instalar Bcftools
+#### Download and install Bcftools
 RUN wget https://github.com/samtools/bcftools/releases/download/1.19/bcftools-1.19.tar.bz2 && \
     tar -xjvf bcftools-1.19.tar.bz2 && \
     cd bcftools-1.19 && \
@@ -160,7 +162,7 @@ RUN wget https://github.com/samtools/bcftools/releases/download/1.19/bcftools-1.
     cd .. && \
     rm bcftools-1.19.tar.bz2
 
-#### Descargar e instalar htslib
+#### Download and install htslib
 RUN wget https://github.com/samtools/htslib/releases/download/1.19.1/htslib-1.19.1.tar.bz2 && \
     tar -xjvf htslib-1.19.1.tar.bz2 && \
     cd htslib-1.19.1 && \
@@ -170,41 +172,51 @@ RUN wget https://github.com/samtools/htslib/releases/download/1.19.1/htslib-1.19
     cd .. && \
     rm htslib-1.19.1.tar.bz2
  
-#### Descargar e instalar mosdepth
+#### Download and set mosdepth
 RUN wget "https://github.com/brentp/mosdepth/releases/download/v0.3.6/mosdepth" && \
     cp ./mosdepth /usr/local/bin/ && \
-    ln -s /usr/local/bin/mosdepth /usr/bin/mosdepth && \
-    chmod +x /usr/local/bin/mosdepth
+    chmod a+x /usr/local/bin/mosdepth && \
+    ln -s /usr/local/bin/mosdepth /usr/bin/mosdepth
 
-#### Descargar e instalar FastQSreen
+#### Download and set FastQSreen
 RUN wget https://github.com/StevenWingett/FastQ-Screen/archive/refs/tags/v0.15.3.zip && \
     unzip v0.15.3.zip  && \
-    chmod +x FastQ-Screen-0.15.3/fastq_screen && \
+    chmod a+x FastQ-Screen-0.15.3/fastq_screen && \
     ln -s /FastQ-Screen-0.15.3/fastq_screen /usr/local/bin/fastq_screen && \
     rm v0.15.3.zip
 
-#### Descargar e instalar Bowtie
+#### Download and set Bowtie
 RUN wget https://github.com/BenLangmead/bowtie/releases/download/v1.3.1/bowtie-1.3.1-linux-x86_64.zip  && \
     unzip bowtie-1.3.1-linux-x86_64.zip && \
-    chmod +x bowtie-1.3.1-linux-x86_64/bowtie && \
+    chmod a+x bowtie-1.3.1-linux-x86_64/bowtie && \
     ln -s /bowtie-1.3.1-linux-x86_64/bowtie /usr/local/bin/bowtie && \
     rm bowtie-1.3.1-linux-x86_64.zip
 
-#### Descargar e instalar Bowtie2
+#### Download and set Bowtie2
 RUN wget https://github.com/BenLangmead/bowtie2/releases/download/v2.5.3/bowtie2-2.5.3-linux-x86_64.zip  && \
     unzip bowtie2-2.5.3-linux-x86_64.zip && \
-    chmod +x bowtie2-2.5.3-linux-x86_64/bowtie2 && \
+    chmod a+x bowtie2-2.5.3-linux-x86_64/bowtie2 && \
     ln -s /bowtie2-2.5.3-linux-x86_64/bowtie2 /usr/local/bin/bowtie2 && \
     rm bowtie2-2.5.3-linux-x86_64.zip
 
-#RUN chmod 774 /usr/local/bin/picard.jar
-RUN ln -s /usr/local/bin/picard.jar /usr/bin/picard.jar
-RUN ln -s /usr/local/bin/trimmomatic-0.39.jar /usr/bin/trimmomatic-0.39.jar
-RUN ln -s /annovar/table_annovar.pl /usr/local/bin/table_annovar.pl
-RUN ln -s /annovar/table_annovar.pl /usr/bin/table_annovar.pl
+#### Download and set Fastp
+RUN wget http://opengene.org/fastp/fastp && \
+    cp ./fastp /usr/local/bin/ && \
+    chmod a+x /usr/local/bin/fastp && \
+    ln -s /usr/local/bin/fastp /usr/bin/fastp
+
+#### Download and set Mothur
+RUN wget https://github.com/mothur/mothur/releases/download/v1.48.0/Mothur.Ubuntu_20.zip && \
+    unzip Mothur.Ubuntu_20.zip && \
+    chmod a+x ./mothur/mothur && \
+    ln -s /mothur/mothur /usr/local/bin/mothur && \
+    ln -s /mothur/mothur /usr/bin/mothur && \
+    rm Mothur.Ubuntu_20.zip
+
+#### Symbolic link
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
-### Instalar R 
+### Download and install R 
 RUN wget https://cdn.posit.co/r/ubuntu-2004/pkgs/r-4.3.2_1_amd64.deb && \
     apt-get update -qq && \
     DEBIAN_FRONTEND=noninteractive apt-get install -f -y ./r-4.3.2_1_amd64.deb && \
@@ -214,14 +226,13 @@ RUN wget https://cdn.posit.co/r/ubuntu-2004/pkgs/r-4.3.2_1_amd64.deb && \
     rm r-4.3.2_1_amd64.deb && \
     rm -rf /var/lib/apt/lists/*
 
-#### Instalar las librerías de R necesarias para los pipelines
-RUN R -e "install.packages(c('devtools','data.table','tidyr','dplyr','getopt','gplots','gsalib','optparse','backports','readr','ggrepel','mutSignatures'), repos='http://cran.us.r-project.org')"
+#### Install R packages
+RUN R -e "install.packages(c('devtools','data.table','tidyr','dplyr','getopt','gplots','gsalib','optparse','backports','readr','ggrepel','mutSignatures','enrichR','vroom'), repos='http://cran.us.r-project.org')"
 RUN apt-get update && apt-get install -y --no-install-recommends \
    libfftw3-dev \
    gcc && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
-RUN R -e "install.packages('BiocManager',repos='http://cran.us.r-project.org')" -e "BiocManager::install(c('GenomicFeatures', 'GenomicAlignments', 'VariantAnnotation', 'S4Vectors', 'SummarizedExperiment', 'Biobase','tximportData', 'tximport', 'BUSpaRse', 'DESeq2', 'PCAtools', 'ComplexHeatmap', 'maftools' , 'pheatmap', 'NMF', 'EnhancedVolcano', 'AnnotationDbi', 'topGO', 'GeneTonic', 'SummarizedExperiment', 'GenomicAlignments', 'org.Hs.eg.db', 'rhdf5', 'pcaExplorer','BSgenome.Hsapiens.UCSC.hg38','IRanges','GenomicRanges','BSgenome','GenomeInfoDb'))"
-
+RUN R -e "install.packages('BiocManager',repos='http://cran.us.r-project.org')" -e "BiocManager::install(c('GenomicFeatures', 'GenomicAlignments', 'VariantAnnotation', 'S4Vectors', 'SummarizedExperiment', 'Biobase','tximportData', 'tximport', 'BUSpaRse', 'DESeq2', 'edgeR', 'dada2', 'PCAtools', 'ComplexHeatmap', 'maftools' , 'pheatmap', 'NMF', 'EnhancedVolcano', 'AnnotationDbi', 'topGO', 'GeneTonic', 'SummarizedExperiment', 'GenomicAlignments', 'BiocGenerics', 'org.Hs.eg.db', 'rhdf5', 'pcaExplorer','BSgenome.Hsapiens.UCSC.hg38','IRanges','GenomicRanges','BSgenome','GenomeInfoDb'))"
 RUN R -e "cat(\"local(options(repos = c(CRAN = 'https://cloud.r-project.org')))\n\", file = R.home('etc/Rprofile.site'), append = TRUE)"
 RUN R -e "install.packages('remotes')"
 RUN R -e "remotes::install_version('yaml', version = '2.3.7', upgrade = FALSE)"
@@ -229,16 +240,15 @@ RUN R -e "remotes::install_version('vroom', version = '1.6.5', upgrade = FALSE)"
 RUN R -e "remotes::install_version('plotly', version = '4.10.3', upgrade = FALSE)"
 RUN R -e "remotes::install_version('ggplot2', version = '3.4.4', upgrade = FALSE)"
 Run R -e "remotes::install_version('scales', version = '1.2.1', upgrade = FALSE)"
+RUN R -e "BiocManager::install(c('cn.mops'))"
+RUN R -e "install.packages(c('checkmate', 'foreign', 'htmlTable', 'viridis', 'Formula', 'Hmisc'), repos='http://cran.r-project.org')"
 
-### Configurar la variable de entorno para Java 8 ###
+### Environment variables
 ENV JAVA_8_HOME "/usr/lib/jvm/java-8-openjdk-amd64"
 ENV PATH "$JAVA_8_HOME/bin:$PATH"
+ENV PATH /picard/bin:/trimmomatic/bin:${PATH}
+
 ENV TZ "America/Mexico_City"
 
-## Establecer el directorio de trabajo
-WORKDIR /usr/local/lib/
-
-#ADD /usr/local/bin/picard.jar /usr/local/lib/
-
-# Ejecutar 
+# Set run command 
 CMD ["/bin/bash"]

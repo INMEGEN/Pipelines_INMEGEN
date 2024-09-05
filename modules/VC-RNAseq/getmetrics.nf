@@ -1,31 +1,27 @@
 process getMetrics {
     cache 'lenient'
-    publishDir params.out, mode:'copy'
+    container 'pipelinesinmegen/pipelines_inmegen:public'
+    containerOptions "-v ${params.refdir_star}:/ref"
+    publishDir params.out + "/metrics", mode:'copy'
 
     input:
-    tuple val(pair_id), path(sorted_dedup_reads), path(bam_idx)
+    tuple val(sample), path(bam), path(bam_idx)
 
     output:
-    tuple val(pair_id),
-          path("metrics/${pair_id}_alignment_metrics.txt"), \
-          path("metrics/${pair_id}_insert_metrics.txt"), \
-          path("metrics/${pair_id}_insert_size_histogram.pdf"),  emit: metrics_qc_ch
+    tuple path("${sample}_alignment_metrics.txt"), \
+          path("${sample}_insert_metrics.txt"), \
+          path("${sample}_insert_size_histogram.pdf"),  emit: metrics_qc_ch
 
     script:
     """
-   mkdir -p metrics
-   cp ${sorted_dedup_reads} metrics/
-
-   docker run --cpus ${params.ncrs} --user="\$(id -u):\$(id -g)" -v \$PWD/metrics:/data -v "${params.refdir_star}":/ref pipelinesinmegen/pipelines_inmegen:public \
-   java -jar /usr/bin/picard.jar CollectAlignmentSummaryMetrics \
+    picard CollectAlignmentSummaryMetrics \
         -R /ref/${params.refname_star} \
-        -I /data/${sorted_dedup_reads} \
-        -O /data/${pair_id}_alignment_metrics.txt
+        -I ${bam} \
+        -O ${sample}_alignment_metrics.txt
 
-   docker run --cpus ${params.ncrs} --user="\$(id -u):\$(id -g)" -v \$PWD/metrics:/data pipelinesinmegen/pipelines_inmegen:public \
-   java -jar /usr/bin/picard.jar CollectInsertSizeMetrics \
-        -I /data/${sorted_dedup_reads} \
-        -O /data/${pair_id}_insert_metrics.txt \
-        -H /data/${pair_id}_insert_size_histogram.pdf
+    picard CollectInsertSizeMetrics \
+        -I ${bam} \
+        -O ${sample}_insert_metrics.txt \
+        -H ${sample}_insert_size_histogram.pdf
     """
 }

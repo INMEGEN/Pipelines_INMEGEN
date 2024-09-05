@@ -1,8 +1,8 @@
 #!/usr/bin/env nextflow
-// Workflow    : Creación de panel de normales para identificación de variantes somáticas con GATK4
+// Workflow    : Creación de panel de normales para identificación de variantes somáticas
 // Institución : Instituto Nacional de Medicina Genómica (INMEGEN)
-// Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática del INMEGEN
-// Versión     : 0.1 
+// Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática
+// Versión     : 0.1
 // Docker image - pipelinesinmegen/pipelines_inmegen  -
 
 nextflow.enable.dsl=2
@@ -11,8 +11,7 @@ include { mutect2forPanelofNormals      } from "../../modules/VC-Somatic/PON/mut
 include { genomicsDBimport              } from "../../modules/VC-Somatic/PON/genomicsDBimport.nf"
 include { createSomaticPanelofNormals   } from "../../modules/VC-Somatic/PON/PON.nf"
 
-// Imprimir la ruta de algunos directorios importantes
-println " "
+// Print some pipeline information
 println "Pipelines INMEGEN"
 println "Flujo de trabajo: Panel de normales para Mutect2"
 println "Imagen de docker: pipelinesinmegen/pipelines_inmegen"
@@ -24,7 +23,13 @@ println "Directorio de salida: $params.out"
 println " "
 
 workflow {
- 
+
+// Declare some parameters
+    vcf_files = mutect2forPanelofNormals.out.mtf_PON_out.toList()
+    project_id="${params.project_name}"
+    interval_list=file("${params.interval_list}")
+
+// Data processing 
    Channel.fromPath("${params.sample_info}" )
           .splitCsv(sep:"\t", header: true)
           .map { row ->  def sample = "${row.Sample}"
@@ -34,10 +39,6 @@ workflow {
 
    mutect2forPanelofNormals(ready_bam_ch)
    
-    vcf_files = mutect2forPanelofNormals.out.mtf_PON_out.toList()   
-    project_id="${params.project_name}"
-    interval_list=file("${params.interval_list}")
-
    genomicsDBimport(vcf_files,project_id,interval_list=file)
    
    createSomaticPanelofNormals(genomicsDBimport.out.genomics_db)

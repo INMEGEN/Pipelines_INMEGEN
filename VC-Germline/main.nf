@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 // Workflow    : Identificación conjunta de variantes germinales con GATK4
-// Institución : Instituto Nacional de Medicina Genómica (INMEGEN)
-// Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática del INMEGEN
+// Institution : Instituto Nacional de Medicina Genómica (INMEGEN)
+// Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática
 // Versión     : 0.1
 // Docker image - pipelinesinmegen/pipelines_inmegen -
 
@@ -10,7 +10,7 @@ nextflow.enable.dsl=2
 // Processes for this workflow
 include { fastqc                             } from "../modules/VC-Germline/fastqc.nf"
 include { multiqc                            } from "../modules/VC-Germline/multiqc.nf"
-include { trimmomatic                        } from "../modules/VC-Germline/trimmomatic.nf"
+include { fastp                              } from "../modules/VC-Germline/fastp.nf"
 include { align                              } from "../modules/VC-Germline/bwa_germline.nf"
 include { mergeSam                           } from "../modules/VC-Germline/mergesamfiles.nf"
 include { markDuplicatesSpark                } from "../modules/common/markDuplicatesSpark.nf"
@@ -31,10 +31,12 @@ include { joinvcfs                           } from "../modules/VC-Germline/join
 include { variantQC                          } from "../modules/metrics/variantQC.nf"
 include { postfiltervcf                      } from "../modules/VC-Germline/postfilter.nf"
 include { splitVCFs                          } from "../modules/VC-Germline/splitvcf.nf"
+include { splitVCFs as split_annovar         } from "../modules/VC-Germline/splitvcf.nf"
+include { annovar                            } from "../modules/annotation/annovar.nf"
+include { snpEff                             } from "../modules/annotation/snpEff.nf"
 
-// Some useful information
-println " "
-println "Pipelines INMEGEN"
+// Print some pipelines information
+println "Pipelines Inmegen"
 println "Flujo de trabajo: Identificación conjunta de variantes germinales"
 println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:public"
 println " "
@@ -45,7 +47,6 @@ println "Varios lanes por muestra (true = sí, false = no): $params.multiple_lan
 println "Directorio de la referencia: $params.refdir"
 println "Directorio de salida: $params.out"
 println " "
-
 
 workflow {
 
@@ -70,13 +71,13 @@ workflow {
                }
           .set { read_pairs_ch }
 
-    trimmomatic(read_pairs_ch,adapters)
- 
-    fastqc(trimmomatic.out.trim_fq)
+    fastp(read_pairs_ch,adapters)
 
-// Align and mark duplicates 
+    fastqc(fastp.out.trim_fq)
 
-    align(trimmomatic.out.trim_fq)
+// Align and mark duplicates
+
+    align(fastp.out.trim_fq)
  
     if ("${params.multiple_lanes}" == true){ 
 
@@ -136,12 +137,19 @@ workflow {
  
    joinvcfs(vqsrsnps.out.snps_filt_ch,vqsrindels.out.indels_filt_ch)
    
-   variantQC(joinvcfs.out.join_vars_filt) 
-
    postfiltervcf(joinvcfs.out.join_vars_filt)
    splitVCFs(postfiltervcf.out.filt_pass_vcf,"filtered")
 
+// Variant annotation
+
+  annovar(postfiltervcf.out.filt_pass_vcf)
+  split_annovar(annovar.out.annovar_ch_vcf,"annotated")
+
+  snpEff(postfiltervcf.out.filt_pass_vcf)
+
 // Variant summary
 
-   multiqc(splitVCFs.out.vcf_persample.collect(),"${params.out}")
+   variantQC(joinvcfs.out.join_vars_filt) 
+
+   multiqc(snpEff.out.snpeff_ch_txt,"${params.out}")
 }
