@@ -1,16 +1,15 @@
 #!/usr/bin/env nextflow
-// Workflow     : Identificación de variantes de datos RNA-seq con GATK4
-// Institución  : Instituto Nacional de Medicina Genómica (INMEGEN)
-// Maintainer   : Subdirección de genómica poblacional y subdirección de bioinformática del INMEGEN
+// Workflow     : Identificación de variantes de datos RNA-seq
+// Institution  : Instituto Nacional de Medicina Genómica (INMEGEN)
+// Maintainer   : Subdirección de genómica poblacional y subdirección de bioinformática
 // Versión      : 0.1
 // Docker image : - pipelinesinmegen/pipelines_inmegen -
 
 nextflow.enable.dsl=2
 
 // Processes for this pipeline
-
 include { fastqc                             } from "../modules/VC-RNAseq/fastqc.nf"
-include { trim_Galore                        } from "../modules/VC-RNAseq/trim_galore.nf"
+include { fastp                              } from "../modules/VC-RNAseq/fastp.nf"
 include { star                               } from "../modules/VC-RNAseq/star.nf"
 include { mergeSam                           } from "../modules/VC-RNAseq/mergesamfiles.nf"
 include { markDuplicatesSpark                } from "../modules/common/markDuplicatesSpark.nf"
@@ -25,10 +24,11 @@ include { filterIndels                       } from "../modules/VC-RNAseq/filter
 include { joinvcfs                           } from "../modules/VC-RNAseq/joinvcfs.nf"
 include { variantQC                          } from "../modules/VC-RNAseq/variantQC.nf"
 include { postfiltervcf                      } from "../modules/VC-RNAseq/postfilter.nf"
+include { snpEff                             } from "../modules/annotation/snpEff.nf"
 include { multiqc                            } from "../modules/VC-RNAseq/multiqc.nf"
 
 // Print some parameters
-println " "
+println "Pipelines Inmegen"
 println "Flujo de trabajo: Indentificación de variantes con datos de RNA-seq"
 println "Contenedor: Docker pipelinesinmegen/pipelines_inmegen "
 println " "
@@ -38,8 +38,6 @@ println "Datos con varios lanes por muestra (true = sí, false = no): $params.mu
 println "Directorio con la referencia de star: $params.refdir_star"
 println "Directorio de salida: $params.out"
 println " "
-
-// workflow without annotation process
 
 workflow {
   
@@ -58,11 +56,11 @@ workflow {
                }
           .set { read_pairs_ch }
 
-   fastqc(read_pairs_ch)
+   fastp(read_pairs_ch)
 
-   trim_Galore(read_pairs_ch)
+   fastqc(fastp.out.trim_fq)
 
-   star(trim_Galore.out.trim_fq)
+   star(fastp.out.trim_fq)
 
     if ("${params.multiple_samples}" == true){ 
      xa = star.out.aligned_reads_ch.collect().flatten().collate( 2 )
@@ -107,6 +105,10 @@ workflow {
    variantQC(joinvcfs.out.join_vars_filt.collect(),"${params.project_name}")
 
    postfiltervcf(joinvcfs.out.join_vars_filt)
+
+// Variant annotation
+
+   snpEff(postfiltervcf.out.filt_pass_vcf)
 
 // Summary
 

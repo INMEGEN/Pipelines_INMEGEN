@@ -14,7 +14,6 @@ include {  filterMutectCalls         } from "../../modules/VC-Somatic/vc-scommon
 include {  variantQC                 } from "../../modules/VC-Somatic/vc-scommon/variantQC.nf"
 include {  postfilter                } from "../../modules/VC-Somatic/vc-paired/postfilter.nf"
 include {  snpEff                    } from "../../modules/annotation/snpEff.nf"
-include {  annovar                   } from "../../modules/annotation/annovar.nf"
 include {  multiqc                   } from "../../modules/VC-Somatic/vc-scommon/multiqc.nf"
 
 // Print some pipeline information
@@ -73,8 +72,6 @@ workflow {
 // Variant annotation
 
    snpEff(postfiltervcf.out.filt_pass_vcf)
-
-   annovar(postfiltervcf.out.filt_pass_vcf)
 
 // Variant summary
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env nextflow
 // Workflow    : Creación de panel de normales para identificación de variantes somáticas
-// Institución : Instituto Nacional de Medicina Genómica (INMEGEN)
+// Institution : Instituto Nacional de Medicina Genómica (INMEGEN)
 // Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática
 // Versión     : 0.1
 // Docker image - pipelinesinmegen/pipelines_inmegen  -
@@ -12,7 +12,7 @@ include { genomicsDBimport              } from "../../modules/VC-Somatic/PON/gen
 include { createSomaticPanelofNormals   } from "../../modules/VC-Somatic/PON/PON.nf"
 
 // Print some pipeline information
-println "Pipelines INMEGEN"
+println "Pipelines Inmegen"
 println "Flujo de trabajo: Panel de normales para Mutect2"
 println "Imagen de docker: pipelinesinmegen/pipelines_inmegen"
 println " "

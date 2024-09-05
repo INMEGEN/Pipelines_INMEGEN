@@ -31,8 +31,6 @@ include { joinvcfs                           } from "../modules/VC-Germline/join
 include { variantQC                          } from "../modules/metrics/variantQC.nf"
 include { postfiltervcf                      } from "../modules/VC-Germline/postfilter.nf"
 include { splitVCFs                          } from "../modules/VC-Germline/splitvcf.nf"
-include { splitVCFs as split_annovar         } from "../modules/VC-Germline/splitvcf.nf"
-include { annovar                            } from "../modules/annotation/annovar.nf"
 include { snpEff                             } from "../modules/annotation/snpEff.nf"
 
 // Print some pipelines information
@@ -142,10 +140,7 @@ workflow {
 
 // Variant annotation
 
-  annovar(postfiltervcf.out.filt_pass_vcf)
-  split_annovar(annovar.out.annovar_ch_vcf,"annotated")
-
-  snpEff(postfiltervcf.out.filt_pass_vcf)
+   snpEff(postfiltervcf.out.filt_pass_vcf)
 
 // Variant summary
 

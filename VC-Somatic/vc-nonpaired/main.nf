@@ -13,7 +13,6 @@ include {  calculateContamination    } from "../../modules/VC-Somatic/vc-scommon
 include {  filterMutectCalls         } from "../../modules/VC-Somatic/vc-scommon/filtermutect.nf"
 include {  variantQC                 } from "../../modules/VC-Somatic/vc-scommon/variantQC.nf"
 include {  postfilter                } from "../../modules/VC-Somatic/vc-nonpaired/postfilter.nf"
-include {  annovar                   } from "../../modules/annotation/annovar.nf"
 include {  snpEff                    } from "../../modules/annotation/snpEff.nf"
 include {  multiqc                   } from "../../modules/VC-Somatic/vc-scommon/multiqc.nf"
 
@@ -62,8 +61,6 @@ workflow {
 // Variant annotation
 
    snpEff(postfiltervcf.out.filt_pass_vcf)
-
-   annovar(postfiltervcf.out.filt_pass_vcf)
 
 // Variant summary
 
