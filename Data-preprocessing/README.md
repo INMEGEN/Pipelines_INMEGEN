@@ -82,12 +82,16 @@ El archivo sample_info.tsv ubicado en la carpeta Data-preprocessing es indispens
 
 **Sample_name** = Nombre de la muestra secuenciada. Se recomienda el formato [identificador_numeroDeMuestra]
 
-**SampleID**    = Nombre que identifica a la muestra. Se debe utilizar el formato [Sample_name_numeroDeLane]. Sólo en el caso de que una muestra se encuentra únicamente en UN LANE, el campo **SampleID** debe ser igual al campo **Sample_name**. 
-**RG_PU**       = Campo PU del Read Group (@RG) de la muestra, está asociado al barcode de la flowcell y al número de lane. Se debe utilizar el formato [flowcell.númeroDeLane].
-**RG_PL**       = Campo PL del Read Group (@RG) de la muestra, está asociado a la tenología de secuenciación ej. ILLUMINA, SOLID, LS454, HELICOS y PACBIO.
-**RG_LB**       = Campo PU del Read Group (@RG) de la muestra, está asociado al barcode de la librería de secuenciación.
-**R1**          = Ruta absoluta del archivo fastq R1 (*forward*).
-**R2**          = Ruta absoluta del archivo fastq R2 (*reverse*).
+**SampleID**    = Nombre que identifica a la muestra. Se debe utilizar el formato [Sample_name_numeroDeLane]. Sólo en el caso de que una muestra se encuentra únicamente en UN LANE, el campo **SampleID** debe ser igual al campo **Sample_name**
+**RG_PU**       = Campo PU del Read Group (@RG) de la muestra, está asociado al barcode de la flowcell y al número de lane. Se debe utilizar el formato [flowcell.númeroDeLane]
+
+**RG_PL**       = Campo PL del Read Group (@RG) de la muestra, está asociado a la tenología de secuenciación ej. ILLUMINA, SOLID, LS454, HELICOS y PACBIO
+
+**RG_LB**       = Campo PU del Read Group (@RG) de la muestra, está asociado al barcode de la librería de secuenciación
+
+**R1**          = Ruta absoluta del archivo fastq R1 (*forward*)
+
+**R2**          = Ruta absoluta del archivo fastq R2 (*reverse*)
 
 Para entender el significado de los campos del Read Group (@RG = etiqueta que indentifica a cada muestra) y como obtener la información para los campos **RG_PU**, **RG_PL** y **RG_LB** revisa la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups).
 
