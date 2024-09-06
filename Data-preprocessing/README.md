@@ -91,10 +91,10 @@ El archivo sample_info.tsv ubicado en la carpeta Data-preprocessing es indispens
 Para entender el significado de los campos del Read Group (@RG = etiqueta que indentifica a cada muestra) y como obtener la información para los campos **RG_PU**, **RG_PL** y **RG_LB** revisa la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035890671-Read-groups).
 
 **Recuerda:** 
-	- Utilizar letras de la A a la Z (mayúsculas y minúsculas sin aceltos)
-	- No utilizar la letra "ñ"
-	- Sólo emplear los siguientes caracterez especiales (guión -, guión bajo _, punto .)
-	- No están permitidos los espacios 
+ Utilizar letras de la A a la Z (mayúsculas y minúsculas sin aceltos)
+ No utilizar la letra "ñ"
+ Sólo emplear los siguientes caracterez especiales (guión -, guión bajo _, punto .)
+ No están permitidos los espacios 
 
 A continuación, se muestran algunos ejemplos de cómo rellenar el contenido del archivo sample_info.tsv.
 
