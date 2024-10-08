@@ -63,11 +63,11 @@ Para opciones de configuración específicas para tu servidor o cluster puedes c
 
 ### Formato del archivo sample_info
 
-El archivo sample_info.tsv ubicado en la carpeta VC-RNAseq es indispensable y debe incluir la siguiente información por columna.
+El archivo sample_info.tsv ubicado en la carpeta Fastq-QC es indispensable y debe incluir la siguiente información por columna.
 
- - **Sample_name**  = Nombre de la muestra secuenciada. Se recomienda el formato [identificador_numeroDeMuestra]
- - **R1**           = Ruta absoluta del archivo fastq R1 (forward)
- - **R2**           = Ruta absoluta del archivo fastq R2 (reverse)
+ - **Sample**  = Nombre de la muestra secuenciada. Se recomienda el formato [identificador_numeroDeMuestra]
+ - **R1**      = Ruta absoluta del archivo fastq R1 (forward)
+ - **R2**      = Ruta absoluta del archivo fastq R2 (reverse)
 
 **Recuerda:** 
 - Utilizar letras de la A a la Z (mayúsculas y minúsculas sin acentos)
@@ -77,16 +77,16 @@ El archivo sample_info.tsv ubicado en la carpeta VC-RNAseq es indispensable y de
 
 A continuación, se muestran algunos ejemplos de cómo se rellenar el contenido del archivo sample_info.tsv.
 
-Ejemplo 1, muestras con múltiples lanes:
+Ejemplo 1. Si cuentas con muestras con multiples carriles (lanes), debes de incorporar el número de lane al nombre de la muestra:
  
-	Sample_name	R1	R2
+	Sample	R1	R2
 	ID_S001	ID_L002	Path/to/fastq_S001_L001_R1.fq	Path/to/fastq_S001_L001_R2.fq
 	ID_S001	ID_L002	Path/to/fastq_S001_L002_R1.fq	Path/to/fastq_S001_L002_R2.fq
 
 
-Ejemplo 2, sólo una muestra por lane
+Ejemplo 2. Si cientas con muestras con un sólo lane.
 
-	Sample_name	R1	R2
+	Sample	R1	R2
 	ID_S1	Path/to/fastq_R1.fq.gz	Path/to/fastq_R2.fq.gz
 	ID_S2	Path/to/fastq_R1.fastq.gz	Path/to/fastq_R2.fastq.gz
 
