@@ -80,8 +80,8 @@ A continuación, se muestran algunos ejemplos de cómo se rellenar el contenido 
 Ejemplo 1. Si cuentas con muestras con multiples carriles (lanes), debes de incorporar el número de lane al nombre de la muestra:
  
 	Sample	R1	R2
-	ID_S001	ID_L002	Path/to/fastq_S001_L001_R1.fq	Path/to/fastq_S001_L001_R2.fq
-	ID_S001	ID_L002	Path/to/fastq_S001_L002_R1.fq	Path/to/fastq_S001_L002_R2.fq
+	ID_S1_L002	Path/to/fastq_S001_L001_R1.fq	Path/to/fastq_S001_L001_R2.fq
+	ID_S1_L002	Path/to/fastq_S001_L002_R1.fq	Path/to/fastq_S001_L002_R2.fq
 
 
 Ejemplo 2. Si cientas con muestras con un sólo lane.
