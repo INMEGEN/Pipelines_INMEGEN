@@ -88,7 +88,7 @@ Ejemplo 2. Si cientas con muestras con un sólo lane.
 
 	Sample	R1	R2
 	ID_S1	Path/to/fastq_R1.fq.gz	Path/to/fastq_R2.fq.gz
-	ID_S2	Path/to/fastq_R1.fastq.gz	Path/to/fastq_R2.fastq.gz
+	ID_S2	Path/to/fastq_R1.fq.gz	Path/to/fastq_R2.fq.gz
 
 Como se observa no es necesario que el **Sample_name** coincida con el nombre del archivo que se encuentra en los campos **R1** y **R2**.
 
