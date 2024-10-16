@@ -5,6 +5,7 @@ Este flujo de trabajo realiza la cuantificación de los transcritos y el anális
 **Nota:** 
  - Por el momento el análisis sólo está disponible para datos ilummina paired-end 
  - Se puede obtener sólo la matriz de cuentas cruda y la matriz TPM (transcritos por millón) y el análisis de la expresión diferencial entre dos condiciones distintas
+ - Se optiene la matriz de cuentas a nivel de gen generada por STAR (fase experimental)
 
 ## Solicitud de servicio
 
@@ -37,24 +38,31 @@ Antes de correr este pipeline asegúrate de contar con las siguientes herramient
    	- Genoma hg38
 	- Archivo gtf del genoma
 	- Índice de [kallisto](https://pachterlab.github.io/kallisto/manual)
+ 	- Referencia de [STAR](https://github.com/alexdobin/STAR/tree/master) 	
 
-**NOTA:** En el directorio bin/ se ecnuentra un bash script para descargar la referencia, el archivo gft y generar el índice
+**NOTA:** En el directorio bin/ se ecnuentra un bash script para descargar el genoma de referencia, el archivo gft, generar el índice de kallisto y generar la referencia de STAR.
 
 ### Ejecutar el flujo de trabajo
 
 Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
 
- 1. Completar el archivo sample_info.tsv con la información que se describe en la sección **Formato del archivo sample_info**
+ 1. Completar el archivo sample_info.tsv y metadata.tsv con la información que se describe en la sección **Formato del archivo sample_info** y la sección **Formato del archivo metadata**
  2. Editar el archivo de nextflow.config con la siguiente información:
 	- Ruta absoluta del directorio de salida de nextflow (params.outdir)
-	- Ruta del archivo sample_info.tsv (params.sample_info)
-	- Nombre del proyecto (params.project_name)
+ 	- Nombre del proyecto (params.project_name)
 	- Ruta absoluta de la ubicación del índice de kallisto del transcriptoma de referencia (params.ref)
 	- Ruta absoluta al directorio que contiene el índice de kallisto (params.refdir)
 	- Nombre del indice de kallinto sin la ruta absoluta, incluyendo la extensión idx (params.refname)
 	- Nombre del archivo gtf sin la ruta absoluta, incluyendo la extensión gtf (params.gtfname)
-	- Número de núcleos que utilizarán los procesos multi-threading (params.ncrs)
+	- Ruta absoluta al directorio que contiene la referencia de STAR (params.refdir_star)
+  	- Nombre del genoma de referencia sin la ruta absoluta, incluyendo la extensión fasta (params.refname_star)
+	- Ruta del script DEA.R (params.r_DEA)
+	- Ruta del script Q.R (params.rQ)
+ 	- Ruta del archivo sample_info.tsv (params.sample_info)
+	- Ruta del archivo metadata.tsv (params.metadata)
+ 	- Ruta del directorio que contiene a los scripts DEA.R y Q.R (params.scriptdir) 
 	- Elegir si se hará un análisis de expresión diferencial true = sí, false = no (params.QDEA)
+	- Número de núcleos que utilizarán los procesos multi-threading (params.ncrs)
 	- Condiciones del análisis de expresión diferencial condition_1 vs condition_2 (comparación: params.condition_1 vs params.condition_2)
 	- Umbrales del análisis de expresión diferencial LogFC y FDR (params.th_l2fc  y params.th_padj)
 	- En los parámetros para docker, se puede modificar el apartado runOptions la opción --cpus = Número máximo de núcleos por proceso.
@@ -66,22 +74,34 @@ Para opciones de configuración especificas para tu servidor o cluster puedes co
 
 **NOTA:** El archivo gtf y el indice de kallito deben ubicarse en el mismo directorio 
 
+**NOTA:** El archivo gtf y la referencia de STAR deben ubicarse en el mismo directorio 
+
 **NOTA:** Los archivos sample_info.tsv y nextflow.config deben encontrarse en el mismo directorio que el archivo main.nf.
 
   3. Ejecutar el comando: 
 
 	bash run_nextflow.sh /path/to/out/dir
 
-#### Formato del archivo con la información experimental 
+### Formato del archivo con la información experimental 
+
+### Formato del archivo **sample_info**
 
 Para tener un buen control de los archivos a procesar (formato fastq pareados {Read_1,Read_2}), en el archivo sample_info.tsv debe incluir la siguiente información por columna:
 
- - Sample_id   = Nombre completo de los archivos, se recomienda el formato [identificador único-número de muestra-número de lane]
- - Sample_name = Nombre de la muestras, se recomienda el formato [nombre de la muestra - número de muestra], este nombre es el nombre que aparecerá en los graficos generados
- - replica     = Número de réplica de las muestra o en su número de lote
- - condition   = Describe brevemente la condicion experimental de cada una de las muestras (normal, tratada, tumor, etc)
- - R1          = Ruta absoluta del archivo de lectura en formato fastq R1
- - R2          = Ruta absoluta del archivo de lectura en formato fastq R2
+ - Sample  = Nombre completo de los archivos, se recomienda el formato [identificador único-número de muestra-número de lane]
+ - R1      = Ruta absoluta del archivo de lectura en formato fastq R1
+ - R2      = Ruta absoluta del archivo de lectura en formato fastq R2
+
+### Formato del archivo **metadata**
+
+Para tener un buen control de los archivos a procesar (formato fastq pareados {Read_1,Read_2}), en el archivo sample_info.tsv debe incluir la siguiente información por columna:
+
+ - Sample      = Nombre completo de los archivos, se recomienda el formato [identificador único-número de muestra-número de lane] **(Debe coindicir con la columna Sample del archivo sample_info)**
+ - SampleID    = Nombre de la muestras, se recomienda el formato [nombre de la muestra - número de muestra], este nombre es el nombre que aparecerá en los graficos generados
+ - condition   = Describe la condicion experimental de cada una de las muestras (normal, tratada, tumor, etc)
+
+En caso de que las muestras representen más de una condición experimental se puede añadir tantas columnas como sea necesario, por ejemplo:
+ - condition2  = Describe otra la condicion experimental de cada una de las muestras (normal, tratada, tumor, etc) 
 
 **Recuerda:**
 
@@ -92,17 +112,27 @@ Para tener un buen control de los archivos a procesar (formato fastq pareados {R
 
 A continuación, se muestran algunos ejemplos de cómo rellenar el contenido del archivo sample_info.tsv.
 
-	Sample_id       Sample_name     replica         condition       R1      R2
-	ID_N1	sample_label	1	condición	/path/to/read_1/file/sample_label1_R1.fastq.gz	/path/to/read_2/file/sample_label1_R2.fastq.g
+	Sample	R1      R2
+	ID_M1	/pat/to/file1_R1.fq.gz	/pat/to/file1_R2.fq.gz
+	ID_M2	/pat/to/file1_R1.fq.gz	/pat/to/file1_R2.fq.gz
+
+ A continuación, se muestran algunos ejemplos de cómo rellenar el contenido del archivo metadata.tsv.
+
+	Sample       SampleID     condition	 condition2
+	ID_M1	name1	control	time1
+	ID_M2	name2	treated|time2
    
-**Nota:** Recuerda que el archivo debe estar separado por tabulador (\t).
+**Nota:** En el archivo metadata.tsv las columnas condition2 ... conditionN son opcionales.
+**Nota:** Recuerda que los archivo sample_info y metadata deben estar separados por tabulador (\t).
 
 ## Las herramientas utilizadas por este flujo de trabajo son:
  
  - R (4.3.2) 
  - MultiQC (1.13.deb0)
- - Trim Galore (0.6.7) 
- - Kallisto (0.46.1) 
+ - FastP (0.6.7) 
+ - Kallisto (0.46.1)
+ - STAR (2.7.9)
+ - QualiMap (1.30.0)
 
 Además de las herramientas arriba enunciadas, son utilizan las siguientes librerías de R:
  
