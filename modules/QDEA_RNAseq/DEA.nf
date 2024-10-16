@@ -1,8 +1,8 @@
 process tximport_deseq2 {
+  cache 'lenient'
   container 'pipelinesinmegen/pipelines_inmegen:public'
   containerOptions "-v ${params.refdir}:/ref"
-  cache 'lenient'
-  publishDir params.out + "/resultados", mode: 'copy'
+  publishDir params.out + "/DEA_" + params.DEAname , mode: 'copy'
 
   input:
   val(sample_k)
@@ -18,6 +18,8 @@ process tximport_deseq2 {
   path("${params.deg_name}")           , emit: results_f
   path("${params.mcounts}")            , emit: mcounts
   path("${params.mcounts_tpm}")        , emit: mcounts_tpm
+  path("enrichr_*")                    , emit: erichR
+  path("*.rds")                        , emit: rds
   path("*.log")                        , emit: R_sesion_info
 
   script:
@@ -30,6 +32,7 @@ process tximport_deseq2 {
            --sample_info ${sample_info} \
            --dir_quants "kallisto_quants" \
            --gtf_file /ref/${params.gtfname} \
+           --cond_colum ${params.cond_colum} \
            --condition1 ${params.condition_1} \
            --condition2 ${params.condition_2} \
            --Log2FC_th ${params.th_l2fc} \
@@ -41,7 +44,6 @@ process tximport_deseq2 {
            --out_deg ${params.deg_name} \
            --countmat ${params.mcounts} \
            --countpm ${params.mcounts_tpm} \
-
-   rm -r ${klx_dir}
   """
 }
+

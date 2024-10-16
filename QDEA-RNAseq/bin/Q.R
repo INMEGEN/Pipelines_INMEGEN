@@ -34,33 +34,35 @@ dir <- opt$working_dir
 samples <- read.table(opt$sample_info,sep="\t",header=T)
 
 # ruta y nombre de los archivos para importar con tximport 
-files <- file.path(dir,opt$dir_quants, samples$Sample_name, "abundance.h5")
-names(files) <- paste0(samples$Sample_id)
+files <- file.path(dir,opt$dir_quants, samples$Sample, "abundance.h5")
+names(files) <- paste0(samples$SampleID)
 
 # tx2gene = data frame con al menos 2 columnas; 1) transcript ID and 2) gene ID
-# conservar el orden de las columnas es importante  
+# conservar el orden de las columnas es importante
 geneIds <- tr2g_gtf(opt$gtf_file, get_transcriptome = F)
+geneIds$gene <- sub("\\..*", "", geneIds$gene)
+geneIds$transcript <- sub("\\..*", "", geneIds$transcript)
 tx2gene <- geneIds[,c("transcript","gene")]
 
-# Importar datos con tximport
-txi.kallisto <- tximport(files, type = "kallisto",tx2gene = tx2gene)
-
-# Importar los datos escalados usando la longitud promedio del transcripto y el tamaño de la biblioteca
-txi.countpm  <- tximport(files, type = "kallisto", countsFromAbundance = "lengthScaledTPM",tx2gene = tx2gene)
-
-# Nombres comunes de los genes_ids
+# Tabla con los Genes IDs y los nombres comunes
 geneNames <- distinct(geneIds[,c("gene","gene_name")])
 
-# Exportar la matriz de cuentas 
+# Importar datos con tximport
+txi.kallisto <- tximport(files, type = "kallisto",tx2gene = tx2gene, ignoreTxVersion = T)
+
+# Importar los datos escalados usando la longitud promedio del transcripto y el tamaño de la biblioteca
+txi.countpm  <-  tximport(files, type = "kallisto", countsFromAbundance = "lengthScaledTPM",tx2gene = tx2gene, ignoreTxVersion = T)
+
+# Exportar la matriz de cuentas
 m_counts1 <- as.data.frame(txi.kallisto$counts)
 m_counts1$gene <- row.names(m_counts1)
-m_counts2 <- merge(geneNames, m_counts1, by="gene")
+m_counts2 <- merge(geneNames, m_counts1, by="gene", all.y = TRUE)
 write.table(m_counts2,file=opt$countmat, sep="\t", row.names = FALSE, quote=FALSE)
 
-# Exportar la matriz de cuentas TPM 
+# Exportar la matriz de cuentas TPM
 m_countst1 <- as.data.frame(txi.countpm$counts)
 m_countst1$gene <- row.names(m_countst1)
-m_countst2 <- merge(geneNames, m_countst1, by="gene")
+m_countst2 <- merge(geneNames, m_countst1, by="gene", all.y = TRUE)
 write.table(m_countst2,file=opt$countpm, sep="\t", row.names = FALSE, quote=FALSE)
 
 # R session info

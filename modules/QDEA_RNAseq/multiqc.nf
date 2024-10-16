@@ -4,7 +4,8 @@ process multiqc {
   publishDir params.out, mode: 'copy'
 
   input:
-  val(sample_1)
+  val(dir_1)
+  val(dir_2)
   path(dir_all)
 
   output:

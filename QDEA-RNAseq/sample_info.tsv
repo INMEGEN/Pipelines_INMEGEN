@@ -1,0 +1,3 @@
+Sample	R1	R2
+ID_M1	/pat/to/file1_R1.fq.gz	/pat/to/file1_R2.fq.gz
+ID_M2	/pat/to/file1_R1.fq.gz	/pat/to/file1_R2.fq.gz
