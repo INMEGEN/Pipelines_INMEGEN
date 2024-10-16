@@ -84,7 +84,7 @@ Para opciones de configuración especificas para tu servidor o cluster puedes co
 
 ### Formato del archivo con la información experimental 
 
-### Formato del archivo **sample_info**
+#### Formato del archivo **sample_info**
 
 Para tener un buen control de los archivos a procesar (formato fastq pareados {Read_1,Read_2}), en el archivo sample_info.tsv debe incluir la siguiente información por columna:
 
@@ -92,9 +92,9 @@ Para tener un buen control de los archivos a procesar (formato fastq pareados {R
  - R1      = Ruta absoluta del archivo de lectura en formato fastq R1
  - R2      = Ruta absoluta del archivo de lectura en formato fastq R2
 
-### Formato del archivo **metadata**
+#### Formato del archivo **metadata**
 
-Para tener un buen control de los archivos a procesar (formato fastq pareados {Read_1,Read_2}), en el archivo sample_info.tsv debe incluir la siguiente información por columna:
+Para tener un buen control de la información experimental, en el archivo metadata.tsv debe incluir la siguiente información por columna:
 
  - Sample      = Nombre completo de los archivos, se recomienda el formato [identificador único-número de muestra-número de lane] **(Debe coindicir con la columna Sample del archivo sample_info)**
  - SampleID    = Nombre de la muestras, se recomienda el formato [nombre de la muestra - número de muestra], este nombre es el nombre que aparecerá en los graficos generados
