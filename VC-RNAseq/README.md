@@ -4,7 +4,7 @@ Este flujo de trabajo realiza la identificación de variantes germinales a parti
 
 **NOTA:** Por el momento el análisis sólo está disponible para datos de lectura corta de humano (Illumina paired-end).
 
-**NOTA:** GATK no soporta  la identificación conjunta de variantes en datos de RNA-seq, consulta el siguiente [link](https://gatk.broadinstitute.org/hc/en-us/articles/360035531192-RNAseq-short-variant-discovery-SNPs-Indels-) para más información.
+**NOTA:** GATK no soporta la identificación conjunta de variantes en datos de RNA-seq, consulta el siguiente [link](https://gatk.broadinstitute.org/hc/en-us/articles/360035531192-RNAseq-short-variant-discovery-SNPs-Indels-) para más información.
 
 ## Solicitud de servicio
 
@@ -57,6 +57,7 @@ Para correr este flujo de trabajo sigue las siguientes instrucciones:
 	- Ruta absoluta de la ubicación del índice de STAR del genoma de referencia (params.refdir_star)
 	- Nombre del genoma de referencia usado por STAR sin la ruta absoluta, incluyendo la extensión FASTA p.j. Genoma_hg38.fasta, Genoma_hg19.fa, etc. (params.refname_star)
 	- Ruta de los archivos VCFs para la recalibración de las bases (params.ref_dir_bsqr)
+ 	- Ruta de las bases de datos de annovar (params.annovar)
 	- Número de núcleos que utilizarán los procesos multi-threading (params.ncrs)
 	- En los parámetros para docker, se puede modificar el apartado runOptions la opción --cpus = Número máximo de núcleos por proceso.
 	- En los parámetros de Nextflow (executor) solo se puede cambiar la opción queueSize =  Número máximo de procesos que se ejecutarán de forma simultánea
@@ -125,6 +126,7 @@ Como se observa no es necesario que el **Sample_name** coincida con el nombre de
  - GATK (4.2.6.1)
  - MultiQC (1.11)
  - Picard Tools (2.27.5)
+ - QualiMap (1.30.0)
  - R (4.2.3)
  - STAR (2.7.9a)
  - SAMTools (1.12)
