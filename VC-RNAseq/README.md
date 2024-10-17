@@ -122,6 +122,7 @@ Como se observa no es necesario que el **Sample_name** coincida con el nombre de
 #### Las herramientas utilizadas para correr este flujo de trabajo son:
 
  - BCFTools (1.19)
+ - Fastp (0.23.4)
  - FastQC (0.11.9)
  - GATK (4.2.6.1)
  - MultiQC (1.11)
@@ -130,7 +131,7 @@ Como se observa no es necesario que el **Sample_name** coincida con el nombre de
  - R (4.2.3)
  - STAR (2.7.9a)
  - SAMTools (1.12)
- - Trim Galore (0.6.7)
+ - SnpEff (5.2)
 
 ## Diagrama de flujo del pipeline 
 
