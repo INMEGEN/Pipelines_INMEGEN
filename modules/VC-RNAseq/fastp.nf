@@ -1,6 +1,6 @@
 process fastp {
   cache 'lenient'
-  container 'pipelinesinmegen/pipelines_inmegen:1.0'
+  container 'pipelinesinmegen/pipelines_inmegen:public'
   publishDir params.out + "/trimmed_files", mode: 'symlink'
 
   input:
