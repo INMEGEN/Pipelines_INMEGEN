@@ -12,6 +12,11 @@ process multiqc {
 
   script:
   """
-    multiqc -o multiqc/ ${dir_all}
+   multiqc -o multiqc/ ${dir_all}
+
+   cd multiqc/
+
+   mv multiqc_report.html ${params.project_name}_rAnalisis.html
   """
 }
+

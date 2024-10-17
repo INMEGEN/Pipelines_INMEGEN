@@ -1,6 +1,6 @@
 #!/usr/bin/env nextflow
 // Workflow     : Identificación de variantes de datos RNA-seq
-// Institution  : Instituto Nacional de Medicina Genómica (INMEGEN)
+// Institución  : Instituto Nacional de Medicina Genómica (INMEGEN)
 // Maintainer   : Subdirección de genómica poblacional y subdirección de bioinformática
 // Versión      : 0.1
 // Docker image : - pipelinesinmegen/pipelines_inmegen -
@@ -8,6 +8,7 @@
 nextflow.enable.dsl=2
 
 // Processes for this pipeline
+
 include { fastqc                             } from "../modules/VC-RNAseq/fastqc.nf"
 include { fastp                              } from "../modules/VC-RNAseq/fastp.nf"
 include { star                               } from "../modules/VC-RNAseq/star.nf"
@@ -16,6 +17,7 @@ include { markDuplicatesSpark                } from "../modules/common/markDupli
 include { getMetrics                         } from "../modules/VC-RNAseq/getmetrics.nf"
 include { splitNCigarReads                   } from "../modules/VC-RNAseq/splitNCigarReads.nf"
 include { bqsr                               } from "../modules/VC-RNAseq/bqsr_recal.nf"
+include { qualimap                           } from "../modules/VC-RNAseq/qualimap.nf"
 include { analyzeCovariates                  } from "../modules/common/analyzecovariates.nf"
 include { haplotypeCaller                    } from "../modules/VC-RNAseq/haplotypecaller.nf"
 include { selectVariants                     } from "../modules/VC-RNAseq/selectvariants.nf"
@@ -24,6 +26,7 @@ include { filterIndels                       } from "../modules/VC-RNAseq/filter
 include { joinvcfs                           } from "../modules/VC-RNAseq/joinvcfs.nf"
 include { variantQC                          } from "../modules/VC-RNAseq/variantQC.nf"
 include { postfiltervcf                      } from "../modules/VC-RNAseq/postfilter.nf"
+include { annovar                            } from "../modules/annotation/annovar.nf"
 include { snpEff                             } from "../modules/annotation/snpEff.nf"
 include { multiqc                            } from "../modules/VC-RNAseq/multiqc.nf"
 
@@ -38,6 +41,8 @@ println "Datos con varios lanes por muestra (true = sí, false = no): $params.mu
 println "Directorio con la referencia de star: $params.refdir_star"
 println "Directorio de salida: $params.out"
 println " "
+
+// workflow without annotation process
 
 workflow {
   
@@ -55,7 +60,7 @@ workflow {
                  return [ sample, sample_id, PU, PL, LB, R1, R2 ]
                }
           .set { read_pairs_ch }
-
+  
    fastp(read_pairs_ch)
 
    fastqc(fastp.out.trim_fq)
@@ -78,6 +83,8 @@ workflow {
    splitNCigarReads(markDuplicatesSpark.out.bam_for_variant_calling)
 
    bqsr(splitNCigarReads.out.split_bam)
+
+   qualimap(bqsr.out.recalibrated_bam)
 
    analyzeCovariates(bqsr.out.analyze_covariates)
 
@@ -108,9 +115,12 @@ workflow {
 
 // Variant annotation
 
+   annovar(postfiltervcf.out.filt_pass_vcf)
+
    snpEff(postfiltervcf.out.filt_pass_vcf)
 
-// Summary
+// Variant summary
 
-   multiqc(postfiltervcf.out.filt_pass_vcf.collect(),"${params.out}")
+   multiqc(snpEff.out.snpeff_ch_txt.collect(),"${params.out}")
+
 }
