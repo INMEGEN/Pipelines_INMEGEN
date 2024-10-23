@@ -85,8 +85,8 @@ Para opciones de configuración específicas para tu servidor o cluster puedes c
 
 El archivo sample_info.tsv ubicado en la carpeta VC-Germline es indispensable y debe incluir la siguiente información por columna.
 
- - **Sample_name**  = Nombre de la muestra secuenciada. Se recomienda el formato [identificador_numeroDeMuestra]
- - **SampleID**     = Nombre que identifica a la muestra. Se debe utilizar el formato [Sample_name_numeroDeLane]. Sólo en el caso de que una muestra se encuentra únicamente en UN LANE, el campo **SampleID** debe ser igual al campo **Sample_name**
+ - **SampleID**     = Nombre de la muestra secuenciada. Se recomienda el formato [identificador_numeroDeMuestra]
+ - **Sample_name**  = Nombre que identifica a la muestra. Se debe utilizar el formato [SampleID_numeroDeLane]. Sólo en el caso de que una muestra se encuentra únicamente en UN LANE, el campo **SampleID** debe ser igual al campo **Sample_name**
  - **RG_PU**        = Campo PU del *Read Group* (@RG) de la muestra, está asociado al barcode de la flowcell y al número de lane. Se debe utilizar el formato [flowcell.númeroDeLane]
  - **RG_PL**        = Campo PL del *Read Group* (@RG) de la muestra, está asociado a la tenología de secuenciación ej. ILLUMINA, SOLID, LS454, HELICOS y PACBIO
  - **RG_LB**        = Campo PU del *Read Group* (@RG) de la muestra, está asociado al barcode de la librería de secuenciación
@@ -105,23 +105,23 @@ A continuación, se muestran algunos ejemplos de cómo rellenar el contenido del
 
 Ejemplo 1, muestras con múltiples lanes:
  
-	Sample_name	SampleID	RG_PU	RG_PL	RG_LB	R1	R2
+	SampleID	Sample_name	RG_PU	RG_PL	RG_LB	R1	R2
 	ID_S001	ID_S001_L001	FLOWCELL.1	ILLUMINA	BARCODE	Path/to/fastq_S001_L001_R1.fq	Path/to/fastq_S001_L001_R2.fq
 	ID_S001	ID_S001_L002	FLOWCELL.2	ILLUMINA	BARCODE	Path/to/fastq_S001_L002_R1.fq	Path/to/fastq_S001_L002_R2.fq
 
 Ejemplo 2, muestras con un sólo *lane*:
 
-	Sample_name	SampleID	RG_PU	RG_PL	RG_LB	R1	R2
+	SampleID	SampleI_name	RG_PU	RG_PL	RG_LB	R1	R2
 	ID_S1	ID_S1	FLOWCELL.1	ILLUMINA	BARCODE	Path/to/fastq_S1_R1.fastq	Path/to/fastq_S1_R2.fastq
 	ID_S2	ID_S2	FLOWCELL.1	ILLUMINA	BARCODE	Path/to/fastq_S2_R1.fastq	Path/to/fastq_S2_R2.fastq
 
 Ejemplo 3, en caso de no contar con la información del @RG y sea sólo una muestra por *lane*:
 
-	Sample_name	SampleID	RG_PU	RG_PL	RG_LB	R1	R2
+	SampleID	Sample_name	RG_PU	RG_PL	RG_LB	R1	R2
 	ID_S1	ID_S1	FC00001.1	ILLUMINA	BC0001	Path/to/fastq_R1.fq.gz	Path/to/fastq_R2.fq.gz
 	ID_S2	ID_S2	FC00001.1	ILLUMINA	BC0001	Path/to/fastq_R1.fastq.gz	Path/to/fastq_R2.fastq.gz
 
-Como se observa no es necesario que el **Sample_name** coincida con el nombre del archivo que se encuentra en los campos **R1** y **R2**.
+Como se observa no es necesario que el **SampleID** coincida con el nombre del archivo que se encuentra en los campos **R1** y **R2**.
 
 **NOTA IMPORTANTE:** Recuerda cada columna del archivo sample_info **DEBE** estar separada por tabulador (\t) y el **encabezado** debe de conservarse exactamente igual al archivo muestra **sample_info.tsv**.
 
@@ -129,14 +129,15 @@ Como se observa no es necesario que el **Sample_name** coincida con el nombre de
 
  - BCFTools (1.19)
  - BWA (0.7.17)
- - FastQC (0.11.9)
+ - Fastp (0.23.4)
+ - FastQC (0.12.1)
  - GATK (4.2.6.1)
  - Mosdepth (0.3.6)
- - MultiQC (1.11)
+ - MultiQC (1.12)
  - Picard Tools (2.27.5)
  - R (4.2.3)
  - SAMTools (1.12)
- - Trimommatic (0.39)
+ - SnpEff (5.2)
 
 ## Diagrama de flujo del pipeline 
 
