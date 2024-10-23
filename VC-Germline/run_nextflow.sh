@@ -8,8 +8,8 @@ nextflow run main.nf -resume -with-trace trace_VCG.txt -with-report report_VCG.h
 mkdir -p $path/run_files/modules
 
 ## Copiar los ejecutables, la configuración y los modulos de nextflow utilizados
-cp ../modules/VC-Germinal/* $path/run_files/modules
-cp ../modules/metricts/* $path/run_files/modules
+cp ../modules/VC-Germline/* $path/run_files/modules
+cp ../modules/metrics/* $path/run_files/modules
 cp ../modules/common/* $path/run_files/modules
 cp main.nf nextflow.config sample_info.tsv $path/run_files
 
