@@ -1,6 +1,6 @@
 #!/usr/bin/env nextflow
-// Workflow    : Identificación conjunta de variantes germinales con GATK4
-// Institution : Instituto Nacional de Medicina Genómica (INMEGEN)
+// Workflow    : Identificación conjunta de variantes germinales
+// Institución : Instituto Nacional de Medicina Genómica (INMEGEN)
 // Maintainer  : Subdirección de genómica poblacional y subdirección de bioinformática
 // Versión     : 0.1
 // Docker image - pipelinesinmegen/pipelines_inmegen -
@@ -31,12 +31,14 @@ include { joinvcfs                           } from "../modules/VC-Germline/join
 include { variantQC                          } from "../modules/metrics/variantQC.nf"
 include { postfiltervcf                      } from "../modules/VC-Germline/postfilter.nf"
 include { splitVCFs                          } from "../modules/VC-Germline/splitvcf.nf"
+include { splitVCFs as split_annovar         } from "../modules/VC-Germline/splitvcf.nf"
+include { annovar                            } from "../modules/annotation/annovar.nf"
 include { snpEff                             } from "../modules/annotation/snpEff.nf"
 
-// Print some pipelines information
+// Some useful information
 println "Pipelines Inmegen"
 println "Flujo de trabajo: Identificación conjunta de variantes germinales"
-println "Imagen de docker: pipelinesinmegen/pipelines_inmegen:public"
+println "Imagen de docker: pipelinesinmegen/pipelines_inmegen"
 println " "
 println "Nombre del proyecto: $params.project_name"
 println "Información de las muestras: $params.sample_info"
@@ -58,8 +60,8 @@ workflow {
 
    Channel.fromPath("${params.sample_info}" )
           .splitCsv(sep:"\t", header: true)
-          .map { row ->  def sample = "${row.Sample_name}"
-                         def sample_id = "${row.SampleID}"
+          .map { row ->  def sample = "${row.SampleID}"
+                         def sample_id = "${row.Sample_name}"
                          def PU = "${row.RG_PU}"
                          def PL = "${row.RG_PL}"
                          def LB = "${row.RG_LB}"
@@ -70,10 +72,10 @@ workflow {
           .set { read_pairs_ch }
 
     fastp(read_pairs_ch,adapters)
-
+ 
     fastqc(fastp.out.trim_fq)
 
-// Align and mark duplicates
+// Align and mark duplicates 
 
     align(fastp.out.trim_fq)
  
@@ -135,16 +137,20 @@ workflow {
  
    joinvcfs(vqsrsnps.out.snps_filt_ch,vqsrindels.out.indels_filt_ch)
    
+   variantQC(joinvcfs.out.join_vars_filt)   
+
    postfiltervcf(joinvcfs.out.join_vars_filt)
    splitVCFs(postfiltervcf.out.filt_pass_vcf,"filtered")
 
 // Variant annotation
 
-   snpEff(postfiltervcf.out.filt_pass_vcf)
+  annovar(postfiltervcf.out.filt_pass_vcf)
+  split_annovar(annovar.out.annovar_ch_vcf,"annotated")
+
+  snpEff(postfiltervcf.out.filt_pass_vcf)
 
 // Variant summary
 
-   variantQC(joinvcfs.out.join_vars_filt) 
+   multiqc(snpEff.out.snpeff_ch_txt.collect(),"${params.out}")
 
-   multiqc(snpEff.out.snpeff_ch_txt,"${params.out}")
 }

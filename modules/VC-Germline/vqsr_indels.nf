@@ -23,7 +23,6 @@ process vqsrindels {
    -mode INDEL \
    -O ${project_id}_indels_output.recal \
    --tranches-file ${project_id}_indels_output.tranches \
-   --rscript-file ${project_id}_indels_output.plots.R \
    --tmp-dir vqsr/tmp
    
    gatk ApplyVQSR \

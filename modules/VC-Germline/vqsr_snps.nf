@@ -25,7 +25,6 @@ process vqsrsnps {
    -mode SNP \
    -O ${project_id}_snps_output.recal \
    --tranches-file ${project_id}_snps_output.tranches \
-   --rscript-file ${project_id}_snps_output.plots.R \
    --tmp-dir vqsr/tmp
 
    gatk ApplyVQSR \

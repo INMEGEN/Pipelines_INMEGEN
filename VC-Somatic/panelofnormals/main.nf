@@ -25,7 +25,6 @@ println " "
 workflow {
 
 // Declare some parameters
-    vcf_files = mutect2forPanelofNormals.out.mtf_PON_out.toList()
     project_id="${params.project_name}"
     interval_list=file("${params.interval_list}")
 
@@ -39,6 +38,8 @@ workflow {
 
    mutect2forPanelofNormals(ready_bam_ch)
    
+   vcf_files = mutect2forPanelofNormals.out.mtf_PON_out.toList()
+
    genomicsDBimport(vcf_files,project_id,interval_list=file)
    
    createSomaticPanelofNormals(genomicsDBimport.out.genomics_db)
