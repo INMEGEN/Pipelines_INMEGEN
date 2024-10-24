@@ -16,7 +16,7 @@ process postfilter {
     bgzip -c ${sample_id}_tmp_postfilter.vcf > ${sample_id}_tmp_postfilter.vcf.gz
     tabix ${sample_id}_tmp_postfilter.vcf.gz
 
-    bcftools view -e "FORMAT/AD[*:1] < 10"  --output ${sample_id}_postfilter.vcf ${sample_id}_tmp_postfilter.vcf.gz
+    bcftools view -e "FORMAT/AD[1:1] < 10"  --output ${sample_id}_postfilter.vcf ${sample_id}_tmp_postfilter.vcf.gz
 
     bgzip -c ${sample_id}_postfilter.vcf > ${sample_id}_postfilter.vcf.gz
     tabix ${sample_id}_postfilter.vcf.gz
