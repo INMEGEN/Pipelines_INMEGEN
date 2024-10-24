@@ -25,7 +25,6 @@ println " "
 workflow {
 
 // Declare some parameters
-    project_id="${params.project_name}"
     interval_list=file("${params.interval_list}")
 
 // Data processing 
@@ -34,13 +33,13 @@ workflow {
           .map { row ->  def sample = "${row.Sample}"
                          def bam = file("${row.Path}")
                  return [ sample, bam ]
-               }.set { ready_bam_ch }
+               }.set { bam_ch }
 
-   mutect2forPanelofNormals(ready_bam_ch)
+   mutect2forPanelofNormals(bam_ch)
    
-   vcf_files = mutect2forPanelofNormals.out.mtf_PON_out.toList()
+    vcf_files = mutect2forPanelofNormals.out.mtf_PON_out.toList()
 
-   genomicsDBimport(vcf_files,project_id,interval_list=file)
+   genomicsDBimport(vcf_files,"${params.project_name}",interval_list)
    
    createSomaticPanelofNormals(genomicsDBimport.out.genomics_db)
 }

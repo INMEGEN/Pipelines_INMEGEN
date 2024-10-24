@@ -8,7 +8,8 @@ process filterMutectCalls {
     tuple val(tumor_id), val(input_vcf), path(orient_model), path(seg_table), path(cont_table)
 
     output:
-    tuple val(tumor_id), path("${tumor_id}_filtered.vcf.gz"), path("${tumor_id}_filtered.vcf.*"), emit: filt_vcf
+    tuple val(tumor_id), path("${tumor_id}_filtered.vcf.gz"), path("${tumor_id}_filtered.vcf.gz.tbi"), emit: filt_vcf
+    path("${tumor_id}_filtered.vcf.gz.filteringStats.tsv")
 
     script:
     """

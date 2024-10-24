@@ -11,7 +11,6 @@ nextflow.enable.dsl=2
 include {  mutect2                   } from "../../modules/VC-Somatic/vc-paired/mutect2.nf"
 include {  calculateContamination    } from "../../modules/VC-Somatic/vc-scommon/contamination.nf"
 include {  filterMutectCalls         } from "../../modules/VC-Somatic/vc-scommon/filtermutect.nf"
-include {  variantQC                 } from "../../modules/VC-Somatic/vc-scommon/variantQC.nf"
 include {  postfilter                } from "../../modules/VC-Somatic/vc-paired/postfilter.nf"
 include {  snpEff                    } from "../../modules/annotation/snpEff.nf"
 include {  multiqc                   } from "../../modules/VC-Somatic/vc-scommon/multiqc.nf"
@@ -71,11 +70,9 @@ workflow {
 
 // Variant annotation
 
-   snpEff(postfiltervcf.out.filt_pass_vcf)
+   snpEff(postfilter.out.filt_pass_vcf)
 
 // Variant summary
 
-   variantQC(filterMutectCalls.out.filt_vcf.collect()."${params.project_name}")
-
-   multiqc(snpEff.out.snpeff_ch_txt,"${params.out}")
+   multiqc(snpEff.out.snpeff_ch_txt.collect(),"${params.out}")
 }

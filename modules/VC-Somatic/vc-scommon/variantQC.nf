@@ -34,8 +34,8 @@ process variantQC {
 
    docker run --cpus ${params.ncrs} --user="\$(id -u):\$(id -g)" -v \$PWD/vcfs_stats:/data pipelinesinmegen/pipelines_inmegen:public tabix /data/${project_id}_filtered_all.vcf.gz
 
-   docker run --cpus ${params.ncrs} --user="\$(id -u):\$(id -g)" -v \$PWD/vcfs_stats:/data -v "${params.refdir_star}":/ref ghcr.io/bimberlab/discvrseq:latest VariantQC \
-                -R /ref/${params.refname_star} \
+   docker run --cpus ${params.ncrs} --user="\$(id -u):\$(id -g)" -v \$PWD/vcfs_stats:/data -v "${params.refdir}":/ref ghcr.io/bimberlab/discvrseq:latest VariantQC \
+                -R /ref/${params.refname} \
                 -V /data/${project_id}_filtered_all.vcf.gz \
                 -O /data/${project_id}_variantQC.html \
                 --threads ${params.ncrs}

@@ -11,7 +11,6 @@ nextflow.enable.dsl=2
 include {  mutect2                   } from "../../modules/VC-Somatic/vc-nonpaired/mutect2.nf"
 include {  calculateContamination    } from "../../modules/VC-Somatic/vc-scommon/contamination.nf"
 include {  filterMutectCalls         } from "../../modules/VC-Somatic/vc-scommon/filtermutect.nf"
-include {  variantQC                 } from "../../modules/VC-Somatic/vc-scommon/variantQC.nf"
 include {  postfilter                } from "../../modules/VC-Somatic/vc-nonpaired/postfilter.nf"
 include {  snpEff                    } from "../../modules/annotation/snpEff.nf"
 include {  multiqc                   } from "../../modules/VC-Somatic/vc-scommon/multiqc.nf"
@@ -38,7 +37,7 @@ workflow {
    common_biallelic_index = file("${params.common_biallelic_idx}")
 
 // Data processing
-     Channel.fromPath("${params.sample_sheet_tumor}" )
+     Channel.fromPath("${params.sample_info}" )
           .splitCsv(sep:"\t", header: true)
           .map { row ->  def tumor_id   = "${row.Tumor_ID}"
                          def tumor_bam  = file("${row.Tumor_Path}")
@@ -60,11 +59,9 @@ workflow {
 
 // Variant annotation
 
-   snpEff(postfiltervcf.out.filt_pass_vcf)
+   snpEff(postfilter.out.filt_pass_vcf)
 
 // Variant summary
 
-   variantQC(filterMutectCalls.out.filt_vcf.collect()."${params.project_name}")
-
-   multiqc(snpEff.out.snpeff_ch_txt,"${params.out}")
+   multiqc(snpEff.out.snpeff_ch_txt.collect(),"${params.out}")
 }

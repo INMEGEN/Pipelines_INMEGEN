@@ -7,10 +7,18 @@ process postfilter {
     tuple val(sample_id), path(vcf_file), path(index_file)
 
     output:
-    tuple val(sample_id), path("${sample_id}_postfilter.vcf.gz"),    emit: filt_pass_vcf
+    tuple val(sample_id), path("${sample_id}_postfilter.vcf.gz"), path("${sample_id}_postfilter.vcf.gz.tbi"),  emit: filt_pass_vcf
 
     script:
     """
-    bcftools view -f "PASS" -e "FORMAT/DP < 10" -e "FORMAT/AD[*:1] < 10" -Oz --output ${sample_id}_postfilter.vcf.gz ${vcf_file}
+    bcftools view -f "PASS" -e "FORMAT/DP < 10"  --output ${sample_id}_tmp_postfilter.vcf ${vcf_file}
+
+    bgzip -c ${sample_id}_tmp_postfilter.vcf > ${sample_id}_tmp_postfilter.vcf.gz
+    tabix ${sample_id}_tmp_postfilter.vcf.gz
+
+    bcftools view -e "FORMAT/AD[*:1] < 10"  --output ${sample_id}_postfilter.vcf ${sample_id}_tmp_postfilter.vcf.gz
+
+    bgzip -c ${sample_id}_postfilter.vcf > ${sample_id}_postfilter.vcf.gz
+    tabix ${sample_id}_postfilter.vcf.gz
     """
 }
