@@ -9,7 +9,7 @@ mkdir -p $path/run_files/modules
 
 ## Copiar los ejecutables, la configuración y los modulos de nextflow utilizados
 cp ../modules/data_preprocessing/* $path/run_files/modules
-cp ../modules/metricts/* $path/run_files/modules
+cp ../modules/metrics/* $path/run_files/modules
 cp ../modules/common/* $path/run_files/modules
 cp main.nf nextflow.config sample_info.tsv $path/run_files
 
