@@ -84,11 +84,11 @@ RUN pip3 install --upgrade numpy
 RUN pip3 install multiqc 
 
 #### Descarga e instala Kallisto
-RUN wget https://github.com/pachterlab/kallisto/releases/download/v0.46.1/kallisto_linux-v0.46.1.tar.gz && \
-    tar -zxvf kallisto_linux-v0.46.1.tar.gz && \
+RUN wget https://github.com/pachterlab/kallisto/releases/download/v0.51.1/kallisto_linux-v0.51.1.tar.gz && \
+    tar -zxvf kallisto_linux-v0.51.1.tar.gz && \
     chmod a+x kallisto/kallisto && \
     ln -s /kallisto/kallisto /usr/local/bin/kallisto && \
-    rm kallisto_linux-v0.46.1.tar.gz
+    rm kallisto_linux-v0.51.1.tar.gz
 
 #### Descargar e instalar BWA
 RUN wget https://github.com/lh3/bwa/releases/download/v0.7.17/bwa-0.7.17.tar.bz2 && \
@@ -100,13 +100,13 @@ RUN wget https://github.com/lh3/bwa/releases/download/v0.7.17/bwa-0.7.17.tar.bz2
     rm bwa-0.7.17.tar.bz2
 
 #### Descargar e instalar STAR
-RUN wget https://github.com/alexdobin/STAR/archive/2.7.9a.tar.gz && \
-    tar -zxvf 2.7.9a.tar.gz && \
-    cd STAR-2.7.9a/source && \
+RUN wget https://github.com/alexdobin/STAR/archive/refs/tags/2.7.11b.zip && \
+    unzip 2.7.11b.zip && \
+    cd STAR-2.7.11b/source && \
     make STAR && \
-    ln -s /STAR-2.7.9a/source/STAR /usr/local/bin/STAR && \
+    ln -s /STAR-2.7.11b/source/STAR /usr/local/bin/STAR && \
     cd ../.. && \
-    rm 2.7.9a.tar.gz
+    rm 2.7.11b.zip
 
 #### Descargar e Instalar GATK4
 RUN wget https://github.com/broadinstitute/gatk/releases/download/4.2.6.1/gatk-4.2.6.1.zip && \
@@ -154,23 +154,23 @@ RUN wget https://github.com/samtools/samtools/releases/download/1.12/samtools-1.
     rm samtools-1.12.tar.bz2
 
 #### Descargar e instalar Bcftools
-RUN wget https://github.com/samtools/bcftools/releases/download/1.19/bcftools-1.19.tar.bz2 && \
-    tar -xjvf bcftools-1.19.tar.bz2 && \
-    cd bcftools-1.19 && \
+RUN wget https://github.com/samtools/bcftools/releases/download/1.21/bcftools-1.21.tar.bz2 && \
+    tar -xjvf bcftools-1.21.tar.bz2 && \
+    cd bcftools-1.21 && \
     make && \
     make install && \
     cd .. && \
-    rm bcftools-1.19.tar.bz2
+    rm bcftools-1.21.tar.bz2
 
 #### Descargar e instalar htslib
-RUN wget https://github.com/samtools/htslib/releases/download/1.19.1/htslib-1.19.1.tar.bz2 && \
-    tar -xjvf htslib-1.19.1.tar.bz2 && \
-    cd htslib-1.19.1 && \
+RUN wget https://github.com/samtools/htslib/releases/download/1.21/htslib-1.21.tar.bz2 && \
+    tar -xjvf htslib-1.21.tar.bz2 && \
+    cd htslib-1.21 && \
     ./configure --prefix=/usr/local && \
     make && \
     make install && \
     cd .. && \
-    rm htslib-1.19.1.tar.bz2
+    rm htslib-1.21.tar.bz2
  
 #### Descargar e instalar mosdepth
 RUN wget "https://github.com/brentp/mosdepth/releases/download/v0.3.6/mosdepth" && \
@@ -179,11 +179,11 @@ RUN wget "https://github.com/brentp/mosdepth/releases/download/v0.3.6/mosdepth" 
     ln -s /usr/local/bin/mosdepth /usr/bin/mosdepth
 
 #### Descargar e instalar FastQSreen
-RUN wget https://github.com/StevenWingett/FastQ-Screen/archive/refs/tags/v0.15.3.zip && \
-    unzip v0.15.3.zip  && \
-    chmod a+x FastQ-Screen-0.15.3/fastq_screen && \
-    ln -s /FastQ-Screen-0.15.3/fastq_screen /usr/local/bin/fastq_screen && \
-    rm v0.15.3.zip
+RUN wget https://github.com/StevenWingett/FastQ-Screen/archive/refs/tags/v0.16.0.zip && \
+    unzip v0.16.0.zip  && \
+    chmod a+x FastQ-Screen-0.16.0/fastq_screen && \
+    ln -s /FastQ-Screen-0.16.0/fastq_screen /usr/local/bin/fastq_screen && \
+    rm v0.16.0.zip
 
 #### Descargar e instalar Bowtie
 RUN wget https://github.com/BenLangmead/bowtie/releases/download/v1.3.1/bowtie-1.3.1-linux-x86_64.zip  && \
@@ -217,17 +217,17 @@ RUN wget https://github.com/mothur/mothur/releases/download/v1.48.0/Mothur.Ubunt
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
 ### Instalar R 
-RUN wget https://cdn.posit.co/r/ubuntu-2004/pkgs/r-4.3.2_1_amd64.deb && \
+RUN wget https://cdn.posit.co/r/ubuntu-2004/pkgs/r-4.4.2_1_amd64.deb && \
     apt-get update -qq && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -f -y ./r-4.3.2_1_amd64.deb && \
-    ln -s /opt/R/4.3.2/bin/R /usr/bin/R && \
-    ln -s /opt/R/4.3.2/bin/Rscript /usr/bin/Rscript && \
-    ln -s /opt/R/4.3.2/lib/R /usr/lib/R && \
-    rm r-4.3.2_1_amd64.deb && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -f -y ./r-4.4.2_1_amd64.deb && \
+    ln -s /opt/R/4.4.2/bin/R /usr/bin/R && \
+    ln -s /opt/R/4.4.2/bin/Rscript /usr/bin/Rscript && \
+    ln -s /opt/R/4.4.2/lib/R /usr/lib/R && \
+    rm r-4.4.2_1_amd64.deb && \
     rm -rf /var/lib/apt/lists/*
 
 #### Instalar las librerías de R necesarias para los pipelines
-RUN R -e "install.packages(c('devtools','data.table','tidyr','dplyr','getopt','gplots','gsalib','optparse','backports','readr','ggrepel','mutSignatures','enrichR','vroom'), repos='http://cran.us.r-project.org')"
+RUN R -e "install.packages(c('devtools','data.table','tidyr','dplyr','purrr','magrittr','tibble','getopt','gplots','gsalib','optparse','backports','readr','ggrepel','mutSignatures','vroom'), repos='http://cran.us.r-project.org')"
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libfftw3-dev \
     gcc && apt-get clean \
@@ -243,7 +243,10 @@ RUN R -e "remotes::install_version('ggplot2', version = '3.4.4', upgrade = FALSE
 Run R -e "remotes::install_version('scales', version = '1.2.1', upgrade = FALSE)"
 Run R -e "remotes::install_github('BUStools/BUSpaRse')"
 Run R -e "remotes::install_github('jokergoo/ComplexHeatmap')"
-RUN R -e "install.packages(c('checkmate', 'foreign', 'htmlTable', 'viridis', 'Formula', 'Hmisc','enrichR'), repos='http://cran.r-project.org')"
+RUN R -e "install.packages(c('checkmate', 'foreign', 'htmlTable', 'viridis', 'Formula', 'Hmisc'), repos='http://cran.r-project.org')"
+Run R -e "BiocManager::install(c('ensembldb','AnnotationHub'))"
+Run R -e "install.packages('RNAseqQC')"
+Run R -e "remotes::install_version('enrichR', version = '3.1', upgrade = FALSE)"
 
 ### Intalar QualiMap
 Run wget https://bitbucket.org/kokonech/qualimap/downloads/qualimap_v2.3.zip && \
