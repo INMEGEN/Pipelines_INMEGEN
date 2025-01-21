@@ -9,7 +9,7 @@
 nextflow.enable.dsl=2
 
 include {  mutect2                   } from "../../modules/VC-Somatic/vc-paired/mutect2.nf"
-include {  calculateContamination    } from "../../modules/VC-Somatic/vc-scommon/contamination.nf"
+include {  calculateContamination    } from "../../modules/VC-Somatic/vc-paired/contamination.nf"
 include {  filterMutectCalls         } from "../../modules/VC-Somatic/vc-scommon/filtermutect.nf"
 include {  postfilter                } from "../../modules/VC-Somatic/vc-paired/postfilter.nf"
 include {  snpEff                    } from "../../modules/annotation/snpEff.nf"
@@ -44,22 +44,13 @@ workflow {
                          def normal_id  = "${row.Normal_ID}"
                          def normal_bam = file("${row.Normal_Path}")
                  return [ tumor_id, tumor_bam, normal_id, normal_bam]
-               }.set { ready_bam_ch }
+               }.set { bam_ch }
 
-   mutect2(ready_bam_ch, interval_list, panel_normales, panel_normales_index)
+   mutect2(bam_ch, interval_list, panel_normales, panel_normales_index)
 
      unfilt=mutect2.out.unfilt_vcf.collect().flatten().collate( 3 )
 
-        Channel.fromPath("${params.sample_info}" )
-          .splitCsv(sep:"\t", header: true)
-          .map { row ->  def tumor_id   = "${row.Tumor_ID}"
-                         def tumor_bam  = file("${row.Tumor_Path}")
-                         def normal_id  = "${row.Normal_ID}"
-                         def normal_bam = file("${row.Normal_Path}")
-                 return [ tumor_id, tumor_bam]
-               }.set { tumor_bam_ch }
-
-   calculateContamination(tumor_bam_ch, interval_list, common_biallelic, common_biallelic_index)
+   calculateContamination(bam_ch, interval_list, common_biallelic, common_biallelic_index)
 
       contables=calculateContamination.out.cont_tables.collect().flatten().collate( 3 )
       unfilt.join(contables).groupTuple().flatten().collate( 5 ).set{forfilter}

@@ -259,6 +259,24 @@ Run wget https://bitbucket.org/kokonech/qualimap/downloads/qualimap_v2.3.zip && 
 ### Instalar dependencias de QualiMap
 Run Rscript /qualimap_v2.3/scripts/installDependencies.r
 
+#### Descarga e instala subread
+RUN wget https://sourceforge.net/projects/subread/files/subread-2.0.8/subread-2.0.8-Linux-x86_64.tar.gz && \
+    tar -zxvf subread-2.0.8-Linux-x86_64.tar.gz && \
+    mv subread-2.0.8-Linux-x86_64 subread && \
+    chmod a+x /subread/bin/* && \
+    ln -s /subread/bin/featureCounts /usr/local/bin/featureCounts && \
+    ln -s /subread/bin/subjunc /usr/local/bin/subjunc && \
+    ln -s /subread/bin/subread-align /usr/local/bin/subread-align && \
+    ln -s /subread/bin/sublong /usr/local/bin/sublong && \
+    ln -s /subread/bin/exactSNP /usr/local/bin/exactSNP && \
+    ln -s /subread/bin/subread-buildindex /usr/local/bin/subread-buildindex && \
+    rm subread-2.0.8-Linux-x86_64.tar.gz
+
+#### Descarga e instala Pandoc
+RUN apt-get update && apt-get install -y pandoc
+
+Run R -e "install.packages('magick')"
+
 ### Fix Picard
 RUN echo '#!/usr/bin/env bash' > /picard/bin/picard && \
     echo 'java -jar /picard/picard.jar ${@}' >> /picard/bin/picard && \
