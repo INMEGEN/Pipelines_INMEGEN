@@ -110,4 +110,4 @@ Para tener un buen control de los archivos a procesar (formato bam), el archivo 
 
 Para una mayor descripción de la información del pipeline ejecutado se anexa el siguiente diagrama de flujo basado en [las buenas prácticas de GATK](https://gatk.broadinstitute.org/hc/en-us/articles/360035894731-Somatic-short-variant-discovery-SNVs-Indels-).
 
-![Flujo identificación de variantes somaticas](../flowcharts/flujo_vcs_paired.png)
+![Flujo identificación de variantes somaticas](../../flowcharts/flujo_vcs_paired.png)
