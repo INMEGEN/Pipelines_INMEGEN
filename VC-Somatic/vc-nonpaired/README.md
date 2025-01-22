@@ -1,5 +1,5 @@
 # Identificación de variantes somáticas a partir de datos WES/WGS
-## **Modo sin parear (*only tumor*)**)
+## **Modo sin parear (*only tumor*)**
 
 Este flujo de trabajo realiza la identificación de variantes somáticas a partir de archivos de secuenciación masiva (WES/WGS) en modo tumor-only [vc-nonpaired]
 
