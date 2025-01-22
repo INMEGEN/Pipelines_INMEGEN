@@ -1,5 +1,5 @@
 # Identificación de variantes somáticas a partir de datos WES/WGS
-## Modo pareado (tumor - normal)
+## **Modo pareado (*tumor - normal*)**
 
 Este flujo de trabajo realiza la identificación de variantes somáticas a partir de archivos de secuenciación masiva (WES/WGS) en modo pareado [vc-paired].
 
