@@ -74,7 +74,7 @@ Para opciones de configuración especificas para tu servidor o cluster puedes co
 
   3. Ejecutar el comando: 
 
-                bash run_nextflow.sh /path/to/out/dir
+                bash run_nextflow.sh
 
 ## Formato del archivo sample_info
 

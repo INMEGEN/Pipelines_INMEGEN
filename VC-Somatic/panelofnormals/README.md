@@ -1,21 +1,11 @@
 # Identificación de variantes somáticas a partir de datos WES/WGS
+## **Panel de normales**
 
-Este flujo de trabajo realiza la identificación de variantes somáticas a partir de archivos de secuenciación masiva (WES/WGS) y se divide en 3 subflujos de trabajos correspondientes a una configuración de análisis en específico:
-
-- Modo pareado [vc-paired]
-- Modo tumor-only [vc-nonpaired]
-- Panel de normales [panelofnormals]
+Este flujo de trabajo realiza la creación del panel de normales [panelofnormals]
 
 **NOTA:** Por el momento el análisis sólo está disponible para datos ilummina *paired-end* en humano.
 Para conocer más sobre la indentificación de variantes somáticas con GATK4 (Mutect2) consulta la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035531132--How-to-Call-somatic-mutations-using-GATK4-Mutect2).
 
-### Modo pareado
-Al momento de identificar las variantes somáticas este flujo de trabajo utiliza una muestra normal* y el panel de normales para aumentar la precisión de la identificación de las variantes somáticas.
-
-  ### Modo tumor-only
-Con el flujo *tumor-only* se busca identificar las variantes somáticas de datos que no tengan una muestra normal, aquí se utiliza únicamente el panel de normales para distinguir artefactos de secuenciación y las alteraciones no somáticas. 
-
-### Panel de normales
 Este flujo consiste en crear un archivo de variantes que se utiliza para distinguir los artefactos de secuenciación y las variantes germinales que derivan de las muestras normales. Para general el VCF denominado panel de normales es necesario tener al menos 40 muestras normales procesadas de la misma manera que las muestras a procesar de tumor.
 Para mayor información ver el siguiente [link](https://gatk.broadinstitute.org/hc/en-us/articles/360035890631-Panel-of-Normals-PON-).
 
@@ -23,14 +13,6 @@ Para mayor información ver el siguiente [link](https://gatk.broadinstitute.org/
 
 **Importante**
 En el caso de que no contar con 40 muestras normales secuenciadas con las mismas condiciones para generar el panel de normales, se utilizará el que proporciona GATK de 1000 genomas. 
-
-## Solicitud de servicio
-
-Para solicitar este flujo de trabajo como servicio debes de entregar al personal de INMEGEN: 
-
-- Archivos de secuenciación **FASTQ** (Illumina *paired-end*)
-- Archivo con la información experimental (los identificadores de las muestras indicando si son normales o de tumor y la información que se señala en la sección: **Formato del archivo sample_info**)
-- En caso de *WES* específicar el kit utilizado
 
 ## Implementando este flujo por tu cuenta: Instrucciones de uso
 
@@ -55,11 +37,9 @@ Antes de correr este *pipeline* asegúrate de contar con las siguientes herramie
 	- Genoma hg38
 	- Índice del genoma de referencia (generado con SAMTOOLS faidx)
 	- Índice de [BWA](https://bio-bwa.sourceforge.net/bwa.shtml)
-	- Archivos de recalibración de BQSR y VQSR
 	- Archivo [gnomAD VCF](https://gnomad.broadinstitute.org/downloads/)
 
-**NOTA:** Todos estos archivos se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false). **Se recomienda que todos estos archivos se encuentren en el mismo directorio.**
-
+**NOTA:** Todos estos archivos se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false) y del [bundle de somáticas de GATK](https://console.cloud.google.com/storage/browser/gatk-best-practices/somatic-hg38?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))) **Se recomienda que todos estos archivos se encuentren en el mismo directorio**
 **IMPORTANTE**
 Estos flujos de trabajo utiliza archivos bam previamente procesados con el flujo [Data-preprocessing](https://github.com/INMEGEN/Pipelines_INMEGEN/tree/Principal/Data_preprocessing)
 
@@ -77,10 +57,6 @@ Para correr este *pipeline* ejecuta las siguientes instrucciones:
 	- Nombre del genoma de referencia sin la ruta absoluta, incluyendo la extensión FASTA p.j. Genoma_hg38.fasta, Genoma_hg19.fa, etc. (params.refname)
 Ruta absoluta del archivo interval_list, en el caso de WES se puede utilizar el archivo BED del kit para generarlo, para más información consulta la siguiente [liga](https://gatk.broadinstitute.org/hc/en-us/articles/360035531852-Intervals-and-interval-lists) (params.interval_list)
 	- Nombre del archivo gnomAD VCF que contiene la frecuencia alélica descargado del bundle de GATK (params.onlygnomad) **regularmente se llama af-only-gnomad.hg38.vcf.gz**
-	- Ruta absoluta del panel de normales (params.panel_normales)
-	- Ruta absoluta del índice del panel de normales (params.panel_normales_idx)
-	- Ruta absoluta del archivo VCF con los sitios variantes germinales comunes, **este archivo debe de contar con la frecuencia alélica (AF) en el campo INFO**(params.common_biallelic) **regularmente se llama common_biallelic.vcf.gz**
-	- Ruta absoluta del índice del VCF con los sitios variantes germinales comunes (params.common_biallelic_idx)
 	- Número de núcleos que utilizarán los procesos multi-threading (params.ncrs)
 	- Número de muestras utilizadas para crear el panel de normales (params.batchsize)
 	- En los parámetros para docker, se puede modificar el apartado runOptions la opción --cpus = Número máximo de núcleos por proceso.
@@ -111,35 +87,7 @@ Para tener un buen control de los archivos a procesar (formato bam), el archivo 
  
 		Sample	Path
 		Normal_ID	/path/to/bam
-
-
-##### Modo pareado
-
-Para tener un buen control de los archivos a procesar (formato bam), el archivo sample_info.tsv debe de incluir la siguiente información por columna:
-
- - Tumor_ID    = Nombre que identifica a la muestra tumor.
- - Tumor_Path  = Ruta absoluta del archivo bam de la muestra Tumor_id
- - Normal_ID   = Nombre que identifica a la muestra normal
- - Normal_Path = Ruta absoluta del archivo bam de la muestra Normal_id
-
-
-		Tumor_ID	Tumor_Path	Normal_ID	Normal_Path
-		Tumor_sample_id	/path/to/tumor/bam/file/Tumor_sample_id.bam	Normal_sample_id	/path/to/tumor/bam/file/Normal_sample_id.bam
-
-
-**Nota:** Los identificadores por renglón deben de pertenecer al mismo paciente.
        
-##### Modo unpaired       
-
-Para tener un buen control de los archivos a procesar (formato bam), el archivo sample_info.tsv debe de incluir la siguiente información por columna:
-
- - Tumor_ID    = Nombre que identifica a la muestra tumor.
- - Tumor_Path  = Ruta absoluta del archivo bam de la muestra Tumor_id
- 
-                Tumor_id        Tumor_Path
-		Tumor_sample_id	/path/to/tumor/bam/file/Tumor_sample_id.bam
-
-
 **NOTA IMPORTANTE:** Recuerda cada columna del archivo sample_info **DEBE** estar separada por tabulador (\t) y el **encabezado** debe de conservarse exactamente igual al archivo muestra **sample_info.tsv**.
 
 #### Las herramientas utilizadas para correr este flujo de trabajo son:
@@ -153,4 +101,4 @@ Para tener un buen control de los archivos a procesar (formato bam), el archivo 
 
 Para una mayor descripción de la información del pipeline ejecutado se anexa el siguiente diagrama de flujo basado en [las buenas prácticas de GATK](https://gatk.broadinstitute.org/hc/en-us/articles/360035894731-Somatic-short-variant-discovery-SNVs-Indels-).
 
-![Flujo identificación de variantes somaticas](../flowcharts/flujo_VCS.PNG)
+![Flujo identificación de variantes somaticas](../flowcharts/flujo_PON.png)

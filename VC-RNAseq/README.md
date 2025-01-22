@@ -57,7 +57,7 @@ Para correr este flujo de trabajo sigue las siguientes instrucciones:
 	- Ruta absoluta de la ubicación del índice de STAR del genoma de referencia (params.refdir_star)
 	- Nombre del genoma de referencia usado por STAR sin la ruta absoluta, incluyendo la extensión FASTA p.j. Genoma_hg38.fasta, Genoma_hg19.fa, etc. (params.refname_star)
 	- Ruta de los archivos VCFs para la recalibración de las bases (params.ref_dir_bsqr)
- 	- Ruta de las bases de datos de annovar (params.annovar)
+	- Ruta de las bases de datos de annovar (params.annovar)
 	- Número de núcleos que utilizarán los procesos multi-threading (params.ncrs)
 	- En los parámetros para docker, se puede modificar el apartado runOptions la opción --cpus = Número máximo de núcleos por proceso.
 	- En los parámetros de Nextflow (executor) solo se puede cambiar la opción queueSize =  Número máximo de procesos que se ejecutarán de forma simultánea
@@ -72,7 +72,7 @@ Para opciones de configuración específicas para tu servidor o cluster puedes c
 
   3. Ejecutar el comando: 
 
-			bash run_nextflow.sh /path/to/out/dir
+		bash run_nextflow.sh
 
 
 ### Formato del archivo sample_info.

@@ -1,4 +1,4 @@
-# Flujo de trabajo cuantificación y análisis de expresión diferencial (pipeline Q&DEA)
++# Flujo de trabajo cuantificación y análisis de expresión diferencial (pipeline Q&DEA)
 
 Este flujo de trabajo realiza la cuantificación de los transcritos y el análisis de expresión diferencial a partir de archivos de secuenciación masiva (*RNA-seq*). 
 
@@ -29,16 +29,16 @@ Antes de correr este pipeline asegúrate de contar con las siguientes herramient
 
 2. Te debes asegurar de contar con las siguientes herramientas informaticas:
 	- [NextFlow](https://www.nextflow.io/docs/latest/index.html) (versión mayor o gual a 22.10.7)
- 	- [Docker](https://docs.docker.com/) (versión mayor o gual a 23.0.5)
+	- [Docker](https://docs.docker.com/) (versión mayor o gual a 23.0.5)
 	- Imagen de docker pipelinesinmegen/pipelines_inmegen:public, la puedes clonar con el comando:
 
           docker pull pipelinesinmegen/pipelines_inmegen:public
 
 3. Asegurarse de contar con los siguientes archivos, necesarios para el pipeline:
-   	- Genoma hg38
+	- Genoma hg38
 	- Archivo gtf del genoma
 	- Índice de [kallisto](https://pachterlab.github.io/kallisto/manual)
- 	- Referencia de [STAR](https://github.com/alexdobin/STAR/tree/master) 	
+	- Referencia de [STAR](https://github.com/alexdobin/STAR/tree/master)
 
 **NOTA:** En el directorio bin/ se ecnuentra un bash script para descargar el genoma de referencia, el archivo gft, generar el índice de kallisto y generar la referencia de STAR.
 
@@ -49,18 +49,18 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
  1. Completar el archivo sample_info.tsv y metadata.tsv con la información que se describe en la sección **Formato del archivo sample_info** y la sección **Formato del archivo metadata**
  2. Editar el archivo de nextflow.config con la siguiente información:
 	- Ruta absoluta del directorio de salida de nextflow (params.outdir)
- 	- Nombre del proyecto (params.project_name)
+	- Nombre del proyecto (params.project_name)
 	- Ruta absoluta de la ubicación del índice de kallisto del transcriptoma de referencia (params.ref)
 	- Ruta absoluta al directorio que contiene el índice de kallisto (params.refdir)
 	- Nombre del indice de kallinto sin la ruta absoluta, incluyendo la extensión idx (params.refname)
 	- Nombre del archivo gtf sin la ruta absoluta, incluyendo la extensión gtf (params.gtfname)
 	- Ruta absoluta al directorio que contiene la referencia de STAR (params.refdir_star)
-  	- Nombre del genoma de referencia sin la ruta absoluta, incluyendo la extensión fasta (params.refname_star)
+	- Nombre del genoma de referencia sin la ruta absoluta, incluyendo la extensión fasta (params.refname_star)
 	- Ruta del script DEA.R (params.r_DEA)
 	- Ruta del script Q.R (params.rQ)
- 	- Ruta del archivo sample_info.tsv (params.sample_info)
+	- Ruta del archivo sample_info.tsv (params.sample_info)
 	- Ruta del archivo metadata.tsv (params.metadata)
- 	- Ruta del directorio que contiene a los scripts DEA.R y Q.R (params.scriptdir) 
+	- Ruta del directorio que contiene a los scripts DEA.R y Q.R (params.scriptdir) 
 	- Elegir si se hará un análisis de expresión diferencial true = sí, false = no (params.QDEA)
 	- Número de núcleos que utilizarán los procesos multi-threading (params.ncrs)
 	- Condiciones del análisis de expresión diferencial condition_1 vs condition_2 (comparación: params.condition_1 vs params.condition_2)
@@ -80,7 +80,7 @@ Para opciones de configuración especificas para tu servidor o cluster puedes co
 
   3. Ejecutar el comando: 
 
-	bash run_nextflow.sh /path/to/out/dir
+	bash run_nextflow.sh
 
 ### Formato del archivo con la información experimental 
 

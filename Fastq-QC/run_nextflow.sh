@@ -1,6 +1,13 @@
 #!/bin/sh
-# Directorio de salida de nextflow
-path=$1
+
+# Leer el valor de 'outdir' desde el archivo de configuración nextflow.config
+path=$(grep -E '^\s*params\.outdir\s*=\s*".*"' nextflow.config | awk -F'=' '{gsub(/^[   ]+|[    ]+$/, "", $2); print $2}' | tr -d '"')
+
+# Validar si se obtuvo el valor de 'outdir'
+if [ -z "$path" ]; then
+  echo "Error: No se pudo encontrar la variable 'outdir' en el archivo de configuración."
+  exit 1
+fi
 
 ## Ejecutar nextflow
 nextflow run main.nf -resume -with-trace trace_QC.txt -with-report report_QC.html -with-timeline timeline_QC.html
