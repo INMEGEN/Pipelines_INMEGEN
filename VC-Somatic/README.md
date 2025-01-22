@@ -58,7 +58,7 @@ Antes de correr este *pipeline* asegúrate de contar con las siguientes herramie
 	- Archivos de recalibración de BQSR y VQSR
 	- Archivo [gnomAD VCF](https://gnomad.broadinstitute.org/downloads/)
 
-**NOTA:** Todos estos archivos se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false). **Se recomienda que todos estos archivos se encuentren en el mismo directorio.**
+**NOTA:** Todos estos archivos se pueden descargar del [bundle de GATK](https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0;tab=objects?prefix=&forceOnObjectsSortingFiltering=false) y del [bundle de somáticas de GATK](https://console.cloud.google.com/storage/browser/gatk-best-practices/somatic-hg38?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))) **Se recomienda que todos estos archivos se encuentren en el mismo directorio.**
 
 **IMPORTANTE**
 Estos flujos de trabajo utiliza archivos bam previamente procesados con el flujo [Data-preprocessing](https://github.com/INMEGEN/Pipelines_INMEGEN/tree/Principal/Data_preprocessing)
