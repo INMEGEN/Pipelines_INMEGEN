@@ -16,7 +16,7 @@ process annovar {
     script:
     """
     table_annovar ${filtered_vcfs} /humandb/ --buildver hg38 -out ${sample}_annovar \
-    -remove -protocol refGene,ensGene,avsnp150,clinvar_20221231,gnomad312_genome,cosmic92_coding,dbnsfp33a -operation g,g,f,f,f,f,f --vcfinput --thread ${params.ncrs}
+    -remove -protocol refGene,ensGene,avsnp151,clinvar_20240917,gnomad41_genome,cosmic92_coding,dbnsfp33a -operation g,g,f,f,f,f,f --vcfinput --thread ${params.ncrs}
    
     diff=\$((\$(grep "Start" ${sample}_annovar.hg38_multianno.txt | wc -w)-\$(grep "QUAL" ${sample}_annovar.hg38_multianno.vcf | wc -w)))	
      
