@@ -1,0 +1,30 @@
+# Archivo de configuración para MultiQC
+
+# Título del reporte
+title: "Análisis de Expresión Diferencial"
+
+description: "Resultados del Análisis de Expresión Diferencial con el Flujo de Trabajo QDEA-RNAseq"
+
+report_header_info:
+  - Pipeline: "Pipelines Inmegen - Análisis de Expresión Diferencial"
+  - Project: "Project_name"
+  - Contact E-mail: "serviciosbioinfo@inmegen.edu.mx"
+  - Sitio web: "https://serviciosbio.inmegen.gob.mx/"
+  - GitHub: "https://github.com/INMEGEN/Pipelines_INMEGEN/tree/Principal/QDEA-RNAseq"
+  - Reference DNA: "https://ftp.ensembl.org/pub/release-113/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz"
+  - Reference cDNA: "https://ftp.ensembl.org/pub/release-113/fasta/homo_sapiens/cdna/Homo_sapiens.GRCh38.cdna.all.fa.gz"
+  - GTF File: "https://ftp.ensembl.org/pub/release-113/gtf/homo_sapiens/Homo_sapiens.GRCh38.113.gtf.gz"
+  - Date: "2025-02-05"
+
+show_analysis_paths: False
+show_analysis_time: False
+
+table_sample_merge:
+  "Read 1":
+    - "_R1"
+    - type: regex
+      pattern: "[_.-][rR]?1$"
+  "Read 2":
+    - "_R2"
+    - type: regex
+      pattern: "[_.-][rR]?2$"
