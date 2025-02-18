@@ -51,15 +51,11 @@ Los archivos entregables del análisis se colocaron en los siguientes directorio
  - **Reporte_de_Calidad_Analisis.html**
    Archivo generado con MultiQC. Este informe incluye diversas métricas de calidad y alineamiento generadas por las siguientes herramientas bioinformáticas:
 
- - **FastQC** y **Fastp**: Evaluación de la calidad de las lecturas después del recorte de adaptadores y la eliminación de lecturas de baja calidad.
-
- - **STAR:** Métricas de alineamiento al genoma de referencia.
-
- - **QualiMap:** Comprobación de la cobertura y distribución de las regiones del genoma alineadas.
-
- - **Salmon:** Métricas de pseudomapeo.
-
- - **Análisis de Expresión:** Correlación de Spearman y análisis de componentes principales (PCA) entre las diferentes muestras.
+     1 **FastQC** y **Fastp**: Evaluación de la calidad de las lecturas después del recorte de adaptadores y la eliminación de lecturas de baja calidad.
+     2 **STAR:** Métricas de alineamiento al genoma de referencia.
+     3 **QualiMap:** Comprobación de la cobertura y distribución de las regiones del genoma alineadas.
+     4 **Salmon:** Métricas de pseudomapeo.
+     5 **Análisis de Expresión:** Correlación de Spearman y análisis de componentes principales (PCA) entre las diferentes muestras.
 
 #### Subdirectorio: Expresion
 
