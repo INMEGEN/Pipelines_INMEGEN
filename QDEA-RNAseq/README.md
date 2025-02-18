@@ -158,4 +158,4 @@ Además de las herramientas arriba enunciadas, son utilizan las siguientes libre
 
 ## Diagrama de flujo de análisis
 
-![Flujo QDEA](../flowcharts/flujo_QDEA.PNG)
+![Flujo QDEA](../flowcharts/flujo_QDEA.png)
