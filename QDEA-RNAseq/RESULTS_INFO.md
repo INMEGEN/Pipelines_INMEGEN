@@ -101,7 +101,7 @@ Cuantificación de lecturas a nivel de transcrito, este subdirectorio contiene:
  
    Mapa de calor con la correlación de Spearman calculada entre todas las muestras.
 
-#### Subdirectorio por cada comparación realizada, cada subdirectorio contiene:
+#### Subdirectorio por cada comparación realizada, contiene:
  
  - **DEG_DESeq2_filtrados.tsv**
 
