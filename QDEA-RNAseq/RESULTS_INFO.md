@@ -181,5 +181,5 @@ Cuantificación de lecturas a nivel de transcrito, este subdirectorio contiene:
   - Salmon 1.10.3
   - Multiqc v1.25.1
   - R 4.4.2
-  - NextFlow v4.10.4.5934
+  - NextFlow v24.10.4.5934
   - Docker v25.0.1
