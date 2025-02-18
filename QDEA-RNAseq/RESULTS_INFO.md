@@ -7,67 +7,67 @@ Descripción de los entregables del flujo de cuantificación y análisis de expr
 
 Los archivos entregables del análisis se colocaron en los siguientes directorios:
 
->
-> Folio de Proyecto/
-> ├── Alineamientos
-> ├── Analisis_Calidad
-> │   ├── Inspeccion_Secuencias
-> │   └── Reportes_Calidad
-> ├─── Resultados
-> │   ├── Expresion
-> │   │   ├── Genes
-> │   │   └── Transcritos
-> │   ├── Expresion_Diferencial
-> │   └── Reportes_Calidad
-> ├── NextFlow
-> │   └── modules
-> └─── R
->
+> 
+>   Folio de Proyecto/ 
+>   ├── Alineamientos 
+>   ├── Analisis_Calidad 
+>   │   ├── Inspeccion_Secuencias 
+>   │   └── Reportes_Calidad 
+>   ├─── Resultados 
+>   │   ├── Expresion 
+>   │   │   ├── Genes 
+>   │   │   └── Transcritos 
+>   │   ├── Expresion_Diferencial 
+>   │   └── Reportes_Calidad 
+>   ├── NextFlow 
+>   │   └── modules 
+>   └─── R 
+> 
 
 ## Contenido de cada uno de los directorios 
 
-#### Directorio: Alineamientos
+### Directorio: Alineamientos
 
-        - Secuencias alineadas al genoma humano versión GRCh38, resultados en formato BAM por muestra.
+ - Secuencias alineadas al genoma humano versión GRCh38, resultados en formato BAM por muestra.
 
 **NOTA:** Cada archivo de alineamiento tiene un peso considerable, por lo que es necesario elegir un lugar con suficiente espacio de disco para la descarga de estos archivos.
 
-#### Directorio: Analisis_Calidad
+### Directorio: Analisis_Calidad
 
-        - **Reporte_Calidad.html***
+  - **Reporte_Calidad.html***
 
-          Resumen del análisis de calidad de la secuenciación (FASTQ: R1 + R2). Informe generado con MultiQC con las salidas de FastQC y Fastq_Screen.
+  Resumen del análisis de calidad de la secuenciación (FASTQ: R1 + R2). Informe generado con MultiQC con las salidas de FastQC y Fastq_Screen.
 
-###### Subdirectorio, **Inspeccion_Secuencias**:
+#### Subdirectorio, **Inspeccion_Secuencias**:
       
-	- Archivos de salida de **Fastq_Screen** con la inspección completa del origen de las secuencias utilizando genomas de bacterias, hongos y algunas especies comunes.
+ - Archivos de salida de **Fastq_Screen** con la inspección completa del origen de las secuencias utilizando genomas de bacterias, hongos y algunas especies comunes.
 
-###### Subdirectorio, Reportes_Calidad:
+#### Subdirectorio, Reportes_Calidad:
       
-	- Archivos de salida de **FastQC** por cada archivo (FASTQ: R1 + R2).
+ - Archivos de salida de **FastQC** por cada archivo (FASTQ: R1 + R2).
 
 **IMPORTANTE:** El análisis de calidad y la inspección de las secuencias realizados con **FastQC** y **Fastq_Screen** se llevaron a cabo sobre los archivos **FASTQ** sin ningún tratamiento previo.
 
-#### Directorio: Resultados 
+### Directorio: Resultados 
 
-	- **Reporte_de_Calidad_Analisis.html**
-          Archivo generado con MultiQC. Este informe incluye diversas métricas de calidad y alineamiento generadas por las siguientes herramientas bioinformáticas:
+ - **Reporte_de_Calidad_Analisis.html**
+   Archivo generado con MultiQC. Este informe incluye diversas métricas de calidad y alineamiento generadas por las siguientes herramientas bioinformáticas:
 
-           - **FastQC** y **Fastp**: Evaluación de la calidad de las lecturas después del recorte de adaptadores y la eliminación de lecturas de baja calidad.
+ - **FastQC** y **Fastp**: Evaluación de la calidad de las lecturas después del recorte de adaptadores y la eliminación de lecturas de baja calidad.
 
-           - **STAR:** Métricas de alineamiento al genoma de referencia.
+ - **STAR:** Métricas de alineamiento al genoma de referencia.
 
-           - **QualiMap:** Comprobación de la cobertura y distribución de las regiones del genoma alineadas.
+ - **QualiMap:** Comprobación de la cobertura y distribución de las regiones del genoma alineadas.
 
-           - **Salmon:** Métricas de pseudomapeo.
+ - **Salmon:** Métricas de pseudomapeo.
 
-           - **Análisis de Expresión:** Correlación de Spearman y análisis de componentes principales (PCA) entre las diferentes muestras.
+ - **Análisis de Expresión:** Correlación de Spearman y análisis de componentes principales (PCA) entre las diferentes muestras.
 
-###### Subdirectorio: Expresion
+#### Subdirectorio: Expresion
 
 Contiene los siguientes subdirectorios.
 
-######## Subdirectorio: Expresion/Genes
+#### Subdirectorio: Expresion/Genes
 Cuantificación de lecturas a nivel de gen, este subdirectorio contiene:
 
  - **fmcounts.tsv**
@@ -80,7 +80,7 @@ Cuantificación de lecturas a nivel de gen, este subdirectorio contiene:
 
    **NOTA:** La cuantificación a nivel de gen se realizó con FeactureCounts
 
-######## Subdirectorio: Expresion/Transcritos
+#### Subdirectorio: Expresion/Transcritos
 Cuantificación de lecturas a nivel de transcrito, este subdirectorio contiene:
 
  - **cuentastx.tsv**
@@ -93,7 +93,7 @@ Cuantificación de lecturas a nivel de transcrito, este subdirectorio contiene:
    
    **NOTA:** La cuantificación a nivel de gen se realizó con Salmon.
 
-###### Subdirectorio: Expresion_Diferencial
+#### Subdirectorio: Expresion_Diferencial
 
  - PCA_mqc.png
  
@@ -103,7 +103,7 @@ Cuantificación de lecturas a nivel de transcrito, este subdirectorio contiene:
  
    Mapa de calor con la correlación de Spearman calculada entre todas las muestras.
 
-######## Subdirectorio por cada comparación realizada, cada subdirectorio contiene:
+#### Subdirectorio por cada comparación realizada, cada subdirectorio contiene:
  
  - **DEG_DESeq2_filtrados.tsv**
 
@@ -133,36 +133,37 @@ Cuantificación de lecturas a nivel de transcrito, este subdirectorio contiene:
                  
    Información de la sesión de R, contiene un resumen del número de genes con un recuento total de lecturas distinto de cero y las versiones de las librerías de R utilizadas.
 
-###### Subdirectorio: Reportes_Calidad
+#### Subdirectorio: Reportes_Calidad
 
  Archivos generados por **FastQC** para cada archivo (FASTQ: R1 + R2) después de la eliminación de adaptadores y secuencias de baja calidad.
 
-#### Directorio: NextFlow
+### Directorio: NextFlow
 
-	- Archivo **main.nf**
-.
-          Archivo de NextFlow con el flujo de trabajo principal del análisis.
+ - Archivo **main.nf**
 
-	- Archivo **nextflow.config**
+   Archivo de NextFlow con el flujo de trabajo principal del análisis.
 
-          Archivo de NextFlow con la configuración del análisis.
+ - Archivo **nextflow.config**
 
-	- Archivos **sample_info.tsv** y **metadata.tsv**
+   Archivo de NextFlow con la configuración del análisis.
 
-          Archivos con la información de las muestras.
+ - Archivos **sample_info.tsv** y **metadata.tsv**
 
-###### Subdirectorio modules:
-          Contiene los procesos utilizados para ejecutar el flujo principal de trabajo (archivo main.nf).
+  Archivos con la información de las muestras.
 
-#### Directorio: R
+#### Subdirectorio modules:
+ 
+ Contiene los procesos utilizados para ejecutar el flujo principal de trabajo (archivo main.nf).
 
-	- **DEA.R**
+### Directorio: R
 
-           Script de R utilizado para realizar la expresión diferencial.
+ - **DEA.R**
 
-	- **Q.R**
+  Script de R utilizado para realizar la expresión diferencial.
 
-           Script de R utilizado para realizar la cuantificación a nivel de transcrito.
+ - **Q.R**
+
+  Script de R utilizado para realizar la cuantificación a nivel de transcrito.
 
 ## Recursos utilizados
 
@@ -177,7 +178,7 @@ https://ftp.ensembl.org/pub/release-113/fasta/homo_sapiens/cdna/Homo_sapiens.GRC
  - Archivo GTF:
 https://ftp.ensembl.org/pub/release-113/gtf/homo_sapiens/Homo_sapiens.GRCh38.113.gtf.gz
 
-#### Versiones de las herramientas utilizadas en el flujo de analisis QDEA
+### Versiones de las herramientas utilizadas en el flujo de analisis QDEA
 
   - Fastp 0.23.4
   - FastQC v0.12.1
