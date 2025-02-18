@@ -1,4 +1,4 @@
-+# Flujo de trabajo cuantificación y análisis de expresión diferencial (pipeline Q&DEA)
+# Flujo de trabajo cuantificación y análisis de expresión diferencial (pipeline Q&DEA)
 
 Este flujo de trabajo realiza la cuantificación de los transcritos y el análisis de expresión diferencial a partir de archivos de secuenciación masiva (*RNA-seq*). 
 
