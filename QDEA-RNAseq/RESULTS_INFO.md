@@ -165,16 +165,11 @@ Cuantificación de lecturas a nivel de transcrito, este subdirectorio contiene:
 
 ## Recursos utilizados
 
- - Referencia DNA:
+ - [Referencia DNA](https://ftp.ensembl.org/pub/release-113/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz)
 
-https://ftp.ensembl.org/pub/release-113/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
+ - [Referencia cDNA](https://ftp.ensembl.org/pub/release-113/fasta/homo_sapiens/cdna/Homo_sapiens.GRCh38.cdna.all.fa.gz)
 
- - Referencia cDNA:
-
-https://ftp.ensembl.org/pub/release-113/fasta/homo_sapiens/cdna/Homo_sapiens.GRCh38.cdna.all.fa.gz
-
- - Archivo GTF:
-https://ftp.ensembl.org/pub/release-113/gtf/homo_sapiens/Homo_sapiens.GRCh38.113.gtf.gz
+ - [Archivo GTF](https://ftp.ensembl.org/pub/release-113/gtf/homo_sapiens/Homo_sapiens.GRCh38.113.gtf.gz)
 
 ### Versiones de las herramientas utilizadas en el flujo de analisis QDEA
 
