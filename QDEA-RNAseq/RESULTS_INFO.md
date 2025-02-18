@@ -7,22 +7,20 @@ Descripción de los entregables del flujo de cuantificación y análisis de expr
 
 Los archivos entregables del análisis se colocaron en los siguientes directorios:
 
-> 
->   Folio de Proyecto/ 
->   ├── Alineamientos 
->   ├── Analisis_Calidad 
->   │   ├── Inspeccion_Secuencias 
->   │   └── Reportes_Calidad 
->   ├─── Resultados 
->   │   ├── Expresion 
->   │   │   ├── Genes 
->   │   │   └── Transcritos 
->   │   ├── Expresion_Diferencial 
->   │   └── Reportes_Calidad 
->   ├── NextFlow 
->   │   └── modules 
->   └─── R 
-> 
+    Folio de Proyecto/ 
+    ├── Alineamientos 
+    ├── Analisis_Calidad 
+    │   ├── Inspeccion_Secuencias 
+    │   └── Reportes_Calidad 
+    ├─── Resultados 
+    │   ├── Expresion 
+    │   │   ├── Genes 
+    │   │   └── Transcritos 
+    │   ├── Expresion_Diferencial 
+    │   └── Reportes_Calidad 
+    ├── NextFlow 
+    │   └── modules 
+    └─── R  
 
 ## Contenido de cada uno de los directorios 
 
@@ -167,11 +165,11 @@ Cuantificación de lecturas a nivel de transcrito, este subdirectorio contiene:
 
 ## Recursos utilizados
 
- - Referencia DNA
+ - Referencia DNA:
 
 https://ftp.ensembl.org/pub/release-113/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
 
- - Referencia cDNA
+ - Referencia cDNA:
 
 https://ftp.ensembl.org/pub/release-113/fasta/homo_sapiens/cdna/Homo_sapiens.GRCh38.cdna.all.fa.gz
 
