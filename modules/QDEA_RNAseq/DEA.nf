@@ -1,38 +1,30 @@
-process tximport_deseq2 {
+process DEA {
   cache 'lenient'
   container 'pipelinesinmegen/pipelines_inmegen:public'
   containerOptions "-v ${params.refdir}:/ref"
-  publishDir params.out + "/DEA_" + params.DEAname , mode: 'copy'
+  publishDir params.out + "/DEA", mode: 'copy'
 
   input:
-  val(sample_k)
-  file(sample_info)
-  path(klx_dir)
+  path(mcounts)
+  file(metadata)
   file(script)
 
   output:
-  path("${params.pca_plot_name}")      , emit: pca_plot
-  path("${params.heatmap_name}")       , emit: heatmap_f
-  path("${params.volcano_plot_name}")  , emit: volcano_plot
-  path("${params.results_name}")       , emit: results
-  path("${params.deg_name}")           , emit: results_f
-  path("${params.mcounts}")            , emit: mcounts
-  path("${params.mcounts_tpm}")        , emit: mcounts_tpm
-  path("enrichr_*")                    , emit: erichR
-  path("*.rds")                        , emit: rds
-  path("*.log")                        , emit: R_sesion_info
+  path("*_mqc.png")                                      , emit: clustering_plot
+  path("${params.DEAname}/${params.volcano_plot_name}")  , emit: volcano_plot
+  path("${params.DEAname}/${params.results_name}")       , emit: results
+  path("${params.DEAname}/${params.deg_name}")           , emit: results_f
+  path("${params.DEAname}/heatmap_*.png")                , emit: plots
+  path("${params.DEAname}/DESeq2_dds.rds")               , emit: rds
+  path("${params.DEAname}/*.log")                        , emit: R_sesion_info
 
   script:
-  """ 
-  mkdir -p /wdir/kallisto_quants  
-  cp -r ${klx_dir}/* /wdir/kallisto_quants 
-
+  """  
+  mkdir -p ${params.DEAname}
+  
   Rscript ${script} \
-           --working_dir /wdir \
-           --sample_info ${sample_info} \
-           --dir_quants "kallisto_quants" \
+           --meta_data ${metadata} \
            --gtf_file /ref/${params.gtfname} \
-           --cond_colum ${params.cond_colum} \
            --condition1 ${params.condition_1} \
            --condition2 ${params.condition_2} \
            --Log2FC_th ${params.th_l2fc} \
@@ -42,8 +34,9 @@ process tximport_deseq2 {
            --outdir_vp ${params.volcano_plot_name} \
            --out_res ${params.results_name} \
            --out_deg ${params.deg_name} \
-           --countmat ${params.mcounts} \
-           --countpm ${params.mcounts_tpm} \
+           --nsamples ${params.nsamples}
+  
+  mv ${params.volcano_plot_name} ${params.results_name} ${params.deg_name} heatmap_zscore.png heatmap_log2.png DESeq2_dds.rds ${params.DEAname}/
+  mv *.log ${params.DEAname}/
   """
 }
-

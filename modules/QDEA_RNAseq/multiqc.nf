@@ -5,7 +5,7 @@ process multiqc {
 
   input:
   val(dir_1)
-  val(dir_2)
+  file(config)
   path(dir_all)
 
   output:
@@ -13,9 +13,9 @@ process multiqc {
 
   script:
   """
-    mkdir -p multiqc
+  multiqc -c ${config} -o multiqc/ ${dir_all}
 
-    multiqc -o multiqc/ ${dir_all}
+  echo "Done"  
   """
 }
 

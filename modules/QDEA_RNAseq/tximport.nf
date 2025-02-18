@@ -1,33 +1,34 @@
-process tximport_q {
+process tximport {
+  cache 'lenient'
   container 'pipelinesinmegen/pipelines_inmegen:public'
   containerOptions "-v ${params.refdir}:/ref"
-  cache 'lenient'
-  publishDir params.out + "/resultados_q", mode: 'copy'
+  publishDir params.out + "/smcounts", mode: 'copy'
 
   input:
   val(sample_k)
   file(sample_info)
-  path(klx_dir)
+  path(salmon_dir)
   file(script)
 
   output:
   path("${params.mcounts}")         , emit: mcounts
   path("${params.mcounts_tpm}")     , emit: mcounts_tpm
-  path("*.log")                     , emit: R_sesion_info
+  path("*.tsv") 
+  path("*.log")                     
 
   script:
   """
-  mkdir -p /wdir/kallisto_quants  
-  cp -r ${klx_dir}/* /wdir/kallisto_quants
+  mkdir -p /wdir/salmon  
+  cp -r ${salmon_dir}/* /wdir/salmon
 
    Rscript ${script} \
    --working_dir /wdir \
    --sample_info ${sample_info} \
-   --dir_quants "kallisto_quants" \
+   --dir_quants "salmon" \
    --gtf_file /ref/${params.gtfname} \
    --countmat ${params.mcounts} \
    --countpm ${params.mcounts_tpm}
 
-  rm -r ${klx_dir}
+  rm -r ${salmon_dir}
   """
 }
