@@ -14,29 +14,29 @@ Como parte de los servicios de análisis bioinformáticos del Inmegen, después 
         ├── Variantes
         └── Variantes_anotadas
 
-### - Directorio: **Alineamientos**
+### Directorio: **Alineamientos**
 
 Este directorio contiene los archivos alineados a hg38 (genoma humano versión GRCh38) **por muestra** en formato [bam](https://support.illumina.com/help/BS_App_RNASeq_Alignment_OLH_1000000006112/Content/Source/Informatics/BAM-Format.htm).
 
 **MOTA:** Regularmente los archivos alineados son de un peso aproximado que oscila entre ~1 Gb a 20 Gb por lo que se recomienda elegir un lugar con suficiente espacio para la transferencia de dichos archivos
 
-### - Directorio: **Analisis_Calidad**
+### Directorio: **Analisis_Calidad**
 
   - **Reporte_Calidad.html**
 
   Resumen del análisis de calidad de la secuenciación (FASTQ: R1 + R2). Informe generado con MultiQC con las salidas de FastQC y Fastq_Screen.
 
-#### -- Subdirectorio, **Inspeccion_Secuencias**:
+#### Subdirectorio, **Inspeccion_Secuencias**:
       
  - Archivos de salida de **Fastq_Screen** con la inspección completa del origen de las secuencias utilizando genomas de bacterias, hongos y algunas especies comunes.
 
-#### -- Subdirectorio, Reportes_Calidad:
+#### Subdirectorio, Reportes_Calidad:
       
  - Archivos de salida de **FastQC** por cada archivo (FASTQ: R1 + R2).
 
 **IMPORTANTE:** El análisis de calidad y la inspección de las secuencias realizados con **FastQC** y **Fastq_Screen** se llevaron a cabo sobre los archivos **FASTQ** sin ningún tratamiento previo.
 
-### - Direcotrio: **Resultados**
+### Direcotrio: **Resultados**
 
  - **Reporte_de_Calidad_Analisis.html**
    Archivo generado con MultiQC. Este informe incluye diversas métricas de calidad y alineamiento generadas por las siguientes herramientas bioinformáticas:
@@ -61,14 +61,14 @@ Este directorio contiene los archivos alineados a hg38 (genoma humano versión G
    Resumen rápido de la profundidad y lecturas on-target de las muestras.
    NOTA: En el caso de secuenciación de genoma completo las lecturas on-target son aquellas que han sido alineadas
 
-#### -- Subdirectorio: **Variantes**
+#### Subdirectorio: **Variantes**
 
  - **[Folio]_variantes.vcf.gz**
    Archivo VCF con las variantes identificadas de forma conjunta que pasaron los filtros de [VQSR](https://gatk.broadinstitute.org/hc/en-us/articles/360035531612-Variant-Quality-Score-Recalibration-VQSR) (bandera **PASS**) de todas las muestras.
 
 **NOTA**: Se incluye el subdirectorio *variantes_por_muestra* que contiene un archivo VCF por muestra.
 
-#### -- Subdirectorio: **Variantes_anotadas** 
+#### Subdirectorio: **Variantes_anotadas** 
 
  - **[Folio]_vars_anotadas.annovar.vcf.gz**
    Variantes identificadas de forma conjunta y anotadas con annovar. Los catálogos de genes utilizados son: *refGene* y *ensGene*, así como las bases de datos *avSNP*, *CLINVAR*, *gnomAD*, *COSMIC* y *dbNSFP*.
