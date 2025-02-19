@@ -127,17 +127,17 @@ Como se observa no es necesario que el **SampleID** coincida con el nombre del a
 
 ### Las herramientas utilizadas para correr este flujo de trabajo son:
 
- - BCFTools (1.19)
- - BWA (0.7.17)
- - Fastp (0.23.4)
- - FastQC (0.12.1)
- - GATK (4.2.6.1)
- - Mosdepth (0.3.6)
- - MultiQC (1.12)
- - Picard Tools (2.27.5)
- - R (4.2.3)
- - SAMTools (1.12)
- - SnpEff (5.2)
+ - BCFTools 
+ - BWA MEM
+ - Fastp
+ - FastQC
+ - GATK
+ - Mosdepth
+ - MultiQC
+ - Picard
+ - R 
+ - SAMTools 
+ - SnpEff 
 
 ## Diagrama de flujo del pipeline 
 
