@@ -32,7 +32,7 @@ Los archivos entregables del análisis se colocaron en los siguientes directorio
 
 ### Directorio: Analisis_Calidad
 
-  - **Reporte_Calidad.html***
+  - **Reporte_Calidad.html**
 
   Resumen del análisis de calidad de la secuenciación (FASTQ: R1 + R2). Informe generado con MultiQC con las salidas de FastQC y Fastq_Screen.
 
