@@ -5,7 +5,7 @@
 
 ## Flujos de trabajo 
 
-Este repositorio contiene información detallada sobre los flujos de trabajo (pipelines) desarrollados y automatizados en el Instituto Nacional de Medicina Genómica (INMEGEN), asociados a los **servicios de anślisis bioinformśticos del Inmegen**.
+Este repositorio contiene información detallada sobre los flujos de trabajo (pipelines) desarrollados y automatizados en el Instituto Nacional de Medicina Genómica, asociados a los **servicios de anślisis bioinformáticos del Inmegen**.
 
 Para saber más y realizar una solicitud del servicio de análisis, visita nuestro sitio web dando clic [**aquí**](https://serviciosbio.inmegen.gob.mx/).
 
