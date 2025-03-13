@@ -70,37 +70,45 @@ sampleTable <- data.frame(Sample = colData$Sample,condition = factor(colData$con
 rownames(sampleTable) <- sampleTable$Sample
 sampleTable$Sample <- NULL
 
+
+#########################################################################################################
+##### Correlación entre muestras
+##############################################################################
 # Objeto de DESeq2 para correlación entre muestras
-dds <- DESeqDataSetFromMatrix(countData = mcounts, colData = sampleTable, design = ~condition)
 
-keep <- rowSums(counts(dds) >= 10) >= opt$nsamples
-dds <- dds[keep, ]
+dds_all <- DESeqDataSetFromMatrix(countData = mcounts, colData = sampleTable, design = ~condition)
 
-dds <- DESeq(dds)
+keep_all <- rowSums(counts(dds_all) >= 10) >= opt$nsamples
+dds_all <- dds_all[keep_all, ]
+
+dds_all <- DESeq(dds_all)
+
+##############################################################
+##########  Expresion diferencial
+#############################################################
 
 ## Elegir las condiciones de las condiciones a comparar 
 filtered_samples <- rownames(sampleTable)[sampleTable$condition %in% c(opt$condition1, opt$condition2)]
+head(filtered_samples)
 
 # Seleccionar las columnas correspondientes de la matriz de cuentas
 filtered_mcounts <- mcounts[, filtered_samples, drop = FALSE]
 
 # Filtrar las filas del data frame sampleTable
 filtered_sampleTable <- sampleTable[filtered_samples, , drop = FALSE]
+head(filtered_sampleTable)
 
 # Objeto de DESeq2
-dds_f <- DESeqDataSetFromMatrix(countData = filtered_mcounts, colData = filtered_sampleTable, design = ~condition)
+dds <- DESeqDataSetFromMatrix(countData = filtered_mcounts, colData = filtered_sampleTable, design = ~condition)
 
-# Objeto de DESeq2 para correlación entre muestras
-dds <- DESeqDataSetFromMatrix(countData = mcounts, colData = sampleTable, design = ~condition)
-
-keep_f <- rowSums(counts(dds_f) >= 10) >= opt$nsamples
-dds_f <- dds[keep_f, ]
+keep <- rowSums(counts(dds) >= 10) >= opt$nsamples
+dds <- dds[keep, ]
 
 # Funcion que normaliza los datos y realiza el analisis de expresion diferencial para las muestras elegidas.
-dds_f <- DESeq(dds_f)
+dds <- DESeq(dds)
 
 # Obtener los resultados del analisis, nota: Es importante el orden de la comparacion.
-res <- results(dds_f,contrast=c("condition",opt$condition1,opt$condition2))
+res <- results(dds,contrast=c("condition",opt$condition1,opt$condition2))
 resOrdered <- res[order(res$pvalue),]
 resOrd <- data.frame(gene = rownames(resOrdered), resOrdered)
 df_genes <- merge(geneNames,resOrd, by="gene",all.y = TRUE)
@@ -113,7 +121,7 @@ resOrd_f <- data.frame(gene = rownames(resOrdered_f), resOrdered_f)
 DEG <- merge(geneNames,resOrd_f, by="gene", all.y = TRUE)
 
 # Transformacion logaritmica de las muestras.
-rld <- rlog(dds, blind = F)
+rld <- rlog(dds_all, blind = F)
 rlog_matrix <- assay(rld)
 
 # Graficar los datos para el PCA.
@@ -157,12 +165,12 @@ dev.off()
 sub_muestras <- rownames(filtered_sampleTable)
 
 # Filtrar la matriz de expresión y las anotaciones para el subconjunto de muestras
-rld_f <- rlog(dds_f, blind = F)
+rld_f <- rlog(dds, blind = F)
 rlog_matrix_f <- assay(rld_f)
 zscore_matrix_f <- t(apply(rlog_matrix_f, 1, function(x) (x - mean(x)) / sd(x)))
 annotation_col_sub <- annotation_col[sub_muestras, , drop = FALSE]
  
-# Crear los heatmaps a partie de Log2 y el z-score, si se cambia la opcion show_rownames = F a T se muestran los nombres comunes de los genes.
+# Crear los heatmaps a partir de Log2 y el z-score, si se cambia la opcion show_rownames = F a T se muestran los nombres comunes de los genes.
 png("heatmap_log2.png", width = 2400, height = 1800, res = 300)
 set.seed(1)
 pheatmap(rlog_matrix_f, 
@@ -192,7 +200,9 @@ pheatmap(zscore_matrix_f,
          annotation_names_col = FALSE)
 dev.off()
 
-# Hacer grafica de volcan  
+# Hacer grafica de volcan
+table_genes <- df_genes
+  
 df_genes$Type <- ifelse(df_genes$log2FoldChange > 1 & df_genes$padj < 0.05, "Upregulated",
                  ifelse(df_genes$log2FoldChange < -1 & df_genes$padj < 0.05, "Downregulated", "Not Significant"))
 
@@ -215,13 +225,13 @@ volcano_plot <- ggplot(df_genes, aes(x = log2FoldChange, y = -log10(padj), color
 ggsave(opt$outdir_vp,volcano_plot,width = 8, height = 6, dpi = 300)
 
 # Exportar las tabla con los estadisticos de los genes (hipotesis predeterminadas)
-write.table(as.data.frame(df_genes),file = opt$out_res, sep="\t", row.names = FALSE, quote=FALSE)
+write.table(as.data.frame(table_genes),file = opt$out_res, sep="\t", row.names = FALSE, quote=FALSE)
 
 # Exportar las tabla con los genes diferencialmente expresados
 write.table(as.data.frame(DEG),file = opt$out_deg, sep="\t", row.names = FALSE, quote=FALSE)
 
 # Exporta el objeto de resultados de DESeq2
-saveRDS(dds_f, "DESeq2_dds.rds")
+saveRDS(dds, "DESeq2_dds.rds")
 
 ### Enriquecimiento de genes 
 #setEnrichrSite("Enrichr")
@@ -255,7 +265,7 @@ sink(RLogFile)
 b1  <- res@elementMetadata$description
 b2  <- sessionInfo()
 print("Tabla utilizada para generar el objeto dds de DESeq2")
-print(sampleTable)
+print(filtered_sampleTable)
 print("Descripcion de los metadatos del objeto results de DESeq2")
 print(b1)
 print("Resumen del objeto results de DESeq2")
