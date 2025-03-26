@@ -84,13 +84,13 @@ workflow {
  
      DEA(fmcounts.out.mcounts,sample_info,rDEA)
 
-     reports_ch = [DEA.out.rds.concat(qualimap.out.qcmap.collect()).concat(salmonML.out.quant.collect())]
+     reports_ch = DEA.out.rds.concat(qualimap.out.qcmap.collect()).concat(salmonML.out.quant.collect()).collect()
 
      multiqc(reports_ch,mqc_config,"${params.out}")
      }
      else { 
     
-     reports_ch = [qualimap.out.qcmap.collect().concat(salmonML.out.quant.collect())]
+     reports_ch = qualimap.out.qcmap.collect().concat(salmonML.out.quant.collect()).collect()
      
      multiqc(reports_ch,mqc_config,"${params.out}")
      }
@@ -117,13 +117,13 @@ workflow {
 
      DEA(fmcounts.out.mcounts,sample_info,rDEA)
 
-     reports_ch = [DEA.out.rds.concat(qualimap.out.qcmap.collect()).concat(salmon.out.quant.collect())]
+     reports_ch = DEA.out.rds.concat(qualimap.out.qcmap.collect()).concat(salmon.out.quant.collect()).collect()
 
      multiqc(reports_ch,mqc_config,"${params.out}")
      }
      else { 
 
-     reports_ch = [qualimap.out.qcmap.collect().concat(salmon.out.quant.collect())]
+     reports_ch = qualimap.out.qcmap.collect().concat(salmon.out.quant.collect()).collect()
  
      multiqc(reports_ch,mqc_config,"${params.out}")
      }
