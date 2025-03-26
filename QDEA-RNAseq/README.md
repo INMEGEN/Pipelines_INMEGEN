@@ -51,20 +51,27 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
  2. Editar el archivo de nextflow.config con la siguiente información:
 	- Ruta absoluta del directorio de salida de nextflow (params.outdir)
 	- Nombre del proyecto (params.project_name)
-	- Ruta absoluta de la ubicación del índice de kallisto del transcriptoma de referencia (params.ref)
-	- Ruta absoluta al directorio que contiene el índice de kallisto (params.refdir)
+	- Ruta absoluta de la ubicación del índice de Salmon del transcriptoma de referencia (params.refdir)
 	- Nombre del indice de Salmon sin la ruta absoluta, incluyendo la extensión idx (params.refname)
 	- Nombre del archivo gtf sin la ruta absoluta, incluyendo la extensión gtf (params.gtfname)
 	- Ruta absoluta al directorio que contiene la referencia de STAR (params.refdir_star)
 	- Nombre del genoma de referencia sin la ruta absoluta, incluyendo la extensión fasta (params.refname_star)
+	- Especificar la el tipo de libreria para:
+		- Qualimap (params.QMstranded), opciones: strand-specific-forward, strand-specific-reverse y non-strand-specific
+		- Salmon (params.slib_type),  se recomienda dejar la opción A (automatic)
+		- FeactureCounts (params.ss), opciones: 0 (unstranded), 1 (stranded) y 2 (reversely stranded)
 	- Ruta del script DEA.R (params.r_DEA)
 	- Ruta del script Q.R (params.rQ)
 	- Ruta del archivo sample_info.tsv (params.sample_info)
 	- Ruta del archivo metadata.tsv (params.metadata)
-	- Ruta del directorio que contiene a los scripts DEA.R y Q.R (params.scriptdir) 
+	- Ruta del archivo de configuración de multiqc, multiqc_config.yaml (params.mqc_config)
+	- Ruta del archivo con los IDs de los genes y los transcritos, GeneIDs_ensembl113.tsv (params.genes_file)
+	- Ruta del directorio que contiene a los scripts DEA.R y Q.R (params.scriptdir)
+	- Elegir los los archivos **FASTQ** se encuentran en multiples lanes true = sí, false = no (params.multiple_lanes)
 	- Elegir si se hará un análisis de expresión diferencial true = sí, false = no (params.QDEA)
 	- Número de núcleos que utilizarán los procesos multi-threading (params.ncrs)
 	- Condiciones del análisis de expresión diferencial condition_1 vs condition_2 (comparación: params.condition_1 vs params.condition_2)
+	- Número de muestras de la condición con menor representación (params.nsamples)
 	- Umbrales del análisis de expresión diferencial LogFC y FDR (params.th_l2fc  y params.th_padj)
 	- En los parámetros para docker, se puede modificar el apartado runOptions la opción --cpus = Número máximo de núcleos por proceso.
 	- En los parámetros de Nextflow (executor) solo se puede cambiar la opción queueSize = Número máximo de procesos que se ejecutarán de forma simultánea
