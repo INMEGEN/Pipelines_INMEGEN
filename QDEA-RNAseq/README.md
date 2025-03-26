@@ -67,7 +67,7 @@ Para correr este pipeline se deben de ejecutar las siguientes instrucciones:
 	- Ruta del archivo de configuración de multiqc, multiqc_config.yaml (params.mqc_config)
 	- Ruta del archivo con los IDs de los genes y los transcritos, GeneIDs_ensembl113.tsv (params.genes_file)
 	- Ruta del directorio que contiene a los scripts DEA.R y Q.R (params.scriptdir)
-	- Elegir los los archivos **FASTQ** se encuentran en multiples lanes true = sí, false = no (params.multiple_lanes)
+	- Elegir si las muestras se encuentran en multiples lanes true = sí, false = no (params.multiple_lanes)
 	- Elegir si se hará un análisis de expresión diferencial true = sí, false = no (params.QDEA)
 	- Número de núcleos que utilizarán los procesos multi-threading (params.ncrs)
 	- Condiciones del análisis de expresión diferencial condition_1 vs condition_2 (comparación: params.condition_1 vs params.condition_2)
