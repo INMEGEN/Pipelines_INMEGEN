@@ -1,14 +1,13 @@
 #!/usr/bin/env Rscript
 
-# Cuantificacion y analisis de expresion diferencial utilizando DESeq2
+# Cuantificación y analisis de expresión diferencial utilizando Tximport & DESeq2
 # Inmegen 2024
 
-# Librerias a utilizar
+# librerias a utilizar
 invisible( lapply(c(
 "optparse",
 "readr",
 "dplyr",
-"BUSpaRse",
 "DESeq2",
 "ggplot2",
 "ggrepel",
@@ -29,7 +28,7 @@ option_list <- list(
     make_option(c("-i","--meta_data"  ), type="character", default=NULL            ,metavar="character" ,help="tsv file that contains the metadata info (-i)"                 ),
     make_option(c("-g","--gtf_file"   ), type="character", default=NULL            ,metavar="character" ,help="path to gtf file (-g)"                                         ),
     make_option(c("-c","--condition1" ), type="character", default="treated"       ,metavar="character" ,help="condition 1 name (default control, -c)"                        ),
-    make_option(c("-t","--condition2" ), type="character", default="control"       ,metavar="character" ,help="condition 2 name (default treated, -t)"                        ),
+    make_option(c("-a","--condition2" ), type="character", default="control"       ,metavar="character" ,help="condition 2 name (default treated, -a)"                        ),
     make_option(c("-l","--Log2FC_th"  ), type="numeric"  , default=1               ,metavar="numeric"   ,help="Log2Fc theshold (default = 1 , -1)"                            ),
     make_option(c("-p","--p_adj_th"   ), type="numeric"  , default=0.5             ,metavar="numeric"   ,help="padj theshold (default = 0.1, -p)"                             ),
     make_option(c("-o","--outdir_pca" ), type="character", default="pca.pdf"       ,metavar="character" ,help="name of PCA plot (default pca.pdf, -o)"                        ),
@@ -39,82 +38,86 @@ option_list <- list(
     make_option(c("-f","--out_deg"    ), type="character", default="fresults.csv"  ,metavar="character" ,help="name of tsv filtered results file (default results.csv, -f)"   ),
     make_option(c("-d","--nsamples"   ), type="numeric"  , default=3               ,metavar="character" ,help=" (min samples number, -d)"                                     ))
 
-# Convertir la lista de opciones a argumentos 
+# convertir la lista de opciones a argumentos 
 opt_parser <- OptionParser(option_list=option_list)
 opt <- parse_args(opt_parser)
+
+# ruta del directorio de trabajo
+dir <- opt$working_dir
+
+#######################################
+##### Metadata
+#######################################
  
-##############################################
-# Archivo con la informacion de las muestras 
-##############################################
+# tsv con la información de las muestras 
+samples <- read.table(opt$sample_info,sep="\t",header=T)
 
-samples <- read.table(opt$meta_data,sep="\t",header=T)
+# ruta y nombre de los archivos para importar con tximport 
+files <- file.path(dir,opt$dir_quants, samples$Sample, "quant.sf")
+names(files) <- paste0(samples$Sample)
 
-############################################
-# Nombres comunes de los genes y su biotipo
-############################################
+#####################################
+###### Anotacion de genes 
+#####################################
 
-# Importar el archivo gtf
-gtf <- import(opt$gtf_file, format = "gtf")
-gtf_genes <- gtf[gtf$type == "gene"]
+gtf_file <- import(opt$gtf_file, format = "gtf")
 
-geneNames <- unique(data.frame(gene = paste(gtf_genes$gene_id, gtf_genes$gene_version, sep = "."),
-                               gene_name = gtf_genes$gene_name,
-                               gene_biotype = gtf_genes$gene_biotype, stringsAsFactors = FALSE))
+# tx2gene = data frame con 2 columnas; 1) transcript ID and 2) gene ID
+# conservar el orden de las columnas es importante  
 
-# Reemplazar NA en gene_name con el valor de gene
-geneNames <- geneNames %>% mutate(gene_name = ifelse(is.na(gene_name) | gene_name == "", gene, gene_name))
+tx_entries <- gtf[gtf$type == "transcript"]
 
-# Eliminar las versiones del identificador de genes y transcritos en geneIds
-geneNames$gene <- gsub("\\..*","", geneNames$gene)
+tx_names <- unique(data.frame(transcript_id = paste0(tx_entries$transcript_id, ".", tx_entries$transcript_version),
+                              gene_id       = paste0(tx_entries$gene_id, ".", tx_entries$gene_version),
+                              gene_name     = tx_entries$gene_name,
+                              gene_biotype  = tx_entries$gene_biotype, stringsAsFactors = FALSE))
 
-###################################################
-# Importar la matriz de cuentas de featureCounts
-###################################################
-fmcuentas <- read.table("fmcounts.tsv",sep="\t",header=T,stringsAsFactors = FALSE,check.names=FALSE)
-rownames(fmcuentas) <- fmcuentas$Geneid
-fmcuentas$Geneid <- NULL
-mcounts <- as.matrix(fmcuentas)
+gene_names <- tx_names
+gene_names$transcript_id <- NULL
 
-# Condiciones de las muestras
-colData <- merge(data.frame(Sample = colnames(mcounts)), samples ,sort = FALSE) 
+########################################
+###### Matriz de cuentas
+########################################
+
+txi.salmon <- tximport(files, type = "salmon",tx2gene = tx_names[, c("transcript_id", "gene_id")])
+
+#########################################
+########### Analisis de expresión
+#########################################
+
+colData <- merge(data.frame(Sample = colnames(txi.salmon$counts)), samples ,sort = FALSE) 
 sampleTable <- data.frame(Sample = colData$Sample,condition = factor(colData$condition))
 rownames(sampleTable) <- sampleTable$Sample
 sampleTable$Sample <- NULL
-
-############################################################
-##### Objeto de DESeq2 para las correlación entre muestras
-############################################################
-
-dds_all <- DESeqDataSetFromMatrix(countData = mcounts, colData = sampleTable, design = ~condition)
-
-keep_all <- rowSums(counts(dds_all) >= 10) >= opt$nsamples
-dds_all <- dds_all[keep_all, ]
-
-dds_all <- DESeq(dds_all)
-
-############################################
-##########  Expresion diferencial  #########
-############################################
 
 ## Elegir las condiciones de las condiciones a comparar 
 filtered_samples <- rownames(sampleTable)[sampleTable$condition %in% c(opt$condition1, opt$condition2)]
 head(filtered_samples)
 
-# Seleccionar las columnas correspondientes de la matriz de cuentas
-filtered_mcounts <- mcounts[, filtered_samples, drop = FALSE]
+# Filtrar las filas del data frame sampleTable
+filtered_mcounts <- txi.salmon$counts[, filtered_samples, drop = FALSE]
+filtered_abundance <- txi.salmon$abundance[, filtered_samples, drop = FALSE]
+filtered_length <- txi.salmon$length[, filtered_samples, drop = FALSE]
+
+txi.filtered <- list(counts = filtered_mcounts,
+                     abundance = filtered_abundance,
+                     length = filtered_length)
 
 # Filtrar las filas del data frame sampleTable
 filtered_sampleTable <- sampleTable[filtered_samples, , drop = FALSE]
 head(filtered_sampleTable)
 
-# Objeto de DESeq2
-dds <- DESeqDataSetFromMatrix(countData = filtered_mcounts, colData = filtered_sampleTable, design = ~condition)
+##### Generar objeto de DESeq2
+dds <-  DESeqDataSetFromTximport(txi.filtered, filtered_sampleTable, ~condition)
 
 keep <- rowSums(counts(dds) >= 10) >= opt$nsamples
 dds <- dds[keep, ]
 
-# Funcion que normaliza los datos y realiza la expresion diferencial para las muestras elegidas.
 dds <- DESeq(dds)
+
+#############################################
+####### Resultados de Deseq2
+#############################################
 
 # Obtener los resultados del analisis, nota: Es importante el orden de la comparacion.
 res <- results(dds,contrast=c("condition",opt$condition1,opt$condition2))
@@ -130,44 +133,16 @@ resOrd_f <- data.frame(gene = rownames(resOrdered_f), resOrdered_f)
 DEG <- merge(geneNames,resOrd_f, by="gene", all.y = TRUE)
 
 # Transformacion logaritmica de las muestras.
-rld <- rlog(dds_all, blind = F)
+rld <- rlog(dds, blind = F)
 rlog_matrix <- assay(rld)
 
-# Graficar los datos para el PCA.
 ppca <- plotPCA(rld, intgroup = "condition")
-ggsave(opt$outdir_pca,ppca,width = 8, height = 6, dpi = 300)
+ggsave("pca_lncRNA.png",ppca,width = 8, height = 6, dpi = 300)
 
 # Info de las condicion de las muestras
 sample_names <- colnames(rlog_matrix)
 annotation_col <- data.frame(condition = sampleTable$condition)
 rownames(annotation_col) <- sample_names
-
-# Clustering de las muestras por correlacion de spearman, las muestras salen ordenadas alfabeticamente 
-ordered_sample_names <- rownames(annotation_col)[order(annotation_col$condition)]
-rlog_matrix_1 <- rlog_matrix[, ordered_sample_names]
-
-spearman_dist <- cor(rlog_matrix_1, method = "spearman")
-
-# Convertir a NA las entradas superiores a la diagonal principal
-spearman_mat <- as.matrix(spearman_dist)
-spearman_mat[upper.tri(spearman_mat)] <- NA
-clus_annotation <- annotation_col[ordered_sample_names, , drop = FALSE]
-
-png(opt$out_p_hm,width = 2400, height = 1800, res = 300)
-set.seed(1)
-pheatmap(
-  spearman_mat,
-  name = "Spearman",
-  cluster_rows = FALSE,
-  cluster_cols = FALSE,
-  color = colorRampPalette(c("navy", "yellow", "firebrick3"))(50),
-  fontsize = 4, fontsize_row = 7, fontsize_col = 7, fontsize_number = 7,
-  annotation_col = clus_annotation,
-  labels_col = ordered_sample_names,
-  labels_row = ordered_sample_names,
-  na_col = "white",
-  gaps_col = cumsum(table(annotation_col$condition)))
-dev.off()
 
 # Heatmap a pariir de la regularización por logaritmos de la matriz de cuentas (regularized logarithm)
 # Obtener los nombres de las muestras seleccionadas
@@ -178,7 +153,7 @@ rld_f <- rlog(dds, blind = F)
 rlog_matrix_f <- assay(rld_f)
 zscore_matrix_f <- t(apply(rlog_matrix_f, 1, function(x) (x - mean(x)) / sd(x)))
 annotation_col_sub <- annotation_col[sub_muestras, , drop = FALSE]
- 
+
 # Crear los heatmaps a partir de Log2 y el z-score, si se cambia la opcion show_rownames = F a T se muestran los nombres comunes de los genes.
 png("heatmap_log2.png", width = 2400, height = 1800, res = 300)
 set.seed(1)
@@ -233,6 +208,12 @@ volcano_plot <- ggplot(df_genes, aes(x = log2FoldChange, y = -log10(padj), color
 # Esportar la grafica de volcan                 
 ggsave(opt$outdir_vp,volcano_plot,width = 8, height = 6, dpi = 300)
 
+# Exportar la matriz de cuentas 
+m_counts <- as.data.frame(txi.salmon$counts)
+m_counts$gene <- row.names(m_counts)
+m_counts1 <- merge(geneNames, m_counts, by="gene", all.y = TRUE)
+write.table(m_counts1,file="mcounts_salmon.tsv", sep="\t", row.names = FALSE, quote=FALSE)
+
 # Exportar las tabla con los estadisticos de los genes (hipotesis predeterminadas)
 write.table(as.data.frame(table_genes),file = opt$out_res, sep="\t", row.names = FALSE, quote=FALSE)
 
@@ -241,31 +222,6 @@ write.table(as.data.frame(DEG),file = opt$out_deg, sep="\t", row.names = FALSE, 
 
 # Exporta el objeto de resultados de DESeq2
 saveRDS(dds, "DESeq2_dds.rds")
-
-### Enriquecimiento de genes 
-#setEnrichrSite("Enrichr")
-#websiteLive <- TRUE
-#dbsAll <- listEnrichrDbs()
-#if (is.null(dbsAll)) websiteLive <- FALSE
-#if (websiteLive) head(dbsAll)
-#Edbs <- c("GO_Biological_Process_2023","GO_Cellular_Component_2023","GO_Molecular_Function_2023","Reactome_2022","WikiPathway_2023_Human")
-
-#if (websiteLive) {
-#    enriched <- enrichr(DEG$gene, Edbs)
-#    printEnrich(enriched)
-#}
-
-#enrinch1 <- if (websiteLive) plotEnrich(enriched[[1]], showTerms = 15, numChar = 40, y = "Count", orderBy = "P.value")
-#enrinch2 <- if (websiteLive) plotEnrich(enriched[[2]], showTerms = 15, numChar = 40, y = "Count", orderBy = "P.value")
-#enrinch3 <- if (websiteLive) plotEnrich(enriched[[3]], showTerms = 15, numChar = 40, y = "Count", orderBy = "P.value")
-#enrinch4 <- if (websiteLive) plotEnrich(enriched[[4]], showTerms = 15, numChar = 40, y = "Count", orderBy = "P.value")
-#enrinch5 <- if (websiteLive) plotEnrich(enriched[[5]], showTerms = 15, numChar = 40, y = "Count", orderBy = "P.value")
-
-#ggsave("enrichr_GO_Biological_Process_2023_amp.pdf",enrinch1)
-#ggsave("enrichr_GO_Cellular_Component_2023_amp.pdf",enrinch2)
-#ggsave("enrichr_GO_Molecular_Function_2023_amp.pdf",enrinch3)
-#ggsave("enrichr_Reactome_2022.pdf",enrinch4)
-#ggsave("enrichr_WikiPathways_2021_Human_amp.pdf",enrinch5)
 
 # R session info
 RLogFile <- "R_sessionInfo.log"
