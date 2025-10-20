@@ -5,9 +5,7 @@
 
 ## Flujos de trabajo 
 
-Este repositorio contiene información detallada sobre los flujos de trabajo (pipelines) desarrollados y automatizados en el Instituto Nacional de Medicina Genómica, asociados a los **servicios de anślisis bioinformáticos del Inmegen**.
-
-Para saber más y realizar una solicitud del servicio de análisis, visita nuestro sitio web dando clic [**aquí**](https://serviciosbio.inmegen.gob.mx/).
+Este repositorio contiene información detallada sobre los flujos de trabajo (pipelines) desarrollados en el Instituto Nacional de Medicina Genómica.
 
 El principal objetivo de estos pipelines es el procesamiento de datos provenientes de secuenciación masiva (Whole Genome Sequencing [WGS]/Whole Exome Sequencing [WES], RNA sequencing [RNA-seq]) de manera reproducible y repetible, con base en el uso de herramientas confiables y avaladas por la comunidad científica. 
 
@@ -53,19 +51,18 @@ Finalmente, clonar este repositorio utilizando:
 
 **NOTA:** Debes asegurarte de que el directorio de docker cuente con suficiente espacio para generar la imagen (~ 8 GB).
 
-## Políticas de uso
+## Normas de operación
 
-Los flujos de este repositorio pueden ser descargados y utilizados sin restricciones para uso académico. En caso de utilizar cualquiera de estos flujos solicitamos incluir la siguiente frase en los productos académicos generados: “Agradecemos a la Subdirección de Genómica Poblacional y a la Subdirección de Bioinformática del Instituto Nacional de Medicina Genómica por proveer flujos de trabajo que han sido utilizados de forma parcial o total como parte del análisis de este trabajo (We acknowledge the Population Genomics and the Bioinformatics Departments from the National Institute of Genomic Medicine for providing workflows that were, either partially or completely, used as part of the analysis in this work )”
+Los flujos de este repositorio pueden ser descargados y utilizados sin restricciones para uso académico. En caso de utilizar cualquiera de estos flujos solicitamos incluir la siguiente frase en los productos académicos generados: “Agradecemos a la Subdirección de Genómica Poblacional y a la Subdirección de Bioinformática del Instituto Nacional de Medicina Genómica por proveer flujos de trabajo que han sido utilizados de forma parcial o total como parte del análisis de este trabajo (We acknowledge the Population Genomics and the Bioinformatics Departments from the National Institute of Genomic Medicine for providing workflows that were, either partially or completely, used as part of the analysis in this work)”
 
-Si requieres el apoyo de nuestro personal para implementar alguno de estos flujos de trabajo en tus datos, este se considerará un servicio. Por lo tanto, se cobrará de acuerdo a los tabuladores existentes en la cartera de servicios INMEGEN. 
-
-**NOTA: por un tiempo limitado, estos servicios estarán disponibles gratuitamente para personal interno del INMEGEN.**
-
-En ningún caso nuestros servicios incluyen interpretación de resultados o generación de resultados más allá de los descritos como parte del flujo de trabajo.
+En ningún caso nuestros análisis incluyen la interpretación de resultados o generación de resultados más allá de los descritos como parte del flujo de trabajo.
 
 En caso de querer iniciar una colaboración académica con alguno de los miembros de este proyecto favor de contactarnos directamente.
 
 No está permitida la utilización de estos flujos de trabajo con fines comerciales por terceros.  
+
+**NOTA: por tiempo limitado, estos servicios estarán disponibles gratuitamente para personal interno del Inmegen.**
+**Nota: Si eres investigador del Inmegen y requieres el apoyo de nuestro personal para implementar alguno de estos flujos de trabajo en tus datos [comunicate con nosotros](serviciosbioinfo@inmegen.edu.mx).**
 
 ### Equipo de desarrollo
 
@@ -79,7 +76,5 @@ Alejandra Cervera Taboada [acerverat@inmegen.gob.mx](acerverat@inmegen.gob.mx)
 [Pipelines INMEGEN](https://github.com/INMEGEN/Pipelines_INMEGEN/tree/Principal) © 2025 by [INMEGEN](https://www.inmegen.gob.mx/) is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1)
 
 ## Contacto
-
-[Visita nuestro sitio web](https://serviciosbio.inmegen.gob.mx/).
 
 Cualquier duda o comentario escribir a [nuestro correo de contacto](serviciosbioinfo@inmegen.edu.mx)
