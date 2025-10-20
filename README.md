@@ -62,7 +62,8 @@ En caso de querer iniciar una colaboración académica con alguno de los miembro
 No está permitida la utilización de estos flujos de trabajo con fines comerciales por terceros.  
 
 **NOTA: por tiempo limitado, estos servicios estarán disponibles gratuitamente para personal interno del Inmegen.**
-**Nota: Si eres investigador del Inmegen y requieres el apoyo de nuestro personal para implementar alguno de estos flujos de trabajo en tus datos [comunicate con nosotros](serviciosbioinfo@inmegen.edu.mx).**
+
+**NOTA: Si eres investigador del Inmegen y requieres el apoyo de nuestro personal para implementar alguno de estos flujos de trabajo en tus datos [comunicate con nosotros](serviciosbioinfo@inmegen.edu.mx).**
 
 ### Equipo de desarrollo
 
