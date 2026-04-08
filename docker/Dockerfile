@@ -247,17 +247,25 @@ RUN R -e "install.packages(c('checkmate', 'foreign', 'htmlTable', 'viridis', 'Fo
 Run R -e "BiocManager::install(c('ensembldb','AnnotationHub'))"
 Run R -e "install.packages('RNAseqQC')"
 Run R -e "remotes::install_version('enrichR', version = '3.1', upgrade = FALSE)"
+Run R -e "install.packages('rmarkdown')"
 
 ### Intalar QualiMap
-Run wget https://bitbucket.org/kokonech/qualimap/downloads/qualimap_v2.3.zip && \
+RUN wget https://bitbucket.org/kokonech/qualimap/downloads/qualimap_v2.3.zip && \
     unzip qualimap_v2.3.zip && \
-    chmod a+x /qualimap_v2.3/qualimap && \
-    ln -s /qualimap_v2.3/qualimap /usr/local/bin/qualimap && \
-    ln -s /qualimap_v2.3/qualimap /usr/bin/qualimap && \
+    chmod a+x qualimap_v2.3/qualimap && \
+    ln -s $(pwd)/qualimap_v2.3/qualimap /usr/local/bin/qualimap && \
+    ln -s $(pwd)/qualimap_v2.3/qualimap /usr/bin/qualimap && \
     rm qualimap_v2.3.zip
 
+#### Instalar dependencias de QualiMap
+RUN R -e 'install.packages("BiocManager", repos="https://cloud.r-project.org")' && \
+    R -e 'BiocManager::install("Repitools", ask=FALSE, update=FALSE)'
+
+RUN R -e "install.packages('XML', repos='https://cloud.r-project.org')"
+RUN R -e "BiocManager::install(c('Rsamtools','rtracklayer'), ask=FALSE, update=FALSE)"
+
 ### Instalar dependencias de QualiMap
-Run Rscript /qualimap_v2.3/scripts/installDependencies.r
+#Run Rscript /qualimap_v2.3/scripts/installDependencies.r
 
 #### Descarga e instala subread
 RUN wget https://sourceforge.net/projects/subread/files/subread-2.0.8/subread-2.0.8-Linux-x86_64.tar.gz && \
@@ -276,6 +284,35 @@ RUN wget https://sourceforge.net/projects/subread/files/subread-2.0.8/subread-2.
 RUN apt-get update && apt-get install -y pandoc
 
 Run R -e "install.packages('magick')"
+RUN Rscript -e "install.packages('remotes', repos='https://cloud.r-project.org')" && \
+    Rscript -e "remotes::install_version('ggrepel', version='0.9.6', repos='https://cloud.r-project.org')" && \
+    Rscript -e "library(ggrepel); packageVersion('ggrepel')"
+
+RUN apt-get update && apt-get install -y \
+    libcurl4-openssl-dev \
+    libxml2-dev \
+    libssl-dev \
+    zlib1g-dev \
+    libfontconfig1-dev \
+    libcairo2-dev \
+    libfreetype6-dev \
+    libharfbuzz-dev \
+    libfribidi-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libtiff5-dev \
+    pandoc \
+    make \
+    g++ \
+    gcc \
+    git \
+    ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN R -e "options(repos='https://cloud.r-project.org'); install.packages('systemfonts', verbose=TRUE)"
+RUN R -e "options(repos='https://cloud.r-project.org'); install.packages('textshaping', verbose=TRUE)"
+RUN R -e "options(repos='https://cloud.r-project.org'); install.packages('svglite', verbose=TRUE)"
+RUN R -e "options(repos='https://cloud.r-project.org'); install.packages('kableExtra', dependencies=TRUE, verbose=TRUE)"
 
 ### Fix Picard
 RUN echo '#!/usr/bin/env bash' > /picard/bin/picard && \
